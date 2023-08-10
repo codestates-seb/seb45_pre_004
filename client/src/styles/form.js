@@ -55,6 +55,6 @@ export const DisabledButton = styled(RegularButtonDesign)`
 export const Warning = styled.p`
   color: red;
   font-size: ${tokens.global.bigHeading.value};
-  margin-top: 1rem;
+  margin: 1rem;
   font-weight: ${tokens.global.bold.value};
 `;
