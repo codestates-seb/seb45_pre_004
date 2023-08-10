@@ -71,7 +71,7 @@ const QnAWritePage = () => {
     setTitle(e.target.value);
   };
 
-  const onSubmitHanlder = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     // 서버로 데이터를 전송하는 로직
   };
@@ -95,7 +95,7 @@ const QnAWritePage = () => {
           </TextP>
         </div>
       </div>
-      <form onSubmit={onSubmitHanlder}>
+      <form onSubmit={onSubmitHandler}>
         <div>
           <QuestionHead>질문 제목</QuestionHead>
           <Input
