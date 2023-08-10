@@ -59,25 +59,4 @@ const Navigator = () => {
 	);
 };
 
-/*
-
-							<LogoLink to="/logout">
-								<Button color={tokens.global.whiteColor.value}>
-									<Gradient>로그아웃</Gradient>
-								</Button>
-							</LogoLink>
-						) : (
-							<>
-								<Link to="/login">
-									<Button color={tokens.global.pointColor.value}>로그인</Button>
-								</Link>
-								<Link to="/signup">
-									<Button color={tokens.global.whiteColor.value}>
-										<Gradient>가입하기</Gradient>
-									</Button>
-								</Link>
-							</>
-						)}
-*/
-
 export default Navigator;

@@ -22,7 +22,7 @@ export const RegularButtonDesign = styled.button`
     background-color: ${(props) =>
       props.hover || `${tokens.global.dartColor.value}`};
 	}
-
+	transition: 300ms;
 `;
 
 export const SmallCircleButtonDesign = styled(RegularButtonDesign)`
@@ -51,6 +51,10 @@ export const TextButtonDesign = styled(Link)`
 		color: ${tokens.global.lightGreyColor.value};
 		transition: 300ms;
 	}
+
+	&:not(:hover) {
+		transition: 300ms ease-out;
+	}
 `
 
 export const ColorGradBlue = styled.p`
@@ -58,7 +62,7 @@ export const ColorGradBlue = styled.p`
 	color: transparent;
 	-webkit-background-clip: text;
 	background-clip: text;
-	color: black
+	color: black;
 `;
 
 const Button = ({ color, text }) => {
