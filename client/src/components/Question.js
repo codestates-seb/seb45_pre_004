@@ -1,4 +1,4 @@
-import DateCalculator from "./DateDistance";
+import DateDistance from "./DateDistance";
 import {
 	Wrapper,
 	Current,
@@ -34,7 +34,8 @@ export default function Question({ item }) {
 						<span>Nanda Y {/* item.author */}</span>
 						<section style={{ display: "flex" }}>
 							<div>- 21 {/* item.asked.length */} </div>
-							<DateCalculator inputDate={inputDate} /* item.createdAt */ />
+							<div>asked</div>
+							<DateDistance inputDate={inputDate} /* item.createdAt */ />
 						</section>
 					</Info>
 				</Container>
