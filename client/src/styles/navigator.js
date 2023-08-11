@@ -8,8 +8,8 @@ const Nav = styled.div`
 	z-index: 1;
 
 	display: flex;
-	width: 110px;
-	height: 300px;
+	width: 80px;
+	height: 240px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
