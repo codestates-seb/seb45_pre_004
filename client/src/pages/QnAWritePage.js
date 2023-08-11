@@ -1,13 +1,9 @@
-import React, { useState, useRef } from "react";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import React, { useState } from "react";
 import tokens from "../styles/tokens.json";
 import { styled } from "styled-components";
 import { ButtonDesign, Warning, DisabledButton } from "../styles/form";
-import { Editor } from "@toast-ui/react-editor";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import "prismjs/themes/prism.css";
-import Prism from "prismjs";
-import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
-import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 const QuestionHead = styled.h1`
   font-size: ${tokens.global.bigHeading.value}px;
@@ -37,11 +33,6 @@ const Button = styled(ButtonDesign)`
 const QnAWritePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const editorRef = useRef();
-
-  const onChangeContentHandler = () => {
-    setContent(editorRef.current.getInstance().getMarkdown());
-  };
 
   const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
@@ -83,11 +74,14 @@ const QnAWritePage = () => {
         </div>
         <div>
           <QuestionHead>질문 내용</QuestionHead>
-          <Editor
-            onChange={onChangeContentHandler}
-            ref={editorRef}
-            previewStyle="vertical"
-            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+          <CKEditor
+            editor={Editor}
+            data="<p>내용을 입력해주세요</p>"
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              let parsedHTML = data.replace(/<[^>]+>/g, "");
+              setContent(parsedHTML);
+            }}
           />
         </div>
         <div>
