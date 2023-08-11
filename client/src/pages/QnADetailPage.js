@@ -130,9 +130,6 @@ const QnADetailPage = ({ item, id }) => {
 					<CKEditor
 						editor={ClassicEditor}
 						onReady={(editor) => {}}
-						onChange={(event, editor) => {
-							const data = editor.getData();
-                        }}
                         // 더 찾아보고 로직 작성
 					/>
 				</div>
