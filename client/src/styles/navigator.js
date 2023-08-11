@@ -4,7 +4,7 @@ const Nav = styled.div`
 	position: fixed;
 	top: ${(props) => (props.show ? "40px" : "-500px")};
 	right: 10px;
-	padding: 15px;
+	padding: 10px;
 	z-index: 1;
 	display: flex;
 	width: 80px;
@@ -19,8 +19,9 @@ const Nav = styled.div`
 
 	a {
 		text-align: center;
+
 		img {
-			width: 80%;
+			width: 90%;
 			margin-top: 20px;
 		}
 	}

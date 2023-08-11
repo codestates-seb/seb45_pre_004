@@ -24,7 +24,7 @@ export const Thread = styled.hr`
 	border: 2px solid #c8d5dc;
 	width: 1;
 
-	height: 100%;
+	height: 80%;
 
 	z-index: -1;
 `;
