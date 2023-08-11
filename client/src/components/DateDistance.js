@@ -11,7 +11,7 @@ const DateDistance = ({ inputDate }) => {
 
 	return (
 		<div>
-			<p>asked {formattedDistance}</p>
+			<p>{formattedDistance}</p>
 		</div>
 	);
 };
