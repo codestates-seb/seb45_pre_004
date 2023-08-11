@@ -7,12 +7,30 @@ import QnADetailPage from "./pages/QnADetailPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Navigator from "./components/Navigator";
+import { useDispatch, useSelector } from "react-redux";
+import { readBrowserWidth } from "./redux/actions/browserWidthAction";
+import { useEffect } from "react";
 
 function App() {
+	const dispatch = useDispatch();
+	const deviceWidth = useSelector((state)=>state.browserWidthReducer);
+
+	//브라우저의 너비가 바뀔 때 실행되는 메소드
+	const handleDeviceWidthResize = () => {
+		dispatch(readBrowserWidth());
+	}
+
+	useEffect(()=>{
+		window.addEventListener("resize",handleDeviceWidthResize);
+		return () => {
+			window.removeEventListener('resize',handleDeviceWidthResize);
+		}
+	})
 
 	return (
 		<BrowserRouter>
 			<Header />
+			{deviceWidth}
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/login" element={<Login />} />
