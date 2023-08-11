@@ -1,6 +1,4 @@
-import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -25,6 +23,9 @@ const QnADetailPage = ({ item, id }) => {
 	const askedAt = "2023-08-08T09:00:00.000Z";
 	const modifiedAt = "2023-08-09T09:00:00.000Z";
 	const answeredAt = "2023-08-10T09:00:00.000Z";
+
+	// Edit 로직
+	const [editMode, setEditMode] = useState(false);
 
 	return (
 		<Wrapper>
@@ -56,7 +57,9 @@ const QnADetailPage = ({ item, id }) => {
 						</HeadInfo>
 						<Edit>
 							{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
-							<div>Edit</div>
+							<div onClick={() => setEditMode((prevEditMode) => !prevEditMode)}>
+								{editMode ? "Done" : "Edit"}
+							</div>
 							<div>Delete</div>{" "}
 						</Edit>
 					</InfoWrapper>
@@ -70,6 +73,7 @@ const QnADetailPage = ({ item, id }) => {
 					navigating.
 					{/* {item.content} */}
 				</Contents>
+
 				<User>
 					<DateDistance inputDate={answeredAt}></DateDistance>
 					<UserInfo>
@@ -89,6 +93,11 @@ const QnADetailPage = ({ item, id }) => {
 			<Card>
 				<AHead>
 					<h1>1 {/* {item.Answer.length} */} Answer</h1>
+					<Edit>
+						{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
+						<div>Edit</div>
+						<div>Delete</div>{" "}
+					</Edit>
 				</AHead>
 				<hr />
 				<Contents>
@@ -114,7 +123,6 @@ const QnADetailPage = ({ item, id }) => {
 				</Contents>
 				<User>
 					<DateDistance inputDate={answeredAt}>
-						{" "}
 						{/* {item.answeredAt} */}
 					</DateDistance>
 					<UserInfo>
@@ -136,13 +144,6 @@ const QnADetailPage = ({ item, id }) => {
 					<h1>Your Answer</h1>
 				</AHead>
 				<hr />
-				<div className="ckeditor-container">
-					<CKEditor
-						editor={ClassicEditor}
-						onReady={(editor) => {}}
-						// 더 찾아보고 로직 작성
-					/>
-				</div>
 				<SubmitButton>Post Your Answer</SubmitButton>
 			</AnswerCard>
 		</Wrapper>

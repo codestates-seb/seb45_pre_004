@@ -94,11 +94,18 @@ export const HeadInfo = styled(Info)`
 export const Edit = styled.div`
 	display: flex;
 	color: ${globalTokens.lightGreyColor.value};
-    gap: 10px;
+	gap: 10px;
+
+	div {
+		cursor: pointer;
+	}
 `;
 
 export const AHead = styled(QHead)`
+	flex-direction: row;
 	gap: 10px;
+	justify-content: space-between;
+	align-items: last baseline;
 `;
 
 export const Contents = styled.p`
@@ -156,10 +163,6 @@ export const UserInfoData = styled.div`
 export const AnswerCard = styled(Card)`
 	width: 80%;
 	overflow: hidden;
-
-	.ckeditor-container {
-		width: 100%;
-	}
 `;
 
 export const SubmitButton = styled(RegularButtonDesign)`
