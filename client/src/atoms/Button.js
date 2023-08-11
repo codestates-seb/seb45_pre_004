@@ -27,8 +27,8 @@ export const RegularButtonDesign = styled.button`
 //props : color, fontColor
 export const SmallCircleButtonDesign = styled(RegularButtonDesign)`
 	border-radius: 50%;
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	font-size: ${tokens.global.bodyText.value}px;
 	&:hover {
 		cursor: pointer;
