@@ -12,12 +12,14 @@ export const Wrapper = styled.main`
 	margin-top: 20px;
 	font-weight: 700;
 	color: ${globalTokens.blackColor.value};
+
+    position: relative;
 `;
 
 export const Thread = styled.hr`
 	position: absolute;
 	left: 20%;
-	top: 30%;
+	top: 20%;
 	border: 2px solid #c8d5dc;
 	width: 1;
 	height: 80%;
