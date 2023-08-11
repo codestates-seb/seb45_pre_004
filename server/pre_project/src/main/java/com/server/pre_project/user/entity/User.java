@@ -6,13 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
@@ -27,13 +29,14 @@ public class User {
     private String password;
 
 
-    /*
+    @ElementCollection(fetch = FetchType.EAGER) /* elementCollection 추가 */
+    private List<String> roles = new ArrayList<>();
+
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
-    private UserStatus userStatus = UserStatus.USER.ACTIVE;
+    private UserStatus userStatus;
 
-    유저 현재 상태 관련 확인 필요
-     */
+
 
 
     public User(String name, String email, String password){
@@ -41,19 +44,28 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    /*public enum UserStatus{
+
+    /*
+    추후 매핑 예정
+    @OneToMany(mappedBy = "user")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<reply> answers = new ArrayList<>();
+
+     */
+
+    public enum UserStatus{
         USER_ACTiVE("활동중"),
         USER_SLEEP("휴면 상태"),
         USER_QUIT("탈퇴 상태");
 
         @Getter
-        private Stirng status;
+        private String status;
 
         UserStatus(String status){
             this.status = status;
         }
     }
-
-     */
 
 }
