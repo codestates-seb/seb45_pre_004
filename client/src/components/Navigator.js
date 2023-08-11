@@ -43,7 +43,7 @@ const Navigator = () => {
 						</Link>
 						<Link to="/signup">
 							<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
-								가입하기
+								가입
 							</Button>
 						</Link>
 					</div>
