@@ -18,15 +18,16 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 30)
     private String title;
 
-    @Column(nullable = false, length = 10000)
+    @Column(nullable = false, length = 100)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
     private Date createdAt;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();

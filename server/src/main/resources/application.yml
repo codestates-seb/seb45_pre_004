@@ -1,19 +1,11 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #db??? ???
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #?? ??? ????
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/question?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 160218
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
-
-server:
-  port: 8000
+    database-platform: org.hibernate.dialect.MySQL8Dialect
