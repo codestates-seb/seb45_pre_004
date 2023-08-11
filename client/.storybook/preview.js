@@ -12,9 +12,9 @@ export const parameters = {
     },
   },
   backgrounds: {
-    default: 'dark', // 기본 배경색을 어둡게 설정
+    default: 'light',
     values: [
-      { name: 'dark', value: '#888' }, // 어두운 배경색 추가
+      { name: 'light', value: '#fff' },
     ],
   }
 }

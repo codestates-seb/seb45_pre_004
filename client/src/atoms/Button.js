@@ -78,9 +78,26 @@ export const TextButtonDesign = styled(Link)`
 	}
 `
 
+export const PaginationButtonDesign = styled.button`
+	border: ${tokens.global.regularWidth.value}px solid ${tokens.global.lightGreyColor.value};
+	border-radius: ${tokens.global.smallRadius.value}px;
+	padding: 0px 10px;
+	height: 30px;
+	color: ${tokens.global.blackColor.value};
+	font-size: ${tokens.global.bodyText.value}px;
+	transition: 300ms;
+	background-color: ${tokens.global.whiteColor.value};
+	cursor: pointer;
+
+	&:hover {
+		color: ${tokens.global.whiteColor.value};
+		background-color: ${tokens.global.pointColor.value};
+	}
+`
+
 const Button = ({ color, text, fontColor }) => {
 	return (
-		<div>
+		<div style={{display: "grid", gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '1fr', placeItems: 'center' }}>
 			<RegularButtonDesign color={color} fontColor={fontColor}>
 				{text}
 			</RegularButtonDesign>
@@ -91,6 +108,9 @@ const Button = ({ color, text, fontColor }) => {
 				{text}
 			</SmallButtonDesign>
 			<TextButtonDesign>{text}</TextButtonDesign>
+			<PaginationButtonDesign>1</PaginationButtonDesign>
+			<PaginationButtonDesign>110</PaginationButtonDesign>
+			<PaginationButtonDesign>▶️</PaginationButtonDesign>
 		</div>
 	);
 };

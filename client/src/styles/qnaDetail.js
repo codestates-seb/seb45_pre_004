@@ -9,12 +9,11 @@ export const Wrapper = styled.main`
 	justify-content: center;
 	align-items: center;
 	gap: 50px;
-
-	position: relative;
 	margin-top: 20px;
-
 	font-weight: 700;
 	color: ${globalTokens.blackColor.value};
+
+    position: relative;
 `;
 
 export const Thread = styled.hr`
@@ -23,9 +22,7 @@ export const Thread = styled.hr`
 	top: 20%;
 	border: 2px solid #c8d5dc;
 	width: 1;
-
 	height: 80%;
-
 	z-index: -1;
 `;
 
@@ -35,7 +32,6 @@ export const Card = styled.section`
 	justify-content: center;
 	align-items: flex-start;
 	gap: 20px;
-
 	padding: 30px;
 	margin: 20px;
 	width: 80%;
@@ -47,7 +43,6 @@ export const Card = styled.section`
 		width: 100%;
 		height: 1px;
 		border: 0;
-
 		background: ${globalTokens.lightGreyColor.value};
 	}
 `;
