@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import tokens from "../styles/tokens.json";
 import { styled } from "styled-components";
 
