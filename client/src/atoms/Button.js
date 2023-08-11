@@ -27,15 +27,16 @@ export const RegularButtonDesign = styled.button`
 
 export const SmallCircleButtonDesign = styled(RegularButtonDesign)`
 	border-radius: 50%;
-	width: 80px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
+	font-size: 16px;
 `;
 
 export const SmallButtonDesign = styled(RegularButtonDesign)`
 	border-radius: ${tokens.global.regularRadius.value}px;
 	width: 120px;
 	height: 40px;
-	font-size: ${tokens.global.smallHeading.value}px;
+	font-size: ${tokens.global.bodyText.value}px;
 `;
 
 export const TextButtonDesign = styled(Link)`
@@ -62,7 +63,6 @@ export const ColorGradBlue = styled.p`
 	color: transparent;
 	-webkit-background-clip: text;
 	background-clip: text;
-	color: black;
 `;
 
 const Button = ({ color, text }) => {
