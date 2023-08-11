@@ -6,27 +6,6 @@
 * {
 	box-sizing: border-box;
 }
-.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-	min-height: 200px;
-	all: none;
-}
-.ck-content h1 {
-	font-size: 2rem;
-}
-.ck-content h2 {
-	font-size: 1.5rem;
-	padding-left: 20px;
-}
-.ck-content h3 {
-	font-size: 1.2rem;
-	padding-left: 40px;
-}
-.ck-content strong {
-	font-weight: bold;
-}
-.ck-content i {
-	font-style: italic;
-}
 
 html,
 body,

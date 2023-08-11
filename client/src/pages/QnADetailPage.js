@@ -1,6 +1,4 @@
-import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -9,13 +7,16 @@ import {
 	Card,
 	QHead,
 	AHead,
+	InfoWrapper,
 	Info,
 	HeadInfo,
+	Edit,
 	Contents,
 	User,
 	UserInfo,
 	UserInfoData,
 	AnswerCard,
+	SubmitButton,
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ item, id }) => {
@@ -23,7 +24,9 @@ const QnADetailPage = ({ item, id }) => {
 	const modifiedAt = "2023-08-09T09:00:00.000Z";
 	const answeredAt = "2023-08-10T09:00:00.000Z";
 
-    
+	// Edit 로직
+	const [editMode, setEditMode] = useState(false);
+
 	return (
 		<Wrapper>
 			<Thread />
@@ -33,24 +36,33 @@ const QnADetailPage = ({ item, id }) => {
 						Camera plugin in flutter making callback after taking picture{" "}
 						{/* {item.title} */}
 					</h1>
-					<HeadInfo>
-						<Info>
-							<div>Asked</div>
-							<DateDistance inputDate={askedAt}>
-								{/* {item.askedAt} */}
-							</DateDistance>
-						</Info>
-						<Info>
-							<div>Modified</div>
-							<DateDistance inputDate={modifiedAt}>
-								{/* {item.modifiedAt} */}
-							</DateDistance>
-						</Info>
-						<Info>
-							<span>Viewed</span>
-							<div>6 {/* {item.views} */}</div>
-						</Info>
-					</HeadInfo>
+					<InfoWrapper>
+						<HeadInfo>
+							<Info>
+								<div>Asked</div>
+								<DateDistance inputDate={askedAt}>
+									{/* {item.askedAt} */}
+								</DateDistance>
+							</Info>
+							<Info>
+								<div>Modified</div>
+								<DateDistance inputDate={modifiedAt}>
+									{/* {item.modifiedAt} */}
+								</DateDistance>
+							</Info>
+							<Info>
+								<span>Viewed</span>
+								<div>6 {/* {item.views} */}</div>
+							</Info>
+						</HeadInfo>
+						<Edit>
+							{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
+							<div onClick={() => setEditMode((prevEditMode) => !prevEditMode)}>
+								{editMode ? "Done" : "Edit"}
+							</div>
+							<div>Delete</div>{" "}
+						</Edit>
+					</InfoWrapper>
 				</QHead>
 				<hr />
 				<Contents>
@@ -61,6 +73,7 @@ const QnADetailPage = ({ item, id }) => {
 					navigating.
 					{/* {item.content} */}
 				</Contents>
+
 				<User>
 					<DateDistance inputDate={answeredAt}></DateDistance>
 					<UserInfo>
@@ -80,6 +93,11 @@ const QnADetailPage = ({ item, id }) => {
 			<Card>
 				<AHead>
 					<h1>1 {/* {item.Answer.length} */} Answer</h1>
+					<Edit>
+						{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
+						<div>Edit</div>
+						<div>Delete</div>{" "}
+					</Edit>
 				</AHead>
 				<hr />
 				<Contents>
@@ -105,7 +123,6 @@ const QnADetailPage = ({ item, id }) => {
 				</Contents>
 				<User>
 					<DateDistance inputDate={answeredAt}>
-						{" "}
 						{/* {item.answeredAt} */}
 					</DateDistance>
 					<UserInfo>
@@ -127,13 +144,7 @@ const QnADetailPage = ({ item, id }) => {
 					<h1>Your Answer</h1>
 				</AHead>
 				<hr />
-				<div>
-					<CKEditor
-						editor={ClassicEditor}
-						onReady={(editor) => {}}
-                        // 더 찾아보고 로직 작성
-					/>
-				</div>
+				<SubmitButton>Post Your Answer</SubmitButton>
 			</AnswerCard>
 		</Wrapper>
 	);

@@ -15,6 +15,17 @@ export const Wrapper = styled.li`
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 	font-weight: 700;
 	color: ${globalTokens.greyColor.value};
+	transition: 300ms;
+
+	&:hover {
+		background: ${globalTokens.lightGreyColor.value};
+	}
+
+	&:active {
+		background: ${globalTokens.darkColor.value};
+		color: ${globalTokens.whiteColor.value};
+		transition: 300ms;
+	}
 `;
 
 export const Current = styled.aside`

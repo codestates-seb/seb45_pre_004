@@ -21,7 +21,7 @@ export const RegularButtonDesign = styled.button`
   &:hover {
     cursor: pointer;
     background-color: ${(props) =>
-      props.hover || `${tokens.global.dartColor.value}`};
+      props.hover || `${tokens.global.darkColor.value}`};
 	}
 `;
 //props : color, fontColor
@@ -32,7 +32,7 @@ export const SmallCircleButtonDesign = styled(RegularButtonDesign)`
 	font-size: ${tokens.global.bodyText.value}px;
 	&:hover {
 		cursor: pointer;
-		background-color: ${tokens.global.dartColor.value};
+		background-color: ${tokens.global.darkColor.value};
 		color: ${tokens.global.whiteColor.value};
 	}
 `;
@@ -54,7 +54,7 @@ export const SmallButtonDesign = styled.button`
 	transition: 300ms;
 	&:hover {
 		cursor: pointer;
-		background-color: ${(props) =>props.hover || `${tokens.global.dartColor.value}`};
+		background-color: ${(props) =>props.hover || `${tokens.global.darkColor.value}`};
 		color: ${(props)=>props.hoverFontColor||'white'};
 	}
 `;

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import tokens from "../styles/tokens.json";
+import { RegularButtonDesign } from "../atoms/Button";
 
 const globalTokens = tokens.global;
 
@@ -13,7 +14,7 @@ export const Wrapper = styled.main`
 	font-weight: 700;
 	color: ${globalTokens.blackColor.value};
 
-    position: relative;
+	position: relative;
 `;
 
 export const Thread = styled.hr`
@@ -54,9 +55,20 @@ export const QHead = styled.header`
 	align-items: flex-start;
 	gap: 20px;
 
+	width: 100%;
+
 	h1 {
 		font-size: 20px;
 	}
+`;
+
+export const InfoWrapper = styled.section`
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 20px;
+
+	width: 100%;
 `;
 
 export const Info = styled.div`
@@ -79,8 +91,21 @@ export const HeadInfo = styled(Info)`
 	font-size: 16px;
 `;
 
-export const AHead = styled(QHead)`
+export const Edit = styled.div`
+	display: flex;
+	color: ${globalTokens.lightGreyColor.value};
 	gap: 10px;
+
+	div {
+		cursor: pointer;
+	}
+`;
+
+export const AHead = styled(QHead)`
+	flex-direction: row;
+	gap: 10px;
+	justify-content: space-between;
+	align-items: last baseline;
 `;
 
 export const Contents = styled.p`
@@ -138,4 +163,12 @@ export const UserInfoData = styled.div`
 export const AnswerCard = styled(Card)`
 	width: 80%;
 	overflow: hidden;
+`;
+
+export const SubmitButton = styled(RegularButtonDesign)`
+	color: ${globalTokens.whiteColor.value};
+	background: ${globalTokens.pointColor.value};
+	font-weight: ${globalTokens.semiBold.value};
+	font-size: ${globalTokens.smallHeading.value};
+	width: 30%;
 `;
