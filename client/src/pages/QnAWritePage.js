@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import tokens from "../styles/tokens.json";
 import { styled } from "styled-components";
 import { ButtonDesign, Warning, DisabledButton } from "../styles/form";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import "prismjs/themes/prism.css";
+import Prism from "prismjs";
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 const QuestionHead = styled.h1`
   font-size: ${tokens.global.bigHeading.value}px;
@@ -30,44 +34,16 @@ const Button = styled(ButtonDesign)`
   margin: 1rem;
 `;
 
-const htmlParse = (data) => {
-  let parsedString = data.slice(0);
-  const htmlTags = [
-    "<strong>",
-    "<blockquote>",
-    "</blockquote>",
-    "<ul>",
-    "</ul>",
-    "<li>",
-    "</li>",
-    "<ol>",
-    "</ol>",
-    "<p>",
-    "<h2>",
-    "<h3>",
-    "<h4>",
-    "<italic>",
-    "</strong>",
-    "</p>",
-    "</h2>",
-    "</h3>",
-    "</h4>",
-    "</italic>",
-  ];
-  htmlTags.map((elem) => {
-    return (parsedString = parsedString.replace(elem, ""));
-  });
-  return parsedString;
-};
-
-// &nbsp; => HTML에서 띄어쓰기를 구현하는 방법 => 문단 구분을 위해 사용함
-
 const QnAWritePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [parsed, SetParsed] = useState("");
+  const editorRef = useRef();
 
-  const onChangeHandler = (e) => {
+  const onChangeContentHandler = () => {
+    setContent(editorRef.current.getInstance().getMarkdown());
+  };
+
+  const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
   };
 
@@ -101,31 +77,26 @@ const QnAWritePage = () => {
           <Input
             placeholder="제목을 입력하세요."
             value={title}
-            onChange={onChangeHandler}
+            onChange={onChangeTitleHandler}
           />
           {title.length === 0 ? <Warning>제목을 입력해주세요</Warning> : <></>}
         </div>
         <div>
           <QuestionHead>질문 내용</QuestionHead>
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>질문 내용을 작성하세요!</p>"
-            onReady={(editor) => {}}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              //console.log({ event, editor, data });
-              SetParsed(htmlParse(data));
-              setContent(data);
-            }}
+          <Editor
+            onChange={onChangeContentHandler}
+            ref={editorRef}
+            previewStyle="vertical"
+            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
           />
         </div>
         <div>
-          {parsed.length < 20 ? (
+          {content.length < 20 ? (
             <Warning>20글자 이상 입력해주세요</Warning>
           ) : (
             <></>
           )}
-          {title.length === 0 || parsed.length < 20 ? (
+          {title.length === 0 || content.length < 20 ? (
             <>
               <DisabledButton disabled>제출 불가능</DisabledButton>
             </>
