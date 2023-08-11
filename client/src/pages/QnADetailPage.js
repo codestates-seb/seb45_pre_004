@@ -23,6 +23,7 @@ const QnADetailPage = ({ item, id }) => {
 	const modifiedAt = "2023-08-09T09:00:00.000Z";
 	const answeredAt = "2023-08-10T09:00:00.000Z";
 
+    
 	return (
 		<Wrapper>
 			<Thread />

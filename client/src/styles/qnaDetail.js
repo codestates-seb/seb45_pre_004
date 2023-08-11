@@ -10,6 +10,7 @@ export const Wrapper = styled.main`
 	align-items: center;
 	gap: 50px;
 
+	position: relative;
 	margin-top: 20px;
 
 	font-weight: 700;
@@ -19,10 +20,12 @@ export const Wrapper = styled.main`
 export const Thread = styled.hr`
 	position: absolute;
 	left: 20%;
-	top: 30%;
+	top: 0;
 	border: 2px solid #c8d5dc;
 	width: 1;
-	height: 90%;
+
+	height: 100%;
+
 	z-index: -1;
 `;
 
