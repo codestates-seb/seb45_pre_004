@@ -26,6 +26,8 @@ public class QuestionController {
     public ResponseEntity<Question> getQuestion(@PathVariable Long question_id){
         Question question = questionService.getQuestionById(question_id);
         if (question != null){
+            question.setViewCount(question.getViewCount() + 1);
+            questionService.updateQuestion(question_id, question);
             return new ResponseEntity<>(question, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

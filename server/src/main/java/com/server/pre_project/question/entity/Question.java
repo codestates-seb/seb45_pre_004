@@ -40,6 +40,9 @@ public class Question {
         return null;
     }
 
+    @Column(name = "view_count")
+    private int viewCount = 0;
+
 }
 
-//user 작성 확인 후 onetomany, view, reply count 확인하기
+//페이지네이션 user 작성 확인 후 onetomany, reply 작성 후 확인하기 onetomany reply count
