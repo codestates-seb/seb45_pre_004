@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import tokens from "../styles/tokens.json";
+import { RegularButtonDesign } from "../atoms/Button";
 
 const globalTokens = tokens.global;
 
@@ -13,7 +14,7 @@ export const Wrapper = styled.main`
 	font-weight: 700;
 	color: ${globalTokens.blackColor.value};
 
-    position: relative;
+	position: relative;
 `;
 
 export const Thread = styled.hr`
@@ -138,4 +139,17 @@ export const UserInfoData = styled.div`
 export const AnswerCard = styled(Card)`
 	width: 80%;
 	overflow: hidden;
+
+    .ckeditor-container {
+        width: 100%;
+    }
+`;
+
+export const SubmitButton = styled(RegularButtonDesign)`
+	color: ${globalTokens.whiteColor.value};
+	background: ${globalTokens.pointColor.value};
+	font-weight: ${globalTokens.semiBold.value};
+	font-size: ${globalTokens.smallHeading.value};
+    width: 30%;
+
 `;

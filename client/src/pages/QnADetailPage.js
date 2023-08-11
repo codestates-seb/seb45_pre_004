@@ -16,6 +16,7 @@ import {
 	UserInfo,
 	UserInfoData,
 	AnswerCard,
+	SubmitButton
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ item, id }) => {
@@ -23,7 +24,6 @@ const QnADetailPage = ({ item, id }) => {
 	const modifiedAt = "2023-08-09T09:00:00.000Z";
 	const answeredAt = "2023-08-10T09:00:00.000Z";
 
-    
 	return (
 		<Wrapper>
 			<Thread />
@@ -127,13 +127,14 @@ const QnADetailPage = ({ item, id }) => {
 					<h1>Your Answer</h1>
 				</AHead>
 				<hr />
-				<div>
+				<div className="ckeditor-container">
 					<CKEditor
 						editor={ClassicEditor}
 						onReady={(editor) => {}}
-                        // 더 찾아보고 로직 작성
+						// 더 찾아보고 로직 작성
 					/>
 				</div>
+				<SubmitButton>Post Your Answer</SubmitButton>
 			</AnswerCard>
 		</Wrapper>
 	);
