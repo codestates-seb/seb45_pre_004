@@ -20,7 +20,7 @@ export const Wrapper = styled.main`
 export const Thread = styled.hr`
 	position: absolute;
 	left: 20%;
-	top: 0;
+	top: 20%;
 	border: 2px solid #c8d5dc;
 	width: 1;
 
