@@ -3,17 +3,15 @@ import { styled } from "styled-components";
 const Nav = styled.div`
 	position: fixed;
 	top: ${(props) => (props.show ? "40px" : "-500px")};
-	right: 40px;
-	padding: 10px;
+	right: 10px;
+	padding: 15px;
 	z-index: 1;
-
 	display: flex;
-	width: 110px;
-	height: 300px;
+	width: 90px;
+	height: 250px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 10px;
 
 	border-radius: 50px;
 	background: rgba(255, 255, 255, 0.59);

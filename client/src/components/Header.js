@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import logoImg from "../assets/images/logoImage.png";
 import tokens from "../styles/tokens.json";
 import { SmallButtonDesign as Button } from "../atoms/Button";
-import { ColorGradBlue as Gradient } from "../atoms/Button";
 import {
 	Background,
 	Wrapper,
@@ -17,7 +16,7 @@ export default function Header() {
 	const location = useLocation();
 	const isLoginPage =
 		location.pathname === "/login" || location.pathname === "/signup";
-	const isLoggedIn = useSelector((state) => state.isLoggedIn);
+	const isLogin = useSelector((state) => state.authReducer);
 
 	return (
 		<Background>
@@ -29,11 +28,9 @@ export default function Header() {
 				</LogoLink>
 				{!isLoginPage && (
 					<Buttons>
-						{isLoggedIn ? (
+						{isLogin ? (
 							<LogoLink to="/">
-								<Button color={tokens.global.whiteColor.value}>
-									<Gradient>로그아웃</Gradient>
-								</Button>
+								<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
 							</LogoLink>
 						) : (
 							<>
