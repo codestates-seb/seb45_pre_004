@@ -48,8 +48,8 @@ const Navigator = () => {
 							<Button color={tokens.global.pointColor.value}>로그인</Button>
 						</Link>
 						<Link to="/signup">
-							<Button color={tokens.global.whiteColor.value}>
-								<Gradient>가입</Gradient>
+							<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
+								가입
 							</Button>
 						</Link>
 					</div>

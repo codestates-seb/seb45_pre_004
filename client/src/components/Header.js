@@ -41,8 +41,8 @@ export default function Header() {
 									<Button color={tokens.global.pointColor.value}>로그인</Button>
 								</Link>
 								<Link to="/signup">
-									<Button color={tokens.global.whiteColor.value}>
-										<Gradient>가입하기</Gradient>
+									<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
+										가입하기
 									</Button>
 								</Link>
 							</>
