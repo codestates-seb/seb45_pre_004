@@ -7,15 +7,16 @@ export const Wrapper = styled.li`
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
-	width: 90%;
+	width: 80%;
 	padding: 20px 10px;
-    margin: 15px;
+	margin: 15px;
 	border-radius: 10px;
 	background: #fff;
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 	font-weight: 700;
 	color: ${globalTokens.greyColor.value};
 `;
+
 export const Current = styled.aside`
 	display: flex;
 	width: 10%;
@@ -33,8 +34,9 @@ export const Container = styled.article`
 	padding: 10px 0px;
 	gap: 10px;
 	flex-shrink: 0;
+
 	h1 {
-        font-size: 20px;
+		font-size: 20px;
 		color: ${globalTokens.blackColor.value};
 	}
 `;
@@ -44,6 +46,7 @@ export const Contents = styled.section`
 	justify-content: center;
 	align-items: flex-start;
 	gap: 7px;
+	margin: 0px 20px;
 `;
 
 export const Info = styled.div`

@@ -28,7 +28,8 @@ export const Wrapper = styled.div`
 	border-radius: 20px;
 
 	position: relative;
-	margin-top: 20px;
+	margin-top: 10px;
+	padding: 10px 0px;
 `;
 
 export const LogoLink = styled(Link)`
