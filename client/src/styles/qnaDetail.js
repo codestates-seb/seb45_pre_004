@@ -55,9 +55,20 @@ export const QHead = styled.header`
 	align-items: flex-start;
 	gap: 20px;
 
+	width: 100%;
+
 	h1 {
 		font-size: 20px;
 	}
+`;
+
+export const InfoWrapper = styled.section`
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 20px;
+
+	width: 100%;
 `;
 
 export const Info = styled.div`
@@ -78,6 +89,12 @@ export const HeadInfo = styled(Info)`
 	gap: 10px;
 	color: ${globalTokens.greyColor.value};
 	font-size: 16px;
+`;
+
+export const Edit = styled.div`
+	display: flex;
+	color: ${globalTokens.lightGreyColor.value};
+    gap: 10px;
 `;
 
 export const AHead = styled(QHead)`
@@ -140,9 +157,9 @@ export const AnswerCard = styled(Card)`
 	width: 80%;
 	overflow: hidden;
 
-    .ckeditor-container {
-        width: 100%;
-    }
+	.ckeditor-container {
+		width: 100%;
+	}
 `;
 
 export const SubmitButton = styled(RegularButtonDesign)`
@@ -150,6 +167,5 @@ export const SubmitButton = styled(RegularButtonDesign)`
 	background: ${globalTokens.pointColor.value};
 	font-weight: ${globalTokens.semiBold.value};
 	font-size: ${globalTokens.smallHeading.value};
-    width: 30%;
-
+	width: 30%;
 `;

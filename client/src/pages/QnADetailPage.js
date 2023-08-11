@@ -9,14 +9,16 @@ import {
 	Card,
 	QHead,
 	AHead,
+	InfoWrapper,
 	Info,
 	HeadInfo,
+	Edit,
 	Contents,
 	User,
 	UserInfo,
 	UserInfoData,
 	AnswerCard,
-	SubmitButton
+	SubmitButton,
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ item, id }) => {
@@ -33,24 +35,31 @@ const QnADetailPage = ({ item, id }) => {
 						Camera plugin in flutter making callback after taking picture{" "}
 						{/* {item.title} */}
 					</h1>
-					<HeadInfo>
-						<Info>
-							<div>Asked</div>
-							<DateDistance inputDate={askedAt}>
-								{/* {item.askedAt} */}
-							</DateDistance>
-						</Info>
-						<Info>
-							<div>Modified</div>
-							<DateDistance inputDate={modifiedAt}>
-								{/* {item.modifiedAt} */}
-							</DateDistance>
-						</Info>
-						<Info>
-							<span>Viewed</span>
-							<div>6 {/* {item.views} */}</div>
-						</Info>
-					</HeadInfo>
+					<InfoWrapper>
+						<HeadInfo>
+							<Info>
+								<div>Asked</div>
+								<DateDistance inputDate={askedAt}>
+									{/* {item.askedAt} */}
+								</DateDistance>
+							</Info>
+							<Info>
+								<div>Modified</div>
+								<DateDistance inputDate={modifiedAt}>
+									{/* {item.modifiedAt} */}
+								</DateDistance>
+							</Info>
+							<Info>
+								<span>Viewed</span>
+								<div>6 {/* {item.views} */}</div>
+							</Info>
+						</HeadInfo>
+						<Edit>
+							{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
+							<div>Edit</div>
+							<div>Delete</div>{" "}
+						</Edit>
+					</InfoWrapper>
 				</QHead>
 				<hr />
 				<Contents>
