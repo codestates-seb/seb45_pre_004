@@ -18,7 +18,7 @@ export const Wrapper = styled.li`
 	transition: 300ms;
 
 	&:hover {
-		background: ${globalTokens.lightGreyColor.value};
+		background: ${globalTokens.mainColor.value};
 	}
 
 	&:active {

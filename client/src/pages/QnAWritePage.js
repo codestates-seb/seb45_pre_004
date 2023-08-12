@@ -7,6 +7,7 @@ import { ButtonDesign, Warning, DisabledButton } from "../styles/form";
 import "prismjs/themes/prism.css";
 import Prism from "prismjs";
 import parse from "html-react-parser";
+import { RegularInputDesign } from "../atoms/Input";
 
 const QuestionHead = styled.h1`
   font-size: ${tokens.global.bigHeading.value}px;
@@ -24,7 +25,7 @@ const TextP = styled(QuestionP)`
   padding: 10px;
 `;
 
-const Input = styled.input`
+const QuestionTitleInputDesign = styled(RegularInputDesign)`
   width: 85%;
   margin-left: 1rem;
 `;
@@ -87,8 +88,8 @@ const QnAWritePage = () => {
       <form onSubmit={onSubmitHandler}>
         <div>
           <QuestionHead>질문 제목</QuestionHead>
-          <Input
-            placeholder="제목을 입력하세요."
+          <QuestionTitleInputDesign 
+            placeholder="제목을 입력해 주세요."
             value={title}
             onChange={onChangeTitleHandler}
           />

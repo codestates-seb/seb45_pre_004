@@ -38,7 +38,9 @@ function App() {
 				<Route path="/write" element={<QnAWritePage />} />
 				<Route path="/detail" element={<QnADetailPage />} />
 			</Routes>
-			<Navigator />
+			{
+				deviceWidth>800?<Navigator />:null
+			}
 			<Footer />
 		</BrowserRouter>
 	);

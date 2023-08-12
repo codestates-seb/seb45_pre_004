@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import tokens from "../styles/tokens.json";
 import { RegularButtonDesign } from "../atoms/Button";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 export const InputBox = styled.div`
   background-color: ${tokens.global.pointColor.value};
@@ -36,9 +37,9 @@ export const TextArea = styled.textarea`
 
 export const ButtonDesign = styled(RegularButtonDesign)`
   margin-top: 1rem;
-  background-color: black;
+  background-color: ${tokens.global.pointColor.value};
   &:hover {
-    background-color: red;
+    background-color: ${tokens.global.darkColor.value};
   }
 `;
 
