@@ -1,5 +1,6 @@
 package com.server.pre_project.question.controller;
 
+import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,8 +19,8 @@ public class QuestionController {
     private QuestionService questionService;
 
     @PostMapping
-    public ResponseEntity<Question> createQuestion(@RequestBody Question question){
-        Question createdQuestion = questionService.createQuestion(question);
+    public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto){
+        Question createdQuestion = questionService.createQuestionFromDto(questionPostDto);
         return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
     }
 
