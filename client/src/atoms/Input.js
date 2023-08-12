@@ -5,7 +5,7 @@ import tokens from '../styles/tokens.json'
 const globalTokens = tokens.global;
 
 export const LoginInputTopDesign = styled.input`
-    width: 350px;
+    width: 300px;
     height: 50px;
     border: ${globalTokens.regularWidth.value}px solid ${globalTokens.lightGreyColor.value};
     border-radius: ${globalTokens.regularRadius.value}px ${globalTokens.regularRadius.value}px 0 0;

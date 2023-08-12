@@ -54,11 +54,9 @@ const SignupPage = () => {
               onChange={onChangePwdHandler}
               type="password"
             />
-            {pwd.length < 6 ? (
+            { pwd.length < 6 ? (
               <WarningSpan>비밀번호는 6자 이상이어야 합니다.</WarningSpan>
-            ) : (
-              <></>
-            )}
+            ) : null }
           </InputAndLabelBox>
           <InputAndLabelBox>
             <InputLabel>비밀번호 확인</InputLabel>

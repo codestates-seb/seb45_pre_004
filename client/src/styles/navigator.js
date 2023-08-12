@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const Nav = styled.div`
+export const Nav = styled.div`
 	position: fixed;
 	top: ${(props) => (props.show ? "40px" : "-500px")};
 	right: 10px;
@@ -8,7 +8,6 @@ const Nav = styled.div`
 	z-index: 1;
 	display: flex;
 	width: 80px;
-	height: 240px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -19,6 +18,7 @@ const Nav = styled.div`
 
 	a {
 		text-align: center;
+		white-space: nowrap;
 
 		img {
 			width: 90%;

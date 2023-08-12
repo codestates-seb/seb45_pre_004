@@ -4,7 +4,7 @@ import tokens from "../styles/tokens.json";
 import { Link } from 'react-router-dom';
 //props : color, fontColor
 export const RegularButtonDesign = styled.button`
-  width: 350px;
+  width: 300px;
   height: 70px;
   border-radius: ${tokens.global.regularRadius.value}px;
   border: 0;

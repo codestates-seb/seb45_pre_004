@@ -28,6 +28,19 @@ export const LoginContainer = styled.main`
 	border-radius: 20px;
 	padding: 25px 45px;
 `
+export const LoginForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
+export const WarningSpan = styled.span`
+  width: 300px;
+  margin-top: 3px;
+  color: ${globalTokens.negativeColor.value};
+  font-size: ${globalTokens.bodyText.value}px;
+  text-align: right;
+`;
 
 export const LoginButton = styled(RegularButtonDesign)`
 	margin-top: 25px;
