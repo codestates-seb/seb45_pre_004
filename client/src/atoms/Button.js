@@ -59,6 +59,32 @@ export const SmallButtonDesign = styled.button`
 	}
 `;
 
+export const SmallLinkButtonDesign = styled(Link)`
+	border-radius: ${tokens.global.regularRadius.value}px;
+	width: 90px;
+	height: 30px;
+	font-size: ${tokens.global.bodyText.value}px;
+	font-weight: ${tokens.global.bold.value};
+	border: 0;
+	color: ${(props)=>props.fontColor?props.fontColor:'white'};
+	box-shadow: ${tokens.global.regularShadow.value.x}px
+		${tokens.global.regularShadow.value.y}px
+		${tokens.global.regularShadow.value.blur}px
+		${tokens.global.regularShadow.value.spread}px
+		${tokens.global.regularShadow.value.color};
+	background: ${(props) => props.color || `${tokens.global.mainColor.value}`};
+	transition: 300ms;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	&:hover {
+		cursor: pointer;
+		background-color: ${(props) =>props.hover || `${tokens.global.darkColor.value}`};
+		color: ${(props)=>props.hoverFontColor||'white'};
+	}
+`;
+
 export const TextButtonDesign = styled(Link)`
 	background-color: transparent;
 	border-style: none;

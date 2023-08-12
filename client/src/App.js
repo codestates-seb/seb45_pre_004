@@ -40,7 +40,7 @@ function App() {
 			</Routes>
 			{
 				deviceWidth>800?<Navigator />:null
-			}					
+			}
 			<Footer />
 		</BrowserRouter>
 	);
