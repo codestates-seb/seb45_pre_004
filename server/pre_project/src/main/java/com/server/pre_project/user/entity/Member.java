@@ -6,35 +6,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
-    @Column(nullable = false, length = 100)
-    private String name;
-
     @Column(nullable = false, unique = true, updatable = false)
     private String id;
+
+    @Column(nullable = false, length = 30)
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String password;
 
 
 
-
-    public User(String name, String id, String password) {
-        this.name = name;
-        this.id = id;
-        this.password = password;
-    }
 
     /*
     추후 매핑 예정

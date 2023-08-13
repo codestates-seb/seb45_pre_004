@@ -1,63 +1,54 @@
 package com.server.pre_project.user.controller;
 
 
-import com.server.pre_project.user.entity.User;
-import com.server.pre_project.user.repository.UserRepository;
+import com.server.pre_project.user.dto.UserDto;
+import com.server.pre_project.user.entity.Member;
+import com.server.pre_project.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping  //신규 회원가입
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    @PostMapping
+    public ResponseEntity<Member> createUser(@RequestBody UserDto userDto) {
+        Member newMember = userService.saveUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newMember);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Member> getUser(@PathVariable Long id) {
+        Member member = userService.getUser(id);
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<Member>> getAllUsers() {
+        List<Member> members = userService.getAllUsers();
+        return ResponseEntity.ok(members);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        if (!userRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        user.setUser_id(id);  // 유저 아이디를 지정해서 업데이트
-        User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity<Member> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        Member updatedMember = userService.updateUser(id, userDto);
+        return ResponseEntity.ok(updatedMember);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        if (!userRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 }
