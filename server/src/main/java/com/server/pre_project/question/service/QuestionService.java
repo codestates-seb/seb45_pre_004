@@ -2,6 +2,7 @@ package com.server.pre_project.question.service;
 
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
+import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,11 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private QuestionMapper questionMapper;
 
-    public Question createQuestionFromDto(@Valid QuestionPostDto questionDto) {
-        Question question = new Question();
-        question.setQuestionId(questionDto.getQuestionId());
-        question.setTitle(questionDto.getTitle());
-        question.setContent(questionDto.getContent());
-
+    public Question createQuestionFromDto(QuestionPostDto questionDto){
+        Question question = questionMapper.converToEntity(questionDto);
         return questionRepository.save(question);
     }
 

@@ -2,6 +2,7 @@ package com.server.pre_project.question.controller;
 
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
+import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @PostMapping
     public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto){
