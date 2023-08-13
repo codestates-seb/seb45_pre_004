@@ -13,8 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-
-public class User{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
@@ -22,26 +21,18 @@ public class User{
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, unique = true , updatable = false)
-    private String email;
+    @Column(nullable = false, unique = true, updatable = false)
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String password;
 
 
-    @ElementCollection(fetch = FetchType.EAGER) /* elementCollection 추가 */
-    private List<String> roles = new ArrayList<>();
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private UserStatus userStatus;
 
 
-
-
-    public User(String name, String email, String password){
+    public User(String name, String id, String password) {
         this.name = name;
-        this.email = email;
+        this.id = id;
         this.password = password;
     }
 
@@ -55,7 +46,7 @@ public class User{
 
      */
 
-    public enum UserStatus{
+   /* public enum UserStatus{
         USER_ACTiVE("활동중"),
         USER_SLEEP("휴면 상태"),
         USER_QUIT("탈퇴 상태");
@@ -67,5 +58,5 @@ public class User{
             this.status = status;
         }
     }
-
+    */
 }

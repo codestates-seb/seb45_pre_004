@@ -8,7 +8,7 @@ group = 'com.server'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = "15"
 }
 
 configurations {
@@ -31,8 +31,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+targetCompatibility = JavaVersion.VERSION_15
