@@ -1,14 +1,10 @@
-package com.server.pre_project.user.mapper;
+package com.server.pre_project.Member.mapper;
 
-import com.server.pre_project.user.dto.UserPostDto;
-
-import javax.validation.Valid;
-import java.util.List;
 /*
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    default User userPostDtoToUser(UserPostDto userPostDto) {
+    default User userPostDtoToUser(MemberPostDto userPostDto) {
         User user = new User();
 
         user.setId(userPostDto.getId());

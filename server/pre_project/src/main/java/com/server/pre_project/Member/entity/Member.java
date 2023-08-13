@@ -1,4 +1,4 @@
-package com.server.pre_project.user.entity;
+package com.server.pre_project.Member.entity;
 
 
 import lombok.Getter;
