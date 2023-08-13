@@ -14,9 +14,8 @@ public class QuestionMapper {
         }
 
         Question question = new Question();
-        question.setQuestionId(questionPostDto.getQuestionId());
         question.setTitle(questionPostDto.getTitle());
-        question.setContent(question.getContent());
+        question.setContent(questionPostDto.getContent());
 
         return question;
     }

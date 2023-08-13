@@ -5,6 +5,8 @@ import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -27,8 +29,9 @@ public class QuestionService {
         return questionRepository.findById(id).orElse(null);
     }
 
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
+    public Page<Question> getAllQuestions(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return questionRepository.findAll(pageRequest);
     }
 
     public Question updateQuestion(Long id, Question questionPatchDto) {
