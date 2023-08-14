@@ -9,17 +9,19 @@ import {
 	Info,
 } from "../styles/question";
 
+import { useSelector } from "react-redux";
+
 export default function Question({ item }) {
-	const minWidthToShow = 1100;
+	const browserWidth = useSelector((state) => state.browserWidthReducer);
 	const [showCurrent, setShowCurrent] = useState(true);
 
 	useEffect(() => {
 		// 화면 너비 변경 이벤트 핸들러 함수
 		const handleResize = () => {
-			if (window.innerWidth <= minWidthToShow) {
-				setShowCurrent(false);
-			} else {
+			if (browserWidth > 900) {
 				setShowCurrent(true);
+			} else {
+				setShowCurrent(false);
 			}
 		};
 
@@ -28,7 +30,7 @@ export default function Question({ item }) {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, []);
+	}, [browserWidth]);
 
 	return (
 		<>
