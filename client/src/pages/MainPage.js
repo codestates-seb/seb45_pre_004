@@ -1,38 +1,110 @@
-import React from "react";
+import { useState } from "react";
+
+import {
+	MainPageContainer,
+	MainSmallNavigator,
+	AskButton,
+	QLink,
+} from "../styles/main";
+
 import Question from "../components/Question";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
-import tokens from '../styles/tokens.json'
-import { SmallLinkButtonDesign } from "../atoms/Button";
 
-const globalTokens = tokens.global;
-
-export const MainPageContainer = styled.div`
-	width: 100vw;
-	display: flex;
-	flex-direction: column;
-`
-export const MainSmallNavigator = styled.section`
-	width: 90%;
-	display: flex;
-	flex-direction: row;
-	justify-content: end;
-`
 const MainPage = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const questions = [
+		{
+			questionId: 1,
+			title: "제목1",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 2,
+			title: "제목2",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 3,
+			title: "제목3",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 4,
+			title: "제목4",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 5,
+			title: "제목5",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 6,
+			title: "제목6",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 7,
+			title: "제목7",
+			content: "내용",
+			createdAt: "2023/08/14 05:06",
+			viewCount: 0,
+		},
+		{
+			questionId: 8,
+			title: "제목8",
+			content: "내용",
+			createdAt: "2023/08/14 05:07",
+			viewCount: 0,
+		},
+		{
+			questionId: 9,
+			title: "제목9",
+			content: "내용",
+			createdAt: "2023/08/14 05:07",
+			viewCount: 0,
+		},
+		{
+			questionId: 10,
+			title: "제목10",
+			content: "내용",
+			createdAt: "2023/08/14 05:07",
+			viewCount: 0,
+		},
+	];
+
 	return (
-	// 렌더링 테스트를 위해 임시로 적용해 두었습니다! 필요시 삭제 부탁드립니다.
-	<MainPageContainer>
-		<MainSmallNavigator>
-			<SmallLinkButtonDesign to='/write' color={globalTokens.pointColor.value}>질문 쓰기</SmallLinkButtonDesign>
-		</MainSmallNavigator>
-		<Link to="/detail" 
-			style={{
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center"}}>
-			<Question />
-		</Link>
-	</MainPageContainer>
+		// 렌더링 테스트를 위해 임시로 적용해 두었습니다! 필요시 삭제 부탁드립니다.
+		<MainPageContainer>
+			<MainSmallNavigator>
+				<AskButton to="/write">질문 쓰기</AskButton>
+			</MainSmallNavigator>
+			{isLoading ? (
+				<p>Loading...</p>
+			) : (
+				<>
+					{questions.map((question) => (
+						<QLink
+							key={question.questionId}
+							to={`/detail/${question.questionId}`}
+						>
+							<Question item={question} />
+						</QLink>
+					))}
+				</>
+			)}
+		</MainPageContainer>
 	);
 };
 

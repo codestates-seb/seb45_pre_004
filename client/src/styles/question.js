@@ -18,7 +18,7 @@ export const Wrapper = styled.li`
 	transition: 300ms;
 
 	&:hover {
-		background: ${globalTokens.mainColor.value};
+		background: ${globalTokens.lightGreyColor.value};
 	}
 
 	&:active {
@@ -67,7 +67,7 @@ export const Info = styled.div`
 	gap: 5px;
 	margin-top: 20px;
 	width: 100%;
-	color: ${globalTokens.lightGreyColor.value};
+	color: ${globalTokens.greyColor.value};
 	section {
 		gap: 5px;
 	}
