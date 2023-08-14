@@ -1,8 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logoImg from "../assets/images/logoImage.png";
-import tokens from "../styles/tokens.json";
-import { SmallButtonDesign as Button } from "../atoms/Button";
+
 import {
 	Background,
 	Wrapper,
@@ -10,6 +9,8 @@ import {
 	Buttons,
 	LogoLink,
 	LogoImg,
+	WhiteButton,
+	PointButton,
 } from "../styles/header";
 
 export default function Header() {
@@ -30,17 +31,20 @@ export default function Header() {
 					<Buttons>
 						{isLogin ? (
 							<LogoLink to="/">
-								<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
+								<WhiteButton>로그아웃</WhiteButton>
 							</LogoLink>
 						) : (
 							<>
 								<Link to="/login">
-									<Button color={tokens.global.pointColor.value}>로그인</Button>
+									<PointButton>
+										로그인
+									</PointButton>
 								</Link>
 								<Link to="/signup">
-									<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
+									<WhiteButton
+									>
 										가입하기
-									</Button>
+									</WhiteButton>
 								</Link>
 							</>
 						)}
