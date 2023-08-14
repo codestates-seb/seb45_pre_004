@@ -36,7 +36,7 @@ public class Member {
 }
    /* public enum UserStatus{
         USER_ACTiVE("활동중"),
-        USER_SLEEP("휴면 상태"),
+        USER_SLEEP("휴면 상태"),safsadfasfsdfadsfgi
         USER_QUIT("탈퇴 상태");
 
         @Getter
