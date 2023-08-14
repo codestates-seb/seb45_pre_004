@@ -25,8 +25,9 @@ public class ReplyController {
     public ResponseEntity<List<Reply>> createReplies(@RequestBody List<ReplyDto> replyDtos) {
         List<Reply> savedReplies = new ArrayList<>();
 
-        // 댓글 갯수 체크
-        if (replyDtos.size() + replyRepository.count() > 5) {
+        // 각 게시글당 최대 댓글 개수 체크
+        int totalReplies = (int) replyRepository.count();
+        if (replyDtos.size() + totalReplies > 5) {
             return ResponseEntity.badRequest().body(savedReplies);
         }
 
@@ -46,6 +47,7 @@ public class ReplyController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedReplies);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Reply> getReply(@PathVariable int id) {
