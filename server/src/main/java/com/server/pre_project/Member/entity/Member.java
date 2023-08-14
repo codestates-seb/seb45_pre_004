@@ -34,7 +34,7 @@ public class Member {
     private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
-    private List<Reply> answers = new ArrayList<>();
+    private List<Reply> replys = new ArrayList<>();
 
 }
    /* public enum UserStatus{

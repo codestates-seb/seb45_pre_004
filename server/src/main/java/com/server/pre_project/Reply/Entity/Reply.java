@@ -1,5 +1,6 @@
 package com.server.pre_project.Reply.Entity;
 
+import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.question.entity.Question;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Reply {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;  // Question 엔티티의 외래키로 연결
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
 
     public Reply() {
         // 기본 생성자

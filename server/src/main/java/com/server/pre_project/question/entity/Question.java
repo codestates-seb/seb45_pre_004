@@ -54,7 +54,7 @@ public class Question {
     private List<Reply> replys = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private Member member;
 
 }
