@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "prismjs/themes/prism.css";
 import Prism from "prismjs";
 import parse from "html-react-parser";
-import { Warning, DisabledButton } from "../styles/form";
 import {
   QnAWritePageContainer,
   QnAWriteInfoContainer,
@@ -15,6 +14,8 @@ import {
   Preview,
   PreviewP,
   PreviewContent,
+  Warning,
+  DisabledButton,
 } from "../styles/qnaWrite";
 
 const QnAWritePage = ({ Editor, CKEditor }) => {

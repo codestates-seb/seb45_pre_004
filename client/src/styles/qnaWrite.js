@@ -3,8 +3,26 @@ import { styled } from "styled-components";
 import { ButtonDesign } from "../styles/form";
 import { RegularInputDesign } from "../atoms/Input";
 import { BigHeadingTypo, BodyTextTypo } from "../atoms/Typography";
+import { RegularButtonDesign } from "../atoms/Button";
 
 const globalTokens = tokens.global;
+
+export const DisabledButton = styled(RegularButtonDesign)`
+  margin-top: 1rem;
+  background-color: ${tokens.global.greyColor.value};
+  &:hover {
+    background-color: ${tokens.global.greyColor.value};
+    cursor: default;
+  }
+  opacity: 0.8; /* 80% 불투명도 */
+`;
+
+export const Warning = styled.p`
+  color: red;
+  font-size: ${tokens.global.bigHeading.value};
+  margin: 1rem;
+  font-weight: ${tokens.global.bold.value};
+`;
 
 export const QnAWritePageContainer = styled.div`
   display: flex;
