@@ -4,8 +4,6 @@ import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.service.QuestionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Page;

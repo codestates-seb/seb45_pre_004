@@ -1,6 +1,5 @@
 package com.server.pre_project.question.entity;
 
-import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
