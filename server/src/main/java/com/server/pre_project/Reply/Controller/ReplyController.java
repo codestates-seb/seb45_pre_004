@@ -22,32 +22,25 @@ public class ReplyController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Reply>> createReplies(@RequestBody List<ReplyDto> replyDtos) {
-        List<Reply> savedReplies = new ArrayList<>();
+    public ResponseEntity<Reply> createReply(@RequestBody ReplyDto replyDto) {
+        if (replyDto.getContent() == null || replyDto.getContent().trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
 
         // 각 게시글당 최대 댓글 개수 체크
         int totalReplies = (int) replyRepository.count();
-        if (replyDtos.size() + totalReplies > 5) {
-            return ResponseEntity.badRequest().body(savedReplies);
+        if (totalReplies >= 5) {
+            return ResponseEntity.badRequest().build();
         }
 
-        for (ReplyDto replyDto : replyDtos) {
-            if (replyDto.getContent() == null || replyDto.getContent().trim().isEmpty()) {
-                return ResponseEntity.badRequest().body(savedReplies);
-            }
+        Reply reply = new Reply();
+        reply.setUserId(replyDto.getUserId());
+        reply.setContent(replyDto.getContent());
+        reply.setCreatedAt(LocalDateTime.now());
 
-            Reply reply = new Reply();
-            reply.setUserId(replyDto.getUserId());
-            reply.setContent(replyDto.getContent());
-            reply.setCreatedAt(LocalDateTime.now());
-
-            Reply savedReply = replyRepository.save(reply);
-            savedReplies.add(savedReply);
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReplies);
+        Reply savedReply = replyRepository.save(reply);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReply);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Reply> getReply(@PathVariable int id) {
