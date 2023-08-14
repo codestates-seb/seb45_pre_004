@@ -1,5 +1,6 @@
 package com.server.pre_project.question.entity;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -53,7 +54,7 @@ public class Question {
 //
 //    @ManyToOne
 //    @JoinColumn(name = "member_id")
-//    private User user;
+//    private Member member;
 
 }
 // dev가기전 주석 삭제하고 dev하기
