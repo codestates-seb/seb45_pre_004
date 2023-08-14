@@ -6,42 +6,53 @@ import "prismjs/themes/prism.css";
 import Prism from "prismjs";
 import parse from "html-react-parser";
 import { RegularInputDesign } from "../atoms/Input";
+import { BigHeadingTypo, BodyTextTypo } from "../atoms/Typography";
 
-const QuestionHead = styled.h1`
-  font-size: ${tokens.global.bigHeading.value}px;
-  margin: 1rem;
-`;
+const globalTokens = tokens.global;
 
-const QuestionP = styled.p`
-  font-size: ${tokens.global.bodyText.value}px;
-  margin: 10px;
-`;
-
-const TextP = styled(QuestionP)`
+const QnAWritePageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const QnAWriteInfoContainer = styled.section`
+  display: flex;
+  flex-direction: column;
   background-color: ${tokens.global.mainColor.value};
-  margin: 10px;
-  padding: 10px;
+  width: 100vw;
+  padding: 12px 16px;
+`
+const QuestionHead = styled(BigHeadingTypo)`
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-bottom: 3px;
 `;
-
+const QuestionInfoTitleText = styled(BodyTextTypo)`
+  font-weight: ${tokens.global.bold.value};
+  margin-top: 4px;
+  margin-bottom: 4px;
+`
+const QuestionInfoText = styled(BodyTextTypo)`
+  margin-left: 8px;
+  margin-bottom: 2px;
+`
 const QuestionTitleInputDesign = styled(RegularInputDesign)`
   width: 85%;
   margin-left: 1rem;
 `;
-
 const Button = styled(ButtonDesign)`
   margin: 1rem;
 `;
-
 const PreviewWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
-
 const Preview = styled.div`
-  border: 1px solid gray;
-  width: 50%;
-  padding: 5px;
+  border: ${globalTokens.regularWidth.value}px solid ${globalTokens.lightGreyColor.value};
+  flex-grow: 1;
+  max-width: 650px;
+  min-width: 300px;
 `;
-
 const PreviewP = styled.p`
   color: red;
   margin: 1rem;
@@ -98,24 +109,17 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
   }, [content]);
 
   return (
-    <>
-      <div>
+    <QnAWritePageContainer>
         <QuestionHead>질문하세요!</QuestionHead>
-        <div>
-          <TextP>
-            좋은 질문을 작성하는 방법
-            <br /> &nbsp; 여러분은 프로그래밍과 관련된 질문을 할 준비가
-            되셨습니다. 아래 폼을 작성해보세요 <br />
-            <br />
-            단계 <br />
-            &nbsp;여러분의 문제를 제목 한 줄로 표현해보세요.
-            <br /> &nbsp;더 구체적이게 여러분의 문제를 묘사해보세요. <br />
-            &nbsp;무엇을 했고 무엇을 기대했는지 작성하세요.
-            <br />
-            &nbsp;여러분의 질문을 다시 한번 검토한 후에 제출해주세요!
-          </TextP>
-        </div>
-      </div>
+        <QnAWriteInfoContainer>
+            <QuestionInfoTitleText>좋은 질문을 작성하는 방법</QuestionInfoTitleText>
+            <QuestionInfoText>여러분은 프로그래밍과 관련된 질문을 할 준비가되셨습니다. 아래 폼을 작성해보세요</QuestionInfoText>
+            <QuestionInfoTitleText>단계</QuestionInfoTitleText>
+            <QuestionInfoText>여러분의 문제를 제목 한 줄로 표현해보세요.</QuestionInfoText>
+            <QuestionInfoText>더 구체적이게 여러분의 문제를 묘사해보세요.</QuestionInfoText>
+            <QuestionInfoText>무엇을 했고 무엇을 기대했는지 작성하세요.</QuestionInfoText>
+            <QuestionInfoText>여러분의 질문을 다시 한번 검토한 후에 제출해주세요!</QuestionInfoText>
+        </QnAWriteInfoContainer>
       <form onSubmit={onSubmitHandler}>
         <div>
           <QuestionHead>질문 제목</QuestionHead>
@@ -159,7 +163,7 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
           )}
         </div>
       </form>
-    </>
+    </QnAWritePageContainer>
   );
 };
 

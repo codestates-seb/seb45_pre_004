@@ -5,7 +5,7 @@ import tokens from '../styles/tokens.json'
 const globalTokens = tokens.global;
 
 export const BigHeadingTypo = styled.h1`
-    font-size: ${globalTokens.value}px;
+    font-size: ${globalTokens.bigHeading.value}px;
     font-weight: ${globalTokens.bold.value};
     color: ${(props)=>props.color||globalTokens.blackColor.value};
     background-color: ${(props)=>props.backgroundColor||globalTokens.whiteColor.value};
@@ -21,7 +21,7 @@ export const SmallHeadingTypo = styled.h3`
 export const BodyTextTypo = styled.div`
     font-size: ${globalTokens.bodyText.value}px;
     color: ${(props)=>props.color||globalTokens.blackColor.value};
-    background-color: ${(props)=>props.backgroundColor||globalTokens.whiteColor.value};
+    background-color: ${(props)=>props.backgroundColor||'rgba(0,0,0,0)'};
 `
 
 const Typography = ({color, backgroundColor}) => {
