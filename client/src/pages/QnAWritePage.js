@@ -10,6 +10,8 @@ import parse from "html-react-parser";
 import { RegularInputDesign } from "../atoms/Input";
 import { BigHeadingTypo, BodyTextTypo } from "../atoms/Typography";
 
+const globalTokens = tokens.global;
+
 const QnAWritePageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,10 +46,14 @@ const Button = styled(ButtonDesign)`
 `;
 const PreviewWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 const Preview = styled.div`
-  border: 1px solid gray;
-  width: 50%;
+  border: ${globalTokens.regularWidth.value}px solid ${globalTokens.lightGreyColor.value};
+  flex-grow: 1;
+  max-width: 650px;
+  min-width: 300px;
 `;
 const PreviewP = styled.p`
   color: red;
