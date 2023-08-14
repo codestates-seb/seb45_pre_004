@@ -6,3 +6,12 @@ export const getQuestionsListActon = (questionsList) => {
         payload: questionsList,
     }
 }
+
+export const GET_QUESTION_DETAIL = 'GET_QUESTION_DETAIL';
+
+export const getQuestionDetailAction = (questionDetail) => {
+	return {
+		type: GET_QUESTION_DETAIL,
+		payload: questionDetail,
+	};
+};

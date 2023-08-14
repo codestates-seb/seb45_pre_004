@@ -1,8 +1,8 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logoImg from "../assets/images/logoImage.png";
-import tokens from "../styles/tokens.json";
-import { SmallButtonDesign as Button } from "../atoms/Button";
+
 import {
 	Background,
 	Wrapper,
@@ -10,6 +10,9 @@ import {
 	Buttons,
 	LogoLink,
 	LogoImg,
+	WhiteButton,
+	PointButton,
+	ExtraSmallButton,
 } from "../styles/header";
 
 export default function Header() {
@@ -17,6 +20,7 @@ export default function Header() {
 	const isLoginPage =
 		location.pathname === "/login" || location.pathname === "/signup";
 	const isLogin = useSelector((state) => state.authReducer);
+	const browserWidth = useSelector((state) => state.browserWidthReducer);
 
 	return (
 		<Background>
@@ -26,25 +30,31 @@ export default function Header() {
 					<br />
 					<Title>STACK UNDERFLOW</Title>
 				</LogoLink>
-				{!isLoginPage && (
+				{browserWidth < 900 ? (
 					<Buttons>
-						{isLogin ? (
-							<LogoLink to="/">
-								<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
-							</LogoLink>
-						) : (
-							<>
-								<Link to="/login">
-									<Button color={tokens.global.pointColor.value}>로그인</Button>
-								</Link>
-								<Link to="/signup">
-									<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
-										가입하기
-									</Button>
-								</Link>
-							</>
-						)}
+						<ExtraSmallButton>
+							<img src="../../enter.png" alt="login and join button" />
+						</ExtraSmallButton>
 					</Buttons>
+				) : (
+					!isLoginPage && (
+						<Buttons>
+							{isLogin ? (
+								<LogoLink to="/">
+									<WhiteButton>로그아웃</WhiteButton>
+								</LogoLink>
+							) : (
+								<>
+									<Link to="/login">
+										<PointButton>로그인</PointButton>
+									</Link>
+									<Link to="/signup">
+										<WhiteButton>가입하기</WhiteButton>
+									</Link>
+								</>
+							)}
+						</Buttons>
+					)
 				)}
 			</Wrapper>
 		</Background>

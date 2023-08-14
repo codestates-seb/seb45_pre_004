@@ -7,7 +7,7 @@ export const Wrapper = styled.li`
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
-	width: 80%;
+	width: 100%;
 	padding: 20px 10px;
 	margin: 15px;
 	border-radius: 10px;

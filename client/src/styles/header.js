@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+
+import { SmallButtonDesign, SmallCircleButtonDesign } from "../atoms/Button";
 import tokens from "../styles/tokens.json";
 
 const globalTokens = tokens.global;
@@ -53,4 +55,32 @@ export const Buttons = styled.section`
 	flex-direction: column;
 	gap: 10px;
 	padding: 0px 40px;
+`;
+
+export const WhiteButton = styled(SmallButtonDesign)`
+	background-color: ${globalTokens.whiteColor.value};
+	color: ${globalTokens.pointColor.value};
+`;
+
+export const PointButton = styled(WhiteButton)`
+	background-color: ${globalTokens.pointColor.value};
+	color: ${globalTokens.whiteColor.value};
+`;
+export const ExtraSmallButton = styled(SmallCircleButtonDesign)`
+	width: 40px;
+	height: 40px;
+
+	background-color: ${globalTokens.whiteColor.value};
+	color: ${globalTokens.pointColor.value};
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 50%;
+
+	img {
+		width: 30px;
+		height: 30px;
+		margin-top: 2px;
+	}
 `;
