@@ -39,11 +39,44 @@ const PreviewWrapper = styled.div`
 const Preview = styled.div`
   border: 1px solid gray;
   width: 50%;
+  padding: 5px;
 `;
 
 const PreviewP = styled.p`
   color: red;
   margin: 1rem;
+`;
+
+const PreviewContent = styled.div`
+  // 위에서 스타일을 죽여서 따로 설정해줘야 하는듯?
+  & blockquote {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 5px solid lightgray;
+  }
+  & pre {
+    background-color: lightgray;
+  }
+  & table tr td {
+    border: 1px solid gray;
+  }
+  & strong {
+    font-weight: bold;
+  }
+  & i {
+    font-style: italic;
+  }
+  & h2 {
+    font-size: 1.5rem;
+  }
+  & h3 {
+    font-size: 1.2rem;
+  }
+  & h4 {
+    font-size: 1rem;
+  }
 `;
 
 const QnAWritePage = ({ Editor, CKEditor }) => {
@@ -102,11 +135,12 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
+                console.log(data);
               }}
             />
             <Preview>
               <PreviewP>미리보기</PreviewP>
-              <div>{parse(content)}</div>
+              <PreviewContent>{parse(content)}</PreviewContent>
             </Preview>
           </PreviewWrapper>
         </div>
