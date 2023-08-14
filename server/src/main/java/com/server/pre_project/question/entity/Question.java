@@ -45,15 +45,14 @@ public class Question {
     @Column(name = "view_count")
     private int viewCount = 0;
 
-//    @Column(name = "reply_count")
-//    private int reply_count = 0;
-//
-//    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
-//    private List<Reply> replys = new ArrayList<>();
-//
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member member;
+    @Column(name = "reply_count")
+    private int reply_count = 0;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    private List<Reply> replys = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }
-// dev가기전 주석 삭제하고 dev하기
