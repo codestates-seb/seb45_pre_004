@@ -1,4 +1,4 @@
-package com.server.pre_project.question.config;
+package com.server.pre_project.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
