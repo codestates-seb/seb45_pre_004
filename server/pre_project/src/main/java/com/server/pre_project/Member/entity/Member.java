@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -26,18 +27,13 @@ public class Member {
     private String password;
 
 
-
-
-    /*
-    추후 매핑 예정
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "Member", cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "Member", cascade = CascadeType.PERSIST)
     private List<reply> answers = new ArrayList<>();
 
-     */
-
+}
    /* public enum UserStatus{
         USER_ACTiVE("활동중"),
         USER_SLEEP("휴면 상태"),
@@ -51,4 +47,4 @@ public class Member {
         }
     }
     */
-}
+
