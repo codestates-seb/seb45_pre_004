@@ -40,20 +40,16 @@ export default function Question({ item }) {
 				{showCurrent && (
 					<Current>
 						<div>1 {/* item.answer.length */} Answers</div>
-						<div>6 {/* item.views */} views</div>
+						<div>{ item.viewCount } views</div>
 					</Current>
 				)}
 				<Container>
 					<Contents>
 						<h1>
-							Camera plugin in flutter making callback after taking picture
-							{/* item.title */}
+							{item.title}
 						</h1>
 						<div>
-							I am trying to capture image using camera in flutter. Image should
-							be captured, for that using takePicture method. I am understanding
-							whether the image is capturing or not, in debug, I got ...
-							{/* item.content.slice(0, 100) */}
+							{ item.content }
 						</div>
 					</Contents>
 					<Info>
