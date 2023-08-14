@@ -19,7 +19,7 @@ import {
 	SubmitButton,
 } from "../styles/qnaDetail";
 
-const QnADetailPage = ({ item, id }) => {
+const QnADetailPage = ({ item, id, Editor, CKEditor }) => {
 	const askedAt = "2023-08-08T09:00:00.000Z";
 	const modifiedAt = "2023-08-09T09:00:00.000Z";
 	const answeredAt = "2023-08-10T09:00:00.000Z";
