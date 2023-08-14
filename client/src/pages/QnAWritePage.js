@@ -1,5 +1,3 @@
-import Editor from "ckeditor5-custom-build/build/ckeditor";
-import { CKEditor } from "@ckeditor/ckeditor5-react"; // import가 반드시 한 곳에서만 일어나야함, 만약 detail페이지에서도 쓸것이라면 좀 더 공통 상위의 코드에서 props로 각각 내려볼 수도 있을것임
 import React, { useEffect, useState } from "react";
 import tokens from "../styles/tokens.json";
 import { styled } from "styled-components";
@@ -60,7 +58,39 @@ const PreviewP = styled.p`
   margin: 1rem;
 `;
 
-const QnAWritePage = () => {
+const PreviewContent = styled.div`
+  // 위에서 스타일을 죽여서 따로 설정해줘야 하는듯?
+  & blockquote {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 5px solid lightgray;
+  }
+  & pre {
+    background-color: lightgray;
+  }
+  & table tr td {
+    border: 1px solid gray;
+  }
+  & strong {
+    font-weight: bold;
+  }
+  & i {
+    font-style: italic;
+  }
+  & h2 {
+    font-size: 1.5rem;
+  }
+  & h3 {
+    font-size: 1.2rem;
+  }
+  & h4 {
+    font-size: 1rem;
+  }
+`;
+
+const QnAWritePage = ({ Editor, CKEditor }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -93,7 +123,7 @@ const QnAWritePage = () => {
       <form onSubmit={onSubmitHandler}>
         <div>
           <QuestionHead>질문 제목</QuestionHead>
-          <QuestionTitleInputDesign 
+          <QuestionTitleInputDesign
             placeholder="제목을 입력해 주세요."
             value={title}
             onChange={onChangeTitleHandler}
@@ -109,17 +139,22 @@ const QnAWritePage = () => {
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
+                console.log(data);
               }}
             />
             <Preview>
               <PreviewP>미리보기</PreviewP>
-              {parse(content)}
+              <PreviewContent>{parse(content)}</PreviewContent>
             </Preview>
           </PreviewWrapper>
         </div>
         <div>
-          {content.length < 20 ? <Warning>내용을 입력해주세요</Warning> : <></>}
-          {title.length === 0 || content.length < 20 ? (
+          {content.length === 0 ? (
+            <Warning>내용을 입력해주세요</Warning>
+          ) : (
+            <></>
+          )}
+          {title.length === 0 || content.length === 0 ? (
             <>
               <DisabledButton disabled>제출 불가능</DisabledButton>
             </>
