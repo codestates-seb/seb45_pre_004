@@ -10,7 +10,6 @@ import {
 } from "../styles/question";
 
 export default function Question({ item }) {
-
 	const minWidthToShow = 1100;
 	const [showCurrent, setShowCurrent] = useState(true);
 
@@ -46,10 +45,9 @@ export default function Question({ item }) {
 						<div>{item.content.slice(0, 100)}</div>
 					</Contents>
 					<Info>
-						<span>Nanda Y {item.user_id}</span>
+						<span> {item.user_id}</span>
 						<section style={{ display: "flex" }}>
-							<div>- 21 {/* item.asked.length */} </div>
-							<div>asked</div>
+							asked
 							<DateDistance inputDate={item.createdAt} />
 							ago
 						</section>

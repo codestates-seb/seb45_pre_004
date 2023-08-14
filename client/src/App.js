@@ -20,13 +20,13 @@ function App() {
 	const dispatch = useDispatch();
 	const deviceWidth = useSelector((state) => state.browserWidthReducer);
 
-	//브라우저의 너비가 바뀔 때 실행되는 메소드
-	const handleDeviceWidthResize = () => {
-		dispatch(readBrowserWidth());
-	};
-
 	useEffect(() => {
-		getQuestionsService().then((res)=>{
+		//브라우저의 너비가 바뀔 때 실행되는 메소드
+		const handleDeviceWidthResize = () => {
+			dispatch(readBrowserWidth());
+		};
+
+		getQuestionsService().then((res) => {
 			dispatch(getQuestionsListActon(res));
 		});
 
@@ -34,7 +34,7 @@ function App() {
 		return () => {
 			window.removeEventListener("resize", handleDeviceWidthResize);
 		};
-	},[]);
+	}, [dispatch]);
 
 	return (
 		<BrowserRouter>

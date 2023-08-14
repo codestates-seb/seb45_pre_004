@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -11,7 +10,6 @@ import {
 import Question from "../components/Question";
 
 const MainPage = () => {
-	const [isLoading] = useState(false);
 	const questions = useSelector((state) => state.questionListReducer);
 
 	return (
@@ -19,9 +17,7 @@ const MainPage = () => {
 			<MainSmallNavigator>
 				<AskButton to="/write">질문 쓰기</AskButton>
 			</MainSmallNavigator>
-			{isLoading || questions.length < 1 ? (
-				<p>Loading...</p>
-			) : (
+			{questions.length > 0 ? (
 				<>
 					{questions.map((question) => (
 						<QLink
@@ -32,6 +28,8 @@ const MainPage = () => {
 						</QLink>
 					))}
 				</>
+			) : (
+				<p>Loading...</p>
 			)}
 		</MainPageContainer>
 	);
