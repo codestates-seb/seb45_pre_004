@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -19,131 +20,137 @@ import {
 	SubmitButton,
 } from "../styles/qnaDetail";
 
-const QnADetailPage = ({ item, id, Editor, CKEditor }) => {
-	const askedAt = "2023-08-08T09:00:00.000Z";
-	const modifiedAt = "2023-08-09T09:00:00.000Z";
-	const answeredAt = "2023-08-10T09:00:00.000Z";
+const QnADetailPage = ({ Editor, CKEditor }) => {
+	const question = useSelector((state) => state.questionDetailReducer);
 
-	// Edit 로직
 	const [editMode, setEditMode] = useState(false);
+	const [content, setContent] = useState("");
+	const [editedContent, setEditedContent] = useState("");
 
 	return (
 		<Wrapper>
 			<Thread />
+
 			<Card>
 				<QHead>
-					<h1>
-						Camera plugin in flutter making callback after taking picture{" "}
-						{/* {item.title} */}
-					</h1>
+					<h1>{question.title}</h1>
 					<InfoWrapper>
 						<HeadInfo>
 							<Info>
 								<div>Asked</div>
-								<DateDistance inputDate={askedAt}>
-									{/* {item.askedAt} */}
-								</DateDistance>
-							</Info>
-							<Info>
-								<div>Modified</div>
-								<DateDistance inputDate={modifiedAt}>
-									{/* {item.modifiedAt} */}
-								</DateDistance>
+								<DateDistance inputDate={question.createdAt}></DateDistance>
 							</Info>
 							<Info>
 								<span>Viewed</span>
-								<div>6 {/* {item.views} */}</div>
+								<div>{question.viewCount}</div>
 							</Info>
 						</HeadInfo>
-						<Edit>
-							{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
-							<div onClick={() => setEditMode((prevEditMode) => !prevEditMode)}>
-								{editMode ? "Done" : "Edit"}
-							</div>
-							<div>Delete</div>{" "}
-						</Edit>
+						{/* question.replies.userId === currentUser.userId 등으로 검증 필요*/}
+						{question.userId && (
+							<Edit>
+								{/* editMode 상태에 따라 버튼 텍스트 토글 */}
+								<div
+									onClick={() => setEditMode(prevEditMode => !prevEditMode)}
+								>
+									{editMode ? "Done" : "Edit"}
+								</div>
+								<div>Delete</div>
+							</Edit>
+						)}
 					</InfoWrapper>
 				</QHead>
 				<hr />
-				<Contents>
-					I am trying to capture image using camera in flutter. Image should be
-					captured, for that using takePicture method. I am understanding
-					whether the image is capturing or not, in debug, I got camera callback
-					exception, this code when I click on button screen blinks. Its not
-					navigating.
-					{/* {item.content} */}
-				</Contents>
-
+				{/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
+				{editMode ? (
+					<CKEditor
+						editor={Editor}
+						data={editedContent}
+						onChange={(event, editor) => {
+							const data = editor.getData();
+							setEditedContent(data);
+							console.log(data);
+						}}
+					/>
+				) : (
+					<Contents>{question.content}</Contents>
+				)}
 				<User>
-					<DateDistance inputDate={answeredAt}></DateDistance>
+					<DateDistance inputDate={question.replies.createdAt}></DateDistance>
 					<UserInfo>
 						<img
 							src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
 							alt="testimg"
 						>
-							{/* {item.author.picture} */}
+							{/* {question.userId.picture} */}
 						</img>
 						<UserInfoData>
-							<div>Semin Kim {/* {item.author} */}</div>
-							<div>21 Questions{/* {item.author.info} */}</div>
+							<div>Semin Kim {/* {question.userId} */}</div>
 						</UserInfoData>
 					</UserInfo>
 				</User>
 			</Card>
-			<Card>
-				<AHead>
-					<h1>1 {/* {item.Answer.length} */} Answer</h1>
-					<Edit>
-						{/* 받은 id의 author와 현재 로그인된 author의 ID가 같으면 활성화하기 */}
-						<div>Edit</div>
-						<div>Delete</div>{" "}
-					</Edit>
-				</AHead>
-				<hr />
-				<Contents>
-					Melbourne regularly hits the "world’s best coffee cities" lists, and
-					once you start exploring the nooks and crannies of its laneways and
-					inner-city suburbs, you'll see why. It's a town for coffee purists –
-					more pour-over than pumpkin spice latte. Melbourne's coffee culture
-					started percolating thanks to a post-war wave of Italian immigrants
-					who brought their gleaming espresso machines with them. By the 1980s,
-					the coffee scene had morphed into the city's famed cafe culture, with
-					its penchant for avocado-heavy brunches, and not long after that,
-					local roasters and baristas took Melbourne coffee into the
-					stratosphere. Melbourne coffee today champions a sustainable and
-					ethical approach, using brewing methods that highlight the qualities
-					of the bean. Many roasters showcase exclusive Cup of Excellence
-					microlots – small harvests of rare or unusual coffee plants that
-					present similar flavour profiles to seasonal wines – and some offer
-					free "cuppings" (coffee tastings) that are open to the public if you
-					want a front seat to the latest beans in town. From the historic to
-					the iconic to the symphonic, here are some of Melbourne's tastiest
-					java joints.
-					{/* {item.answer.content}, 재귀나 반복문 사용? */}
-				</Contents>
-				<User>
-					<DateDistance inputDate={answeredAt}>
-						{/* {item.answeredAt} */}
-					</DateDistance>
-					<UserInfo>
-						<img
-							src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
-							alt="testimg"
-						>
-							{/* {item.answer.author.picture} */}
-						</img>
-						<UserInfoData>
-							<div>SUF team {/* {item.answer.author} */}</div>
-							<div>100 answers{/* {item.answer.author.info} */}</div>
-						</UserInfoData>
-					</UserInfo>
-				</User>{" "}
-			</Card>
+
+			{question.replies.map((reply) => (
+				<Card key={reply.replyId}>
+					<AHead>
+						<h1>1 {/* {question.replies.length} */} Answer</h1>
+						{/* reply.userId === currentUser.userId 등으로 검증 필요*/}
+						{reply.userId && (
+							<Edit>
+								{/* editMode 상태에 따라 버튼 텍스트 토글 */}
+								<div
+									onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
+								>
+									{editMode ? "Done" : "Edit"}
+								</div>
+								<div>Delete</div>
+							</Edit>
+						)}
+					</AHead>
+					<hr />
+					{/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
+					{editMode ? (
+						<CKEditor
+							editor={Editor}
+							data={editedContent}
+							onChange={(event, editor) => {
+								const data = editor.getData();
+								setEditedContent(data);
+							}}
+						/>
+					) : (
+						<Contents>{reply.content}</Contents>
+					)}
+					<User>
+						<DateDistance inputDate={reply.createdAt}></DateDistance>
+						<UserInfo>
+							<img
+								src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
+								alt="testimg"
+							/>
+							{/* {reply.userId.picture} */}
+							<UserInfoData>
+								<div>SUF team {/* {reply.userId} */}</div>
+								<div>100 answers{/* {reply.userId.info} */}</div>
+							</UserInfoData>
+						</UserInfo>
+					</User>
+				</Card>
+			))}
+
 			<AnswerCard>
 				<AHead>
 					<h1>Your Answer</h1>
 				</AHead>
 				<hr />
+				<CKEditor
+					editor={Editor}
+					data={content}
+					onChange={(event, editor) => {
+						const data = editor.getData();
+						setContent(data);
+					}}
+				/>
 				<SubmitButton>Post Your Answer</SubmitButton>
 			</AnswerCard>
 		</Wrapper>

@@ -49,7 +49,7 @@ function App() {
 					element={<QnAWritePage Editor={Editor} CKEditor={CKEditor} />}
 				/>
 				<Route
-					path="/detail"
+					path="/detail/:id"
 					element={<QnADetailPage Editor={Editor} CKEditor={CKEditor} />}
 				/>
 			</Routes>
