@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -43,6 +45,15 @@ public class Question {
     @Column(name = "view_count")
     private int viewCount = 0;
 
-}
+//    @Column(name = "reply_count")
+//    private int reply_count = 0;
+//
+//    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+//    private List<Reply> replys = new ArrayList<>();
+//
+//    @ManyToOne
+//    @JoinColumn(name = "member_id")
+//    private Member member;
 
-//페이지네이션 user 작성 확인 후 onetomany, reply 작성 후 확인하기 onetomany reply count
+}
+// dev가기전 주석 삭제하고 dev하기

@@ -2,13 +2,17 @@ package com.server.pre_project.question.controller;
 
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
+import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -17,6 +21,8 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @PostMapping
     public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto){
@@ -35,9 +41,12 @@ public class QuestionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping
-    public ResponseEntity<List<Question>> getAllQuestions(){
-        List<Question> questions = questionService.getAllQuestions();
+    @GetMapping// 페이지 네이션 적용
+    public ResponseEntity<List<Question>> getAllQuestions(
+            @Positive @RequestParam int page,
+            @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.getAllQuestions(page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
@@ -50,8 +59,9 @@ public class QuestionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/{question_id}")
-    public ResponseEntity<Question> deleteQuetion(@PathVariable Long question_id) {
+    public ResponseEntity<Question> deleteQuestion(@PathVariable Long question_id) {
         boolean deleted = questionService.deleteQuestion(question_id);
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
