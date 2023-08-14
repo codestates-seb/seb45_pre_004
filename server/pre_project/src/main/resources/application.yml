@@ -1,0 +1,14 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  datasource:
+    url: jdbc:h2:mem:847782fe-f991-4586-9b1b-1610fc07276f
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
