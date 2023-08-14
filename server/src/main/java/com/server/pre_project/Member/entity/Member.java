@@ -37,17 +37,3 @@ public class Member {
     private List<Reply> replys = new ArrayList<>();
 
 }
-   /* public enum UserStatus{
-        USER_ACTiVE("활동중"),
-        USER_SLEEP("휴면 상태"),safsadfasfsdfadsfgi
-        USER_QUIT("탈퇴 상태");
-
-        @Getter
-        private String status;
-
-        UserStatus(String status){
-            this.status = status;
-        }
-    }
-    */
-

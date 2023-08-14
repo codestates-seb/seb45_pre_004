@@ -26,7 +26,6 @@ public class Reply {
     private Question question;  // Question 엔티티의 외래키로 연결
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private Member member;
 
     public Reply() {
@@ -57,6 +56,5 @@ public class Reply {
         return createdAt;
     }
 
-    // Getters and Setters...
 }
 
