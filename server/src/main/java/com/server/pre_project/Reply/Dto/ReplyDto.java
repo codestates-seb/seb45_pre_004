@@ -1,12 +1,14 @@
 package com.server.pre_project.Reply.Dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReplyDto {
-    private Long id;  // id 필드 추가
+    private Long id;
     private Long userId;
     private String content;
     private LocalDateTime createdAt;
+    private List<ReplyDto> replies; // 답변 리스트 추가
 
     public ReplyDto() {
         // 기본 생성자
@@ -15,8 +17,8 @@ public class ReplyDto {
     public ReplyDto(Long userId, String content) {
         this.userId = userId;
         this.content = content;
-        this.createdAt = LocalDateTime.now();
     }
+
 
     public Long getId() {
         return id;
@@ -52,5 +54,13 @@ public class ReplyDto {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<ReplyDto> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<ReplyDto> replies) {
+        this.replies = replies;
     }
 }

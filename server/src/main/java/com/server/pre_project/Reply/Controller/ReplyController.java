@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,18 +22,29 @@ public class ReplyController {
     }
 
     @PostMapping
-    public ResponseEntity<Reply> createReply(@RequestBody ReplyDto replyDto) {
-        if (replyDto.getContent() == null || replyDto.getContent().trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<List<Reply>> createReplies(@RequestBody List<ReplyDto> replyDtos) {
+        List<Reply> savedReplies = new ArrayList<>();
+
+        // 댓글 갯수 체크
+        if (replyDtos.size() + replyRepository.count() > 5) {
+            return ResponseEntity.badRequest().body(savedReplies);
         }
 
-        Reply reply = new Reply();  // 클래스명을 단순화한 부분
-        reply.setUserId(replyDto.getUserId());
-        reply.setContent(replyDto.getContent());
-        reply.setCreatedAt(LocalDateTime.now()); // 현재 시간 설정
+        for (ReplyDto replyDto : replyDtos) {
+            if (replyDto.getContent() == null || replyDto.getContent().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(savedReplies);
+            }
 
-        Reply savedReply = replyRepository.save(reply);  // 단순화된 클래스명 적용
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReply);
+            Reply reply = new Reply();
+            reply.setUserId(replyDto.getUserId());
+            reply.setContent(replyDto.getContent());
+            reply.setCreatedAt(LocalDateTime.now());
+
+            Reply savedReply = replyRepository.save(reply);
+            savedReplies.add(savedReply);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReplies);
     }
 
     @GetMapping("/{id}")
