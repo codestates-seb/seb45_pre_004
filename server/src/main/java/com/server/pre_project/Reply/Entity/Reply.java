@@ -18,6 +18,10 @@ public class Reply {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;  // Question 엔티티의 외래키로 연결
+
     public Reply() {
         // 기본 생성자
     }
