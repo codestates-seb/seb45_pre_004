@@ -1,17 +1,19 @@
 import React from "react";
-import { parseISO, formatDistance } from "date-fns";
+import { parse, formatDistance } from "date-fns";
 
 const DateDistance = ({ inputDate }) => {
 	const currentDate = new Date();
-	const parsedInputDate = parseISO(inputDate);
+	const parsedInputDate = parse(inputDate, "yyyy/MM/dd HH:mm", new Date());
 
 	const formattedDistance = formatDistance(currentDate, parsedInputDate, {
 		addSuffix: true,
 	});
 
+	const timeOnly = formattedDistance.replace("in about ", "");
+
 	return (
 		<div>
-			<p>{formattedDistance}</p>
+			<p>{timeOnly}</p>
 		</div>
 	);
 };

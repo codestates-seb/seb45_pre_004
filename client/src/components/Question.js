@@ -10,8 +10,6 @@ import {
 } from "../styles/question";
 
 export default function Question({ item }) {
-	const inputDate = "2023-08-08T09:00:00.000Z"; // 예시: YYYY-MM-DDTHH:mm:ss.SSSZ
-
 	const minWidthToShow = 1100;
 	const [showCurrent, setShowCurrent] = useState(true);
 
@@ -25,10 +23,8 @@ export default function Question({ item }) {
 			}
 		};
 
-		// 최초 마운트 시 이벤트 리스너 추가
 		window.addEventListener("resize", handleResize);
 
-		// 컴언마운트 시 이벤트 리스너 제거
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
@@ -39,25 +35,21 @@ export default function Question({ item }) {
 			<Wrapper>
 				{showCurrent && (
 					<Current>
-						<div>1 {/* item.answer.length */} Answers</div>
-						<div>{ item.viewCount } views</div>
+						<div>{item.reply_count} Answers</div>
+						<div>{item.viewCount} views</div>
 					</Current>
 				)}
 				<Container>
 					<Contents>
-						<h1>
-							{item.title}
-						</h1>
-						<div>
-							{ item.content }
-						</div>
+						<h1>{item.title}</h1>
+						<div>{item.content.slice(0, 100)}</div>
 					</Contents>
 					<Info>
-						<span>Nanda Y {/* item.author */}</span>
+						<span> {item.user_id}</span>
 						<section style={{ display: "flex" }}>
-							<div>- 21 {/* item.asked.length */} </div>
-							<div>asked</div>
-							<DateDistance inputDate={inputDate} /* item.createdAt */ />
+							asked
+							<DateDistance inputDate={item.createdAt} />
+							ago
 						</section>
 					</Info>
 				</Container>
