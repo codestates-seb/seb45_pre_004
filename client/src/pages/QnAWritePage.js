@@ -19,7 +19,7 @@ const QnAWriteInfoContainer = styled.section`
   flex-direction: column;
   background-color: ${tokens.global.mainColor.value};
   width: 100vw;
-  padding: 16px;
+  padding: 12px 16px;
 `
 const QuestionHead = styled(BigHeadingTypo)`
   padding-top: 12px;
@@ -28,8 +28,12 @@ const QuestionHead = styled(BigHeadingTypo)`
 `;
 const QuestionInfoTitleText = styled(BodyTextTypo)`
   font-weight: ${tokens.global.bold.value};
+  margin-top: 4px;
+  margin-bottom: 4px;
 `
 const QuestionInfoText = styled(BodyTextTypo)`
+  margin-left: 8px;
+  margin-bottom: 2px;
 `
 const QuestionTitleInputDesign = styled(RegularInputDesign)`
   width: 85%;
