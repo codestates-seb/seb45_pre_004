@@ -1,11 +1,14 @@
 package com.server.pre_project.Member.entity;
 
 
+import com.server.pre_project.Reply.Entity.Reply;
+import com.server.pre_project.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -27,11 +30,11 @@ public class Member {
     private String password;
 
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.PERSIST)
-    private List<reply> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private List<Reply> answers = new ArrayList<>();
 
 }
    /* public enum UserStatus{

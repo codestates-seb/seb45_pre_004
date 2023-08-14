@@ -1,5 +1,7 @@
 package com.server.pre_project.Reply.Dto;
 
+import com.server.pre_project.Reply.Entity.Reply;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package com.server.pre_project.Reply.Entity;
 
+import com.server.pre_project.question.entity.Question;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
