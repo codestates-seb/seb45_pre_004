@@ -6,7 +6,7 @@ import { questionListReducer } from './questionListReducer';
 const rootReducer = combineReducers({
     browserWidthReducer,
     authReducer,
-    questionListReducer
+    questionListReducer,
 })
 
 export default rootReducer;
