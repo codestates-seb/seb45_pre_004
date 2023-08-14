@@ -1,94 +1,21 @@
 import React, { useEffect, useState } from "react";
-import tokens from "../styles/tokens.json";
-import { styled } from "styled-components";
-import { ButtonDesign, Warning, DisabledButton } from "../styles/form";
 import "prismjs/themes/prism.css";
 import Prism from "prismjs";
 import parse from "html-react-parser";
-import { RegularInputDesign } from "../atoms/Input";
-import { BigHeadingTypo, BodyTextTypo } from "../atoms/Typography";
-
-const globalTokens = tokens.global;
-
-const QnAWritePageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-const QnAWriteInfoContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  background-color: ${tokens.global.mainColor.value};
-  width: 100vw;
-  padding: 12px 16px;
-`
-const QuestionHead = styled(BigHeadingTypo)`
-  padding-top: 12px;
-  padding-left: 12px;
-  padding-bottom: 3px;
-`;
-const QuestionInfoTitleText = styled(BodyTextTypo)`
-  font-weight: ${tokens.global.bold.value};
-  margin-top: 4px;
-  margin-bottom: 4px;
-`
-const QuestionInfoText = styled(BodyTextTypo)`
-  margin-left: 8px;
-  margin-bottom: 2px;
-`
-const QuestionTitleInputDesign = styled(RegularInputDesign)`
-  width: 85%;
-  margin-left: 1rem;
-`;
-const Button = styled(ButtonDesign)`
-  margin: 1rem;
-`;
-const PreviewWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-const Preview = styled.div`
-  border: ${globalTokens.regularWidth.value}px solid ${globalTokens.lightGreyColor.value};
-  flex-grow: 1;
-  max-width: 650px;
-  min-width: 300px;
-`;
-const PreviewP = styled.p`
-  color: red;
-  margin: 1rem;
-`;
-
-const PreviewContent = styled.div`
-  // 위에서 스타일을 죽여서 따로 설정해줘야 하는듯?
-  & blockquote {
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-left: 5px solid lightgray;
-  }
-  & pre {
-    background-color: lightgray;
-  }
-  & table tr td {
-    border: 1px solid gray;
-  }
-  & strong {
-    font-weight: bold;
-  }
-  & i {
-    font-style: italic;
-  }
-  & h2 {
-    font-size: 1.5rem;
-  }
-  & h3 {
-    font-size: 1.2rem;
-  }
-  & h4 {
-    font-size: 1rem;
-  }
-`;
+import { Warning, DisabledButton } from "../styles/form";
+import {
+  QnAWritePageContainer,
+  QnAWriteInfoContainer,
+  QuestionHead,
+  QuestionInfoTitleText,
+  QuestionInfoText,
+  QuestionTitleInputDesign,
+  Button,
+  PreviewWrapper,
+  Preview,
+  PreviewP,
+  PreviewContent,
+} from "../styles/qnaWrite";
 
 const QnAWritePage = ({ Editor, CKEditor }) => {
   const [title, setTitle] = useState("");
@@ -110,16 +37,27 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
 
   return (
     <QnAWritePageContainer>
-        <QuestionHead>질문하세요!</QuestionHead>
-        <QnAWriteInfoContainer>
-            <QuestionInfoTitleText>좋은 질문을 작성하는 방법</QuestionInfoTitleText>
-            <QuestionInfoText>여러분은 프로그래밍과 관련된 질문을 할 준비가되셨습니다. 아래 폼을 작성해보세요</QuestionInfoText>
-            <QuestionInfoTitleText>단계</QuestionInfoTitleText>
-            <QuestionInfoText>여러분의 문제를 제목 한 줄로 표현해보세요.</QuestionInfoText>
-            <QuestionInfoText>더 구체적이게 여러분의 문제를 묘사해보세요.</QuestionInfoText>
-            <QuestionInfoText>무엇을 했고 무엇을 기대했는지 작성하세요.</QuestionInfoText>
-            <QuestionInfoText>여러분의 질문을 다시 한번 검토한 후에 제출해주세요!</QuestionInfoText>
-        </QnAWriteInfoContainer>
+      <QuestionHead>질문하세요!</QuestionHead>
+      <QnAWriteInfoContainer>
+        <QuestionInfoTitleText>좋은 질문을 작성하는 방법</QuestionInfoTitleText>
+        <QuestionInfoText>
+          여러분은 프로그래밍과 관련된 질문을 할 준비가되셨습니다. 아래 폼을
+          작성해보세요
+        </QuestionInfoText>
+        <QuestionInfoTitleText>단계</QuestionInfoTitleText>
+        <QuestionInfoText>
+          여러분의 문제를 제목 한 줄로 표현해보세요.
+        </QuestionInfoText>
+        <QuestionInfoText>
+          더 구체적이게 여러분의 문제를 묘사해보세요.
+        </QuestionInfoText>
+        <QuestionInfoText>
+          무엇을 했고 무엇을 기대했는지 작성하세요.
+        </QuestionInfoText>
+        <QuestionInfoText>
+          여러분의 질문을 다시 한번 검토한 후에 제출해주세요!
+        </QuestionInfoText>
+      </QnAWriteInfoContainer>
       <form onSubmit={onSubmitHandler}>
         <div>
           <QuestionHead>질문 제목</QuestionHead>
