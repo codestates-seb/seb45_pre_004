@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class QuestionDto {
     private long questionId;
+    private long userId;
     private String title;
     private String content;
 
