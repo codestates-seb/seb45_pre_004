@@ -17,15 +17,18 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                //모든 요청 허가
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+                //h2 화면 깨짐 방지
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+                //로그인 로직 추가
                 .formLogin((formLogin) -> formLogin
-                        .loginPage("/user/login")
+                        .loginPage("/member/login")
                         .defaultSuccessUrl("/"))
         ;
         return http.build();
@@ -36,24 +39,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 public class WebConfig implements WebMvcConfigurer {
     @Bean
