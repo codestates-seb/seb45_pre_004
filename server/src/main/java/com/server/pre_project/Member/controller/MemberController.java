@@ -39,6 +39,11 @@ public class MemberController {
         List<Member> members = memberService.getAllUsers();
         return ResponseEntity.ok(members);
     }
+    /*   로그인 로직 return page값 프론트에게 물어보기
+    @GetMapping("/login")
+    public String login(){
+        return LoginPage;
+    } */
 
     @PutMapping("/{id}")
     public ResponseEntity<Member> updateUser(@PathVariable Long id, @RequestBody MemberDto memberDto) {
