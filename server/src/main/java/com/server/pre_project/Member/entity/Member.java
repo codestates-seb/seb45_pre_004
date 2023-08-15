@@ -39,4 +39,18 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Reply> replys = new ArrayList<>();
 
+
+    @Getter
+    //권한 관리: 관리자와 일반멤버
+    public enum UserRole {
+        ADMIN("ROLE_ADMIN"),
+        MEMBER("ROLE_MEMBER");
+
+        UserRole(String value) {
+            this.value = value;
+        }
+
+        private String value;
+    }
+
 }
