@@ -48,5 +48,4 @@ public class ReplyController {
         return reply.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // 추가적인 API 정의 가능
 }
