@@ -1,4 +1,4 @@
-package com.server.pre_project.global.config;
+package com.server.pre_project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
