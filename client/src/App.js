@@ -39,7 +39,6 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Header />
-			{deviceWidth}
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/login" element={<Login />} />
