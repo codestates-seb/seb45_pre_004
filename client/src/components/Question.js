@@ -13,29 +13,11 @@ import { useSelector } from "react-redux";
 
 export default function Question({ item }) {
 	const browserWidth = useSelector((state) => state.browserWidthReducer);
-	const [showCurrent, setShowCurrent] = useState(true);
-
-	useEffect(() => {
-		// 화면 너비 변경 이벤트 핸들러 함수
-		const handleResize = () => {
-			if (browserWidth > 900) {
-				setShowCurrent(true);
-			} else {
-				setShowCurrent(false);
-			}
-		};
-
-		window.addEventListener("resize", handleResize);
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, [browserWidth]);
 
 	return (
 		<>
 			<Wrapper>
-				{showCurrent && (
+				{browserWidth>900 && (
 					<Current>
 						<div>{item.reply_count} Answers</div>
 						<div>{item.viewCount} views</div>
