@@ -55,6 +55,12 @@ export const Buttons = styled.section`
 	flex-direction: column;
 	gap: 10px;
 	padding: 0px 40px;
+
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
 `;
 
 export const WhiteButton = styled(SmallButtonDesign)`
@@ -83,4 +89,9 @@ export const ExtraSmallButton = styled(SmallCircleButtonDesign)`
 		height: 30px;
 		margin-top: 2px;
 	}
+`;
+
+export const ExtraSmallPointButton = styled(ExtraSmallButton)`
+	background-color: ${globalTokens.pointColor.value};
+	color: ${globalTokens.whiteColor.value};
 `;
