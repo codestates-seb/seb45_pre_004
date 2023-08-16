@@ -1,5 +1,7 @@
 package com.server.pre_project.question.entity;
 
+import com.server.pre_project.Member.entity.Member;
+import com.server.pre_project.Reply.Entity.Reply;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,9 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
+
+//    @Column(nullable = false)
+//    private long userId;
 
     @Column(nullable = false, length = 30)
     private String title;
@@ -45,15 +50,14 @@ public class Question {
     @Column(name = "view_count")
     private int viewCount = 0;
 
-//    @Column(name = "reply_count")
-//    private int reply_count = 0;
-//
-//    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
-//    private List<Reply> replys = new ArrayList<>();
-//
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member member;
+    @Column(name = "reply_count")
+    private int reply_count = 0;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    private List<Reply> replys = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
 
 }
-// dev가기전 주석 삭제하고 dev하기
