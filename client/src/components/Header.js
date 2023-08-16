@@ -1,8 +1,10 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logoImg from "../assets/images/logoImage.png";
-import tokens from "../styles/tokens.json";
-import { SmallButtonDesign as Button } from "../atoms/Button";
+import enter from "../assets/images/enter.png";
+import exit from "../assets/images/exit.png";
+
 import {
 	Background,
 	Wrapper,
@@ -10,6 +12,10 @@ import {
 	Buttons,
 	LogoLink,
 	LogoImg,
+	WhiteButton,
+	PointButton,
+	ExtraSmallButton,
+	ExtraSmallPointButton,
 } from "../styles/header";
 
 export default function Header() {
@@ -17,6 +23,7 @@ export default function Header() {
 	const isLoginPage =
 		location.pathname === "/login" || location.pathname === "/signup";
 	const isLogin = useSelector((state) => state.authReducer);
+	const browserWidth = useSelector((state) => state.browserWidthReducer);
 
 	return (
 		<Background>
@@ -26,26 +33,38 @@ export default function Header() {
 					<br />
 					<Title>STACK UNDERFLOW</Title>
 				</LogoLink>
-				{!isLoginPage && (
-					<Buttons>
-						{isLogin ? (
+				<Buttons>
+					{isLoginPage ? null : isLogin ? (
+						browserWidth > 900 ? (
 							<LogoLink to="/">
-								<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
+								<WhiteButton>로그아웃</WhiteButton>
 							</LogoLink>
 						) : (
-							<>
-								<Link to="/login">
-									<Button color={tokens.global.pointColor.value}>로그인</Button>
-								</Link>
-								<Link to="/signup">
-									<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>
-										가입하기
-									</Button>
-								</Link>
-							</>
-						)}
-					</Buttons>
-				)}
+							<LogoLink to="/">
+								<ExtraSmallPointButton>
+									<img src={exit} alt="logout buttton" />
+								</ExtraSmallPointButton>
+							</LogoLink>
+						)
+					) : browserWidth > 900 ? (
+						<div>
+							<Link to="/login">
+								<PointButton>로그인</PointButton>
+							</Link>
+							<Link to="/signup">
+								<WhiteButton>가입하기</WhiteButton>
+							</Link>
+						</div>
+					) : (
+						<div>
+							<Link to="/login">
+								<ExtraSmallButton>
+									<img src={enter} alt="login buttton" />
+								</ExtraSmallButton>
+							</Link>
+						</div>
+					)}
+				</Buttons>
 			</Wrapper>
 		</Background>
 	);
