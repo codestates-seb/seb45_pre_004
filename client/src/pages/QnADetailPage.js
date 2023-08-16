@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import parse from "html-react-parser";
 
 import DateDistance from "../components/DateDistance";
 import {
-	Wrapper,
-	Thread,
-	Card,
-	QHead,
-	AHead,
-	InfoWrapper,
-	Info,
-	HeadInfo,
-	Edit,
-	Contents,
-	User,
-	UserInfo,
-	UserInfoData,
-	AnswerCard,
-	SubmitButton,
+  Wrapper,
+  Thread,
+  Card,
+  QHead,
+  AHead,
+  InfoWrapper,
+  Info,
+  HeadInfo,
+  Edit,
+  Contents,
+  User,
+  UserInfo,
+  UserInfoData,
+  AnswerCard,
+  SubmitButton,
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
@@ -106,7 +107,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             }}
           />
         ) : (
-          <Contents>{question.content}</Contents>
+          <Contents>{question.content && parse(question.content)}</Contents>
         )}
 
         <User>
