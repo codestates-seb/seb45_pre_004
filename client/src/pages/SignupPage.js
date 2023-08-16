@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { SignUpPageContainer, SignUpContainer, Input, InputAndLabelBox, InputLabel, SignUpButton, WarningSpan, SignupHeading } from "../styles/signupPageStyle";
+import { SignUpPageContainer, SignUpContainer, Input, InputAndLabelBox, InputLabel, SignUpButton, WarningSpan, SignupHeading, SignupPageModalBackdrop, SignupPageModalContainer, SignupPageModalText, SignupPageModalButton } from "../styles/signupPageStyle";
+
+import { signupService } from "../services/loginServices";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
+
 import tokens from '../styles/tokens.json'
-import { axios } from 'axios';
+const globalTokens = tokens.global;
 
 const SignupPage = () => {
+  const isModalOpen = useSelector((state)=>state.isModalOpenReducer);
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +20,7 @@ const SignupPage = () => {
   const [idWarningText, setIdWarningText] = useState("");
   const [passwordWarningText, setPasswordWarningText] = useState("");
   const [passwordCheckWarningText, setPasswordCheckWarningText] = useState("");
+
 
   const onChangeNameHandler = (e) => {
     let nameInput = e.target.value;
@@ -55,6 +64,16 @@ const SignupPage = () => {
 
     setPasswordCheck(passwordCheckInput);
   };
+  //가입 처리 메소드
+  const signUp = async () => { 
+      try {
+        const response = await signupService({ name:name, id:id, password:password });
+        console.log(response.data);
+        dispatch(openModalAction());
+      } catch (err) {
+        console.log(err)
+      }
+    }
   const onSignupButtonClickHandler = (e) => {
     if(!name) setNameWarningText('이름을 입력해 주세요!');
     if(!id) setIdWarningText('아이디를 입력해 주세요!');
@@ -63,7 +82,12 @@ const SignupPage = () => {
     if( !nameWarningText && !idWarningText && !passwordWarningText && !passwordCheckWarningText) {
       console.log('가입 성공');
       //가입 성공 로직 작성
+      signUp();
     }
+  }
+  const onLoginButtonClickListener = (e) => {
+    //로그인 화면으로 이동 후 팝업창 닫음 (Link 태그라서 팝업창만 닫으면 됨)
+    dispatch(closeModalAction());
   }
 
   return (
@@ -112,6 +136,12 @@ const SignupPage = () => {
             color={tokens.global.pointColor.value}
             onClick={onSignupButtonClickHandler}>가입하기</SignUpButton>
       </SignUpContainer>
+      <SignupPageModalBackdrop isModalOpen={isModalOpen}>
+        <SignupPageModalContainer isModalOpen={isModalOpen} onClick={ (e) => { e.stopPropagation() }}>
+          <SignupPageModalText isModalOpen={isModalOpen} >회원 가입이 완료되었습니다.</SignupPageModalText>
+          <SignupPageModalButton to='/login' isModalOpen={isModalOpen} color={globalTokens.pointColor.value} onClick={onLoginButtonClickListener}>로그인하기</SignupPageModalButton>
+        </SignupPageModalContainer>
+      </SignupPageModalBackdrop>
     </SignUpPageContainer>
   );
 };

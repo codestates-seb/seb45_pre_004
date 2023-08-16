@@ -3,13 +3,14 @@ import { styled } from 'styled-components';
 import tokens from '../styles/tokens.json'
 import { RegularButtonDesign } from '../atoms/Button';
 import { BodyTextTypo } from '../atoms/Typography';
+import { Link } from 'react-router-dom';
 
 const globalTokens = tokens.global;
 
 export const ModalBackdrop = styled.div`
     width: 100vw;
     height: 100vh;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -48,6 +49,32 @@ export const ModalButton = styled(RegularButtonDesign)`
     width: 80%;
     height: 60px;
     margin-bottom: 24px;
+`
+export const ModalLinkButton = styled(Link)`
+    width: 80%;
+    height: 60px;
+    margin-bottom: 24px;
+    border-radius: ${globalTokens.regularRadius.value}px;
+    border: 0;
+    font-size: ${globalTokens.smallHeading.value}px;
+    font-weight: ${globalTokens.bold.value};
+    color: ${(props)=>props.fontColor?props.fontColor:'white'};
+    box-shadow: ${globalTokens.regularShadow.value.x}px
+        ${globalTokens.regularShadow.value.y}px
+        ${globalTokens.regularShadow.value.blur}px
+        ${globalTokens.regularShadow.value.spread}px
+        ${globalTokens.regularShadow.value.color};
+    background: ${(props) => props.color || `${globalTokens.mainColor.value}`};
+    transition: 300ms;
+    &:hover {
+    cursor: pointer;
+    background-color: ${(props) =>
+      props.hover || `${globalTokens.darkColor.value}`};
+	}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 const Modal = ({isModalOpen}) => {

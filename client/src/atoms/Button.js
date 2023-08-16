@@ -2,26 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import tokens from "../styles/tokens.json";
 import { Link } from 'react-router-dom';
+
+const globalTokens = tokens.global;
 //props : color, fontColor
 export const RegularButtonDesign = styled.button`
   width: 300px;
   height: 70px;
-  border-radius: ${tokens.global.regularRadius.value}px;
+  border-radius: ${globalTokens.regularRadius.value}px;
   border: 0;
-  font-size: ${tokens.global.smallHeading.value}px;
-  font-weight: ${tokens.global.bold.value};
+  font-size: ${globalTokens.smallHeading.value}px;
+  font-weight: ${globalTokens.bold.value};
   color: ${(props)=>props.fontColor?props.fontColor:'white'};
-  box-shadow: ${tokens.global.regularShadow.value.x}px
-    ${tokens.global.regularShadow.value.y}px
-    ${tokens.global.regularShadow.value.blur}px
-    ${tokens.global.regularShadow.value.spread}px
-    ${tokens.global.regularShadow.value.color};
-  background: ${(props) => props.color || `${tokens.global.mainColor.value}`};
+  box-shadow: ${globalTokens.regularShadow.value.x}px
+    ${globalTokens.regularShadow.value.y}px
+    ${globalTokens.regularShadow.value.blur}px
+    ${globalTokens.regularShadow.value.spread}px
+    ${globalTokens.regularShadow.value.color};
+  background: ${(props) => props.color || `${globalTokens.mainColor.value}`};
   transition: 300ms;
   &:hover {
     cursor: pointer;
     background-color: ${(props) =>
-      props.hover || `${tokens.global.darkColor.value}`};
+      props.hover || `${globalTokens.darkColor.value}`};
 	}
 `;
 //props : color, fontColor
@@ -29,50 +31,50 @@ export const SmallCircleButtonDesign = styled(RegularButtonDesign)`
 	border-radius: 50%;
 	width: 60px;
 	height: 60px;
-	font-size: ${tokens.global.bodyText.value}px;
+	font-size: ${globalTokens.bodyText.value}px;
 	&:hover {
 		cursor: pointer;
-		background-color: ${tokens.global.darkColor.value};
-		color: ${tokens.global.whiteColor.value};
+		background-color: ${globalTokens.darkColor.value};
+		color: ${globalTokens.whiteColor.value};
 	}
 `;
 
 export const SmallButtonDesign = styled.button`
-	border-radius: ${tokens.global.regularRadius.value}px;
+	border-radius: ${globalTokens.regularRadius.value}px;
 	width: 90px;
 	height: 30px;
-	font-size: ${tokens.global.bodyText.value}px;
-	font-weight: ${tokens.global.bold.value};
+	font-size: ${globalTokens.bodyText.value}px;
+	font-weight: ${globalTokens.bold.value};
 	border: 0;
 	color: ${(props)=>props.fontColor?props.fontColor:'white'};
-	box-shadow: ${tokens.global.regularShadow.value.x}px
-		${tokens.global.regularShadow.value.y}px
-		${tokens.global.regularShadow.value.blur}px
-		${tokens.global.regularShadow.value.spread}px
-		${tokens.global.regularShadow.value.color};
-	background: ${(props) => props.color || `${tokens.global.mainColor.value}`};
+	box-shadow: ${globalTokens.regularShadow.value.x}px
+		${globalTokens.regularShadow.value.y}px
+		${globalTokens.regularShadow.value.blur}px
+		${globalTokens.regularShadow.value.spread}px
+		${globalTokens.regularShadow.value.color};
+	background: ${(props) => props.color || `${globalTokens.mainColor.value}`};
 	transition: 300ms;
 	&:hover {
 		cursor: pointer;
-		background-color: ${(props) =>props.hover || `${tokens.global.darkColor.value}`};
+		background-color: ${(props) =>props.hover || `${globalTokens.darkColor.value}`};
 		color: ${(props)=>props.hoverFontColor||'white'};
 	}
 `;
 
 export const SmallLinkButtonDesign = styled(Link)`
-	border-radius: ${tokens.global.regularRadius.value}px;
+	border-radius: ${globalTokens.regularRadius.value}px;
 	width: 90px;
 	height: 30px;
-	font-size: ${tokens.global.bodyText.value}px;
-	font-weight: ${tokens.global.bold.value};
+	font-size: ${globalTokens.bodyText.value}px;
+	font-weight: ${globalTokens.bold.value};
 	border: 0;
 	color: ${(props)=>props.fontColor?props.fontColor:'white'};
-	box-shadow: ${tokens.global.regularShadow.value.x}px
-		${tokens.global.regularShadow.value.y}px
-		${tokens.global.regularShadow.value.blur}px
-		${tokens.global.regularShadow.value.spread}px
-		${tokens.global.regularShadow.value.color};
-	background: ${(props) => props.color || `${tokens.global.mainColor.value}`};
+	box-shadow: ${globalTokens.regularShadow.value.x}px
+		${globalTokens.regularShadow.value.y}px
+		${globalTokens.regularShadow.value.blur}px
+		${globalTokens.regularShadow.value.spread}px
+		${globalTokens.regularShadow.value.color};
+	background: ${(props) => props.color || `${globalTokens.mainColor.value}`};
 	transition: 300ms;
 	display: flex;
 	flex-direction: column;
@@ -80,7 +82,7 @@ export const SmallLinkButtonDesign = styled(Link)`
 	align-items: center;
 	&:hover {
 		cursor: pointer;
-		background-color: ${(props) =>props.hover || `${tokens.global.darkColor.value}`};
+		background-color: ${(props) =>props.hover || `${globalTokens.darkColor.value}`};
 		color: ${(props)=>props.hoverFontColor||'white'};
 	}
 `;
@@ -89,13 +91,13 @@ export const TextButtonDesign = styled(Link)`
 	background-color: transparent;
 	border-style: none;
 	text-decoration: none;
-	color: ${tokens.global.blackColor.value};
+	color: ${globalTokens.blackColor.value};
 	padding: 10px 20px;
-	font-size: ${tokens.global.bodyText}px;
+	font-size: ${globalTokens.bodyText}px;
 	cursor: pointer;
 
 	&:hover{
-		color: ${tokens.global.lightGreyColor.value};
+		color: ${globalTokens.lightGreyColor.value};
 		transition: 300ms;
 	}
 
@@ -105,19 +107,19 @@ export const TextButtonDesign = styled(Link)`
 `
 
 export const PaginationButtonDesign = styled.button`
-	border: ${tokens.global.regularWidth.value}px solid ${tokens.global.lightGreyColor.value};
-	border-radius: ${tokens.global.smallRadius.value}px;
+	border: ${globalTokens.regularWidth.value}px solid ${globalTokens.lightGreyColor.value};
+	border-radius: ${globalTokens.smallRadius.value}px;
 	padding: 0px 10px;
 	height: 30px;
-	color: ${tokens.global.blackColor.value};
-	font-size: ${tokens.global.bodyText.value}px;
+	color: ${globalTokens.blackColor.value};
+	font-size: ${globalTokens.bodyText.value}px;
 	transition: 300ms;
-	background-color: ${tokens.global.whiteColor.value};
+	background-color: ${globalTokens.whiteColor.value};
 	cursor: pointer;
 
 	&:hover {
-		color: ${tokens.global.whiteColor.value};
-		background-color: ${tokens.global.pointColor.value};
+		color: ${globalTokens.whiteColor.value};
+		background-color: ${globalTokens.pointColor.value};
 	}
 `
 
