@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "prismjs/themes/prism.css";
 import Prism from "prismjs";
 import parse from "html-react-parser";
@@ -21,15 +23,24 @@ import {
 const QnAWritePage = ({ Editor, CKEditor }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
 
   const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    // 서버로 데이터를 전송하는 로직
-    // 게시판의 내용은 content라는 상태에 이미 담겨있으므로, 게시판의 내용을 어떻게 옮길지 고민 안해도 됨
+    const data = await axios.post(
+      // id는 서버측에서 제공
+      `${process.env.REACT_APP_SERVER_URL}questions`,
+      {
+        title,
+        content,
+      }
+    );
+    const id = data.data["questionId"]; // 받은 아이디를 통해 페이지로 네비게이트 시킴
+    navigate(`/detail/${id}`);
   };
 
   useEffect(() => {
@@ -78,7 +89,6 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
-                console.log(data);
               }}
             />
             <Preview>
