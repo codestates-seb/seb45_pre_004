@@ -33,7 +33,7 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
     e.preventDefault();
     const data = await axios.post(
       // id는 서버측에서 제공
-      `${process.env.REACT_APP_SERVER_URL}questions`,
+      `${process.env.REACT_APP_SERVER_URL}/questions`,
       {
         title,
         content,
