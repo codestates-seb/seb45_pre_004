@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -21,16 +22,30 @@ import {
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
-	const question = useSelector((state) => state.questionDetailReducer);
-
+	// const question = useSelector((state) => state.questionDetailReducer);
+	// 리덕스 사용시, 렌더링 시 상태값을 제 때 못 가져오는듯? state로 대체시 문제 없음
+	// 애초에 여기서만 쓰는 데이터이므로, 리덕스로 관리할 필요는 없을듯
+	// 만약 리덕스를 사용하고자한다면, 차라리 questionList 리듀서에서 필요한 아이디로 쏙쏙 뽑아쓰는것이 낫다고 보여짐.
+	// 백엔드 측에서 repiles가 아니라 replys라고 해둠. 오타 수정을 둘 중 한 곳에서 해야하는데 프론트에서 함 ㅋㅋ
+	let params = useParams();
 	const [editMode, setEditMode] = useState(false);
 	const [content, setContent] = useState("");
 	const [editedContent, setEditedContent] = useState("");
+	const [question, setQuestion] = useState({});
+
+	useEffect(() => {
+		async function hey() {
+			const data = await axios.get(
+				`${process.env.REACT_APP_SERVER_URL}/questions/${params.id}`
+			);
+			setQuestion(data.data);
+		}
+		hey();
+	}, [params.id]);
 
 	return (
 		<Wrapper>
 			<Thread />
-
 			<Card>
 				<QHead>
 					<h1>{question.title}</h1>
@@ -45,12 +60,12 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 								<div>{question.viewCount}</div>
 							</Info>
 						</HeadInfo>
-						{/* question.replies.userId === currentUser.userId 등으로 검증 필요*/}
+						{/* question.replys.userId === currentUser.userId 등으로 검증 필요*/}
 						{question.userId && (
 							<Edit>
 								{/* editMode 상태에 따라 버튼 텍스트 토글 */}
 								<div
-									onClick={() => setEditMode(prevEditMode => !prevEditMode)}
+									onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
 								>
 									{editMode ? "Done" : "Edit"}
 								</div>
@@ -75,7 +90,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 					<Contents>{question.content}</Contents>
 				)}
 				<User>
-					<DateDistance inputDate={question.replies.createdAt}></DateDistance>
+					{/*<DateDistance inputDate={question.replys.createdAt}></DateDistance>*/}
 					<UserInfo>
 						<img
 							src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
@@ -89,55 +104,54 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 					</UserInfo>
 				</User>
 			</Card>
-
-			{question.replies.map((reply) => (
-				<Card key={reply.replyId}>
-					<AHead>
-						<h1>1 {/* {question.replies.length} */} Answer</h1>
-						{/* reply.userId === currentUser.userId 등으로 검증 필요*/}
-						{reply.userId && (
-							<Edit>
-								{/* editMode 상태에 따라 버튼 텍스트 토글 */}
-								<div
-									onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
-								>
-									{editMode ? "Done" : "Edit"}
-								</div>
-								<div>Delete</div>
-							</Edit>
-						)}
-					</AHead>
-					<hr />
-					{/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
-					{editMode ? (
-						<CKEditor
-							editor={Editor}
-							data={editedContent}
-							onChange={(event, editor) => {
-								const data = editor.getData();
-								setEditedContent(data);
-							}}
-						/>
-					) : (
-						<Contents>{reply.content}</Contents>
-					)}
-					<User>
-						<DateDistance inputDate={reply.createdAt}></DateDistance>
-						<UserInfo>
-							<img
-								src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
-								alt="testimg"
+			{question.replys &&
+				question.replys.map((reply) => (
+					<Card key={reply.replyId}>
+						<AHead>
+							<h1>1 {/* {question.replys.length} */} Answer</h1>
+							{/* reply.userId === currentUser.userId 등으로 검증 필요*/}
+							{reply.userId && (
+								<Edit>
+									{/* editMode 상태에 따라 버튼 텍스트 토글 */}
+									<div
+										onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
+									>
+										{editMode ? "Done" : "Edit"}
+									</div>
+									<div>Delete</div>
+								</Edit>
+							)}
+						</AHead>
+						<hr />
+						{/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
+						{editMode ? (
+							<CKEditor
+								editor={Editor}
+								data={editedContent}
+								onChange={(event, editor) => {
+									const data = editor.getData();
+									setEditedContent(data);
+								}}
 							/>
-							{/* {reply.userId.picture} */}
-							<UserInfoData>
-								<div>SUF team {/* {reply.userId} */}</div>
-								<div>100 answers{/* {reply.userId.info} */}</div>
-							</UserInfoData>
-						</UserInfo>
-					</User>
-				</Card>
-			))}
-
+						) : (
+							<Contents>{reply.content}</Contents>
+						)}
+						<User>
+							<DateDistance inputDate={reply.createdAt}></DateDistance>
+							<UserInfo>
+								<img
+									src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
+									alt="testimg"
+								/>
+								{/* {reply.userId.picture} */}
+								<UserInfoData>
+									<div>SUF team {/* {reply.userId} */}</div>
+									<div>100 answers{/* {reply.userId.info} */}</div>
+								</UserInfoData>
+							</UserInfo>
+						</User>
+					</Card>
+				))}
 			<AnswerCard>
 				<AHead>
 					<h1>Your Answer</h1>
