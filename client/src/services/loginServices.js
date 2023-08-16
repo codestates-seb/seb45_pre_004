@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ROOT_URL } from ".";
+import { ROOT_URL } from "./index";
 
 export const signupService = async ({name,id,password}) => {
     const response = await axios.post(
