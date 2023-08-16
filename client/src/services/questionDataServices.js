@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ROOT_URL } from ".";
+import { ROOT_URL } from "./index";
 
 //전체 질문 목록을 조회하는 메소드
 export const getQuestionsService = async () => {
