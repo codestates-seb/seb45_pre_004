@@ -22,15 +22,15 @@ public class ReplyController {
     }
 
     @PostMapping
-    public ResponseEntity<Reply> createReply(@RequestBody ReplyDto replyDto) {
+    public ResponseEntity<?> createReply(@RequestBody ReplyDto replyDto) {
         if (replyDto.getContent() == null || replyDto.getContent().trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("댓글 내용이 비어있습니다.");
         }
 
         // 각 게시글당 최대 댓글 개수 체크
         int totalReplies = (int) replyRepository.count();
         if (totalReplies >= 5) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("댓글 개수가 초과되었습니다.");
         }
 
         Reply reply = new Reply();
@@ -43,10 +43,11 @@ public class ReplyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reply> getReply(@PathVariable int id) {
+    public ResponseEntity<?> getReply(@PathVariable int id) {
         Optional<Reply> reply = replyRepository.findById(id);
         return reply.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // 추가적인 API 정의 가능
 }
+
