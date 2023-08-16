@@ -21,8 +21,6 @@ const LoginPage = () => {
 	}
 	//로그인 버튼 눌렀을 때 handler
 	const onSubmitHandler = (e) => {
-		//아이디, 비밀번호 유효성 검사
-		// 로그인 API 호출 등 로직 작성 필요
 		e.preventDefault();
 		
 		//유효성 검사 문구 출력 로직
@@ -34,9 +32,8 @@ const LoginPage = () => {
 			return;
 		} else {
 			setWarningText('');
+			dispatch(login());
 		}
-
-		dispatch(login());
 	};
 
 	return (
