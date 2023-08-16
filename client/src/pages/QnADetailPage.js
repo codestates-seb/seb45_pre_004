@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import DateDistance from "../components/DateDistance";
@@ -26,12 +26,33 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   // 리덕스 사용시, 렌더링 시 상태값을 제 때 못 가져오는듯? state로 대체시 문제 없음
   // 애초에 여기서만 쓰는 데이터이므로, 리덕스로 관리할 필요는 없을듯
   // 만약 리덕스를 사용하고자한다면, 차라리 questionList 리듀서에서 필요한 아이디로 쏙쏙 뽑아쓰는것이 낫다고 보여짐.
-  // 백엔드 측에서 repiles가 아니라 replys라고 해둠. 오타 수정을 둘 중 한 곳에서 해야하는데 프론트에서 함 ㅋㅋ
+  // 백엔드 측에서 repiles가 아니라 replys라고 해둠. 오타 수정을 둘 중 한 곳에서 해야하는데
   let params = useParams();
+
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const [question, setQuestion] = useState({});
+
+  const navigate = useNavigate();
+
+  const onClickEditHandler = () => {
+    if (editMode === true) {
+      // axios.patch(`${process.env.REACT_APP_SERVER_URL}`, { editedContent });
+    }
+    setEditMode((prevEditMode) => !prevEditMode);
+    console.log("CHANGED");
+  };
+
+  const onClickDeleteHandler = () => {
+    // axios.delete(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`);
+    navigate("/"); // 삭제한 후 리디렉션
+  };
+
+  const onClickSubmitHandler = (e) => {
+    e.preventDefault();
+    // axios.post(`${process.env.REACT_APP_SERVER_URL}`, { content });
+  };
 
   useEffect(() => {
     async function hey() {
@@ -61,34 +82,33 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
               </Info>
             </HeadInfo>
             {/* question.replys.userId === currentUser.userId 등으로 검증 필요*/}
-            {question.userId && (
-              <Edit>
+            {
+              /*question.userId && */ <Edit>
                 {/* editMode 상태에 따라 버튼 텍스트 토글 */}
-                <div
-                  onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
-                >
+                <div onClick={onClickEditHandler}>
                   {editMode ? "Done" : "Edit"}
                 </div>
-                <div>Delete</div>
+                <div onClick={onClickDeleteHandler}>Delete</div>
               </Edit>
-            )}
+            }
           </InfoWrapper>
         </QHead>
         <hr />
+
         {/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
         {editMode ? (
           <CKEditor
             editor={Editor}
-            data={editedContent}
+            data={question.content}
             onChange={(event, editor) => {
               const data = editor.getData();
               setEditedContent(data);
-              console.log(data);
             }}
           />
         ) : (
           <Contents>{question.content}</Contents>
         )}
+
         <User>
           {/*<DateDistance inputDate={question.replys.createdAt}></DateDistance>*/}
           <UserInfo>
@@ -108,7 +128,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         question.replys.map((reply) => (
           <Card key={reply.replyId}>
             <AHead>
-              <h1>1 {/* {question.replys.length} */} Answer</h1>
+              <h1>{question.replys.length} Answer</h1>
               {/* reply.userId === currentUser.userId 등으로 검증 필요*/}
               {reply.userId && (
                 <Edit>
@@ -157,15 +177,17 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           <h1>Your Answer</h1>
         </AHead>
         <hr />
-        <CKEditor
-          editor={Editor}
-          data={content}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            setContent(data);
-          }}
-        />
-        <SubmitButton>Post Your Answer</SubmitButton>
+        <form onClick={onClickSubmitHandler}>
+          <CKEditor
+            editor={Editor}
+            data={content}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setContent(data);
+            }}
+          />
+          <SubmitButton>Post Your Answer</SubmitButton>
+        </form>
       </AnswerCard>
     </Wrapper>
   );
