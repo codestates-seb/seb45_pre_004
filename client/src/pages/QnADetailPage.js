@@ -53,6 +53,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             <HeadInfo>
               <Info>
                 <div>Asked</div>
+                <DateDistance inputDate={question.createdAt}></DateDistance>
               </Info>
               <Info>
                 <span>Viewed</span>
