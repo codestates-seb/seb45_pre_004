@@ -4,24 +4,25 @@ import axios from "axios";
 
 import DateDistance from "../components/DateDistance";
 import {
-  Wrapper,
-  Thread,
-  Card,
-  QHead,
-  AHead,
-  InfoWrapper,
-  Info,
-  HeadInfo,
-  Edit,
-  Contents,
-  User,
-  UserInfo,
-  UserInfoData,
-  AnswerCard,
-  SubmitButton,
+	Wrapper,
+	Thread,
+	Card,
+	QHead,
+	AHead,
+	InfoWrapper,
+	Info,
+	HeadInfo,
+	Edit,
+	Contents,
+	User,
+	UserInfo,
+	UserInfoData,
+	AnswerCard,
+	SubmitButton,
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
+
   // const question = useSelector((state) => state.questionDetailReducer);
   // 리덕스 사용시, 렌더링 시 상태값을 제 때 못 가져오는듯? state로 대체시 문제 없음
   // 애초에 여기서만 쓰는 데이터이므로, 리덕스로 관리할 필요는 없을듯
@@ -191,6 +192,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
       </AnswerCard>
     </Wrapper>
   );
+
 };
 
 export default QnADetailPage;

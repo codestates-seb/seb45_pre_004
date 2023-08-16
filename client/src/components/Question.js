@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import DateDistance from "./DateDistance";
 import {
 	Wrapper,
@@ -17,7 +15,7 @@ export default function Question({ item }) {
 	return (
 		<>
 			<Wrapper>
-				{browserWidth>900 && (
+				{browserWidth > 900 && (
 					<Current>
 						<div>{item.reply_count} Answers</div>
 						<div>{item.viewCount} views</div>
