@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SignUpPageContainer, SignUpContainer, Input, InputAndLabelBox, InputLabel, SignUpButton, WarningSpan, SignupHeading } from "../styles/signupPageStyle";
 import tokens from '../styles/tokens.json'
+import { axios } from 'axios';
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -20,7 +21,7 @@ const SignupPage = () => {
   const onChangeIdHandler = (e) => {
     let idInput = e.target.value;
     //아이디 중복 검사 로직
-    if(idInput==='admin') {
+    if(idInput==='hyerim') {
       setIdWarningText('이미 사용중인 아이디입니다!');
     } else {
       setIdWarningText('');
@@ -55,18 +56,10 @@ const SignupPage = () => {
     setPasswordCheck(passwordCheckInput);
   };
   const onSignupButtonClickHandler = (e) => {
-    if(!name) {
-      setNameWarningText('이름을 입력해 주세요!');
-    }
-    if(!id) {
-      setIdWarningText('아이디를 입력해 주세요!');
-    } 
-    if(!password) {
-      setPasswordWarningText('비밀번호를 입력해 주세요!');
-    }
-    if(!passwordCheck) {
-      setPasswordCheckWarningText('비밀번호 확인을 입력해 주세요!');
-    }
+    if(!name) setNameWarningText('이름을 입력해 주세요!');
+    if(!id) setIdWarningText('아이디를 입력해 주세요!');
+    if(!password) setPasswordWarningText('비밀번호를 입력해 주세요!');
+    if(!passwordCheck) setPasswordCheckWarningText('비밀번호 확인을 입력해 주세요!');
     if( !nameWarningText && !idWarningText && !passwordWarningText && !passwordCheckWarningText) {
       console.log('가입 성공');
       //가입 성공 로직 작성
