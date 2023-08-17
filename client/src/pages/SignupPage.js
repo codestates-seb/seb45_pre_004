@@ -40,8 +40,6 @@ const SignupPage = () => {
   const onChangePwdHandler = (e) => {
     let passwordInput = e.target.value;
     //비밀번호 유효성 검사 로직
-    console.log(passwordInput);
-    console.log(passwordInput.length);
     if(passwordInput.length>0 && passwordInput.length<6){
       setPasswordWarningText('비밀번호는 6자 이상이어야 합니다!')
     } else if (passwordInput.length===0){
@@ -75,10 +73,22 @@ const SignupPage = () => {
       }
     }
   const onSignupButtonClickHandler = (e) => {
-    if(!name) setNameWarningText('이름을 입력해 주세요!');
-    if(!id) setIdWarningText('아이디를 입력해 주세요!');
-    if(!password) setPasswordWarningText('비밀번호를 입력해 주세요!');
-    if(!passwordCheck) setPasswordCheckWarningText('비밀번호 확인을 입력해 주세요!');
+    if(!name) {
+      setNameWarningText('이름을 입력해 주세요!');
+      return;
+    }
+    if(!id) {
+      setIdWarningText('아이디를 입력해 주세요!');
+      return;
+    }
+    if(!password) {
+      setPasswordWarningText('비밀번호를 입력해 주세요!');
+      return;
+    }
+    if(!passwordCheck) {
+      setPasswordCheckWarningText('비밀번호 확인을 입력해 주세요!');
+      return;
+    }
     if( !nameWarningText && !idWarningText && !passwordWarningText && !passwordCheckWarningText) {
       console.log('가입 성공');
       //가입 성공 로직 작성
