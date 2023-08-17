@@ -53,7 +53,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   const onClickSubmitHandler = (e) => {
     e.preventDefault();
-    // axios.post(`${process.env.REACT_APP_SERVER_URL}`, { content });
+    // axios.post(`${process.env.REACT_APP_SERVER_URL/api/replies}`, { content });
   };
 
   useEffect(() => {
