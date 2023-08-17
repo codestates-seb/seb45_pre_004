@@ -56,5 +56,19 @@ public class Reply {
         return createdAt;
     }
 
-}
+    public Question getQuestion() {
+        return question;
+    }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+}
