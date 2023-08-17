@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/members")
@@ -22,9 +23,9 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Member> createUser(@RequestBody MemberDto memberDto) {
-        Member newMember = memberService.saveUser(memberDto);
+        Member newMember = memberService.create(memberDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(newMember);
     }
 
@@ -39,11 +40,6 @@ public class MemberController {
         List<Member> members = memberService.getAllUsers();
         return ResponseEntity.ok(members);
     }
-    /*   로그인 로직 return page값 프론트에게 물어보기
-    @GetMapping("/login")
-    public String login(){
-        return LoginPage;
-    } */
 
     @PutMapping("/{id}")
     public ResponseEntity<Member> updateUser(@PathVariable Long id, @RequestBody MemberDto memberDto) {

@@ -20,7 +20,7 @@ public class MemberPostDto {
     @NotBlank(message = "이름은 공백일 수 없습니다.")
     private String name;
 
-    @Size(message = "password의 길이는 최소 6글자 이상, 같은 글자 연속 사용 및 공백은 허용하지 않습니다.")
+    @NotBlank(message = "password의 길이는 최소 6글자 이상, 같은 글자 연속 사용 및 공백은 허용하지 않습니다.")
     private String password;
 
 }
