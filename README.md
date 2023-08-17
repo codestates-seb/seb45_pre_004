@@ -6,6 +6,8 @@
 
 # 🌪️ 배포 링크
  - <a href="http://stack-underflow.s3-website.ap-northeast-2.amazonaws.com"> 👉🏻 Stack Underflow 바로가기 </a>
+ - <a href="https://www.figma.com/file/eMyUoE8E6OmuozEr3A0Gr5/Untitled?type=design&node-id=0%3A1&mode=design&t=OBR8Xp7MsCZshn4D-1"> 👉🏻 Figma 화면 설계서 보기 </a>
+ - <a href=""> 👉🏻 API 명세서 보기</a>
 <br/>
 
 # 😎 팀원
