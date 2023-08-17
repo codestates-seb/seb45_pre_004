@@ -17,6 +17,7 @@ export const MainSmallNavigator = styled.section`
 `;
 
 export const AskButton = styled(SmallLinkButtonDesign)`
+	margin-top: 12px;
 	color: ${globalTokens.pointColor.value};
 	background-color: ${globalTokens.whiteColor.value};
 `;
@@ -25,5 +26,5 @@ export const QLink = styled.a`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    margin: 0px 10%;
+	margin: 0px 10%;
 `;

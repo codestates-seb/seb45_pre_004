@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QuestionPostDto {
     private long questionId;
+    private long userId;
 
     @NotBlank(message = "제목을 입력해 주세요")
     @Size(max = 30, message = "제목의 길이는 30자를 넘을 수 없습니다")

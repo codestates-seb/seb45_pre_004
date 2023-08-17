@@ -1,5 +1,7 @@
 package com.server.pre_project.question.controller;
 
+import com.server.pre_project.Member.entity.Member;
+import com.server.pre_project.Member.repository.MemberRepository;
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.mapper.QuestionMapper;
@@ -9,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,10 +26,17 @@ public class QuestionController {
     private QuestionService questionService;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    MemberRepository memberRepository;
 
     @PostMapping
-    public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto){
-        Question createdQuestion = questionService.createQuestionFromDto(questionPostDto);
+    @PreAuthorize("hasRole('USER')") // 해당 엔드포인트에 대한 작성 권한 확인
+    public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto, @RequestParam Long userId){
+        Member member = memberRepository.findById(userId).orElse(null); // Member 정보 가져오기
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Question createdQuestion = questionService.createQuestionFromDto(questionPostDto, member);
         return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
     }
 
@@ -49,6 +59,7 @@ public class QuestionController {
         List<Question> questions = pageQuestions.getContent();
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
+
 
     @PatchMapping("/{question_id}")
     public ResponseEntity<Question> updateQuestion(@PathVariable Long question_id, @RequestBody Question question){

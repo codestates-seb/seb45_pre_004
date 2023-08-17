@@ -1,5 +1,6 @@
 package com.server.pre_project.question.service;
 
+import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.mapper.QuestionMapper;
@@ -20,8 +21,9 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public Question createQuestionFromDto(QuestionPostDto questionDto){
+    public Question createQuestionFromDto(QuestionPostDto questionDto, Member member){
         Question question = questionMapper.converToEntity(questionDto);
+        question.setMember(member);
         return questionRepository.save(question);
     }
 

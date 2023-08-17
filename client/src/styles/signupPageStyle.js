@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SignupInputDesign } from "../atoms/Input";
 import tokens from "../styles/tokens.json";
 import { RegularButtonDesign } from "../atoms/Button";
+import { ModalBackdrop, ModalButton, ModalContainer, ModalLinkButton, ModalText } from '../components/Modal';
 export const SignUpPageContainer = styled.div`
   width: 100%;
   height: fit-content;
@@ -58,4 +59,12 @@ export const WarningSpan = styled.span`
 export const SignupHeading = styled.h1`
     font-size: ${tokens.global.smallHeading.value}px;
     font-weight: ${tokens.global.bold.value};
+`
+export const SignupPageModalBackdrop = styled(ModalBackdrop)`
+`
+export const SignupPageModalContainer = styled(ModalContainer)`
+`
+export const SignupPageModalText = styled(ModalText)`
+`
+export const SignupPageModalButton = styled(ModalLinkButton)`
 `

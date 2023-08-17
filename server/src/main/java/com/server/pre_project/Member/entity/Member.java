@@ -3,9 +3,7 @@ package com.server.pre_project.Member.entity;
 
 import com.server.pre_project.Reply.Entity.Reply;
 import com.server.pre_project.question.entity.Question;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +33,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Reply> replys = new ArrayList<>();
+
 
 }

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/actions/authAction";
+import { setIsLoginTrue } from "../redux/actions/isLoginAction";
 import { LoginInputBottomDesign, LoginInputTopDesign } from "../atoms/Input";
 import tokens from '../styles/tokens.json'
 import { TextButtonDesign } from "../atoms/Button";
 import { LoginButton, LoginContainer, LoginForm, LoginPageContainer, LoginTitle, WarningSpan } from "../styles/loginPageStyle";
+import { loginService } from "../services/loginServices";
+import { useNavigate } from "react-router-dom";
 const globalTokens = tokens.global;
 
 const LoginPage = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [ inputId, setInputId ] = useState('');
 	const [ inputPassword, setInputPassword ] = useState('');
@@ -21,8 +24,6 @@ const LoginPage = () => {
 	}
 	//로그인 버튼 눌렀을 때 handler
 	const onSubmitHandler = (e) => {
-		//아이디, 비밀번호 유효성 검사
-		// 로그인 API 호출 등 로직 작성 필요
 		e.preventDefault();
 		
 		//유효성 검사 문구 출력 로직
@@ -34,9 +35,16 @@ const LoginPage = () => {
 			return;
 		} else {
 			setWarningText('');
+			try{
+				loginService({id:inputId, password:inputPassword}).then((res)=>{
+					console.log(res);
+					dispatch(setIsLoginTrue());
+					navigate('/');
+				})
+			} catch( err ) {
+				console.log(err);
+			}
 		}
-
-		dispatch(login());
 	};
 
 	return (

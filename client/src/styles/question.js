@@ -32,10 +32,9 @@ export const Current = styled.aside`
 	display: flex;
 	width: 10%;
 	flex-direction: column;
-	justify-content: center;
-	align-items: flex-end;
 	gap: 10px;
-	padding-right: 10px;
+	font-size: 14px;
+	text-align: right;
 `;
 export const Container = styled.article`
 	width: 90%;
