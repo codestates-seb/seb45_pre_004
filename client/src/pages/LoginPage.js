@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/actions/authAction";
+import { setIsLoginTrue } from "../redux/actions/isLoginAction";
 import { LoginInputBottomDesign, LoginInputTopDesign } from "../atoms/Input";
 import tokens from '../styles/tokens.json'
 import { TextButtonDesign } from "../atoms/Button";
@@ -34,15 +34,15 @@ const LoginPage = () => {
 			setWarningText('비밀번호는 6자 이상이어야 합니다.');
 			return;
 		} else {
+			setWarningText('');
 			try{
 				loginService({id:inputId, password:inputPassword}).then((res)=>{
 					console.log(res);
-					setWarningText('');
-					dispatch(login());
+					dispatch(setIsLoginTrue());
 					navigate('/');
 				})
 			} catch( err ) {
-				console.log(err)
+				console.log(err);
 			}
 		}
 	};
