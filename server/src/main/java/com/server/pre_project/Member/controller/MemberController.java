@@ -4,6 +4,7 @@ package com.server.pre_project.Member.controller;
 import com.server.pre_project.Member.dto.MemberDto;
 import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.Member.service.MemberService;
+import com.server.pre_project.Security.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,16 @@ public class MemberController {
     public ResponseEntity<Member> createUser(@RequestBody MemberDto memberDto) {
         Member newMember = memberService.saveUser(memberDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(newMember);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> log(@RequestBody LoginDto dto) {
+        boolean loggedIn = memberService.login(dto.getId(), dto.getPassword());
+
+        if (loggedIn) {
+            return ResponseEntity.ok().body("로그인 성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
+        }
     }
 
     @GetMapping("/{id}")
