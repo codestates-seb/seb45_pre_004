@@ -62,9 +62,9 @@ export const SmallButtonDesign = styled.button`
 `;
 
 export const SmallLinkButtonDesign = styled(Link)`
-	border-radius: ${globalTokens.regularRadius.value}px;
-	width: 90px;
-	height: 30px;
+	border-radius: ${globalTokens.smallRadius.value}px;
+	width: 100px;
+	height: 40px;
 	font-size: ${globalTokens.bodyText.value}px;
 	font-weight: ${globalTokens.bold.value};
 	border: 0;

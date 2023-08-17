@@ -27,7 +27,7 @@ export const AskButton = styled(SmallLinkButtonDesign)`
 	color: ${globalTokens.darkColor
 		.value}; // 내부 그림자 삭제로 인한 가독성 감소로 폰트 색상 변경했습니다
 	background-color: ${globalTokens.whiteColor.value};
-	margin: 0px 16px;
+	margin-right: 35px;
 `;
 
 export const QLink = styled.a`
