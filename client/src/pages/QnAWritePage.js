@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "prismjs/themes/prism.css";
-import Prism from "prismjs";
-import parse from "html-react-parser";
+
 import {
   QnAWritePageContainer,
   QnAWriteInfoContainer,
@@ -13,9 +12,6 @@ import {
   QuestionTitleInputDesign,
   Button,
   PreviewWrapper,
-  Preview,
-  PreviewP,
-  PreviewContent,
   Warning,
   DisabledButton,
 } from "../styles/qnaWrite";
@@ -32,7 +28,7 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const data = await axios.post(
-      // id는 서버측에서 제공
+      // id는 서버측에서 제공, title과 content만 제공하면 됨
       `${process.env.REACT_APP_SERVER_URL}/questions`,
       {
         title,
@@ -42,10 +38,6 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
     const id = data.data["questionId"]; // 받은 아이디를 통해 페이지로 네비게이트 시킴
     navigate(`/detail/${id}`);
   };
-
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [content]);
 
   return (
     <QnAWritePageContainer>
@@ -91,10 +83,6 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
                 setContent(data);
               }}
             />
-            <Preview>
-              <PreviewP>미리보기</PreviewP>
-              <PreviewContent>{parse(content)}</PreviewContent>
-            </Preview>
           </PreviewWrapper>
         </div>
         <div>
