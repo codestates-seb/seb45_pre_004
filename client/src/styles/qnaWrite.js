@@ -9,9 +9,9 @@ const globalTokens = tokens.global;
 
 export const DisabledButton = styled(RegularButtonDesign)`
   margin-top: 1rem;
-  background-color: ${tokens.global.greyColor.value};
+  background-color: ${globalTokens.greyColor.value};
   &:hover {
-    background-color: ${tokens.global.greyColor.value};
+    background-color: ${globalTokens.greyColor.value};
     cursor: default;
   }
   opacity: 0.8; /* 80% 불투명도 */
@@ -19,9 +19,9 @@ export const DisabledButton = styled(RegularButtonDesign)`
 
 export const Warning = styled.p`
   color: red;
-  font-size: ${tokens.global.bigHeading.value};
+  font-size: ${globalTokens.bigHeading.value};
   margin: 1rem;
-  font-weight: ${tokens.global.bold.value};
+  font-weight: ${globalTokens.bold.value};
 `;
 
 export const QnAWritePageContainer = styled.div`
@@ -60,17 +60,7 @@ export const PreviewWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-`;
-export const Preview = styled.div`
-  border: ${globalTokens.regularWidth.value}px solid
-    ${globalTokens.lightGreyColor.value};
-  flex-grow: 1;
-  max-width: 650px;
-  min-width: 300px;
-`;
-export const PreviewP = styled.p`
-  color: red;
-  margin: 1rem;
+  padding: 12px;
 `;
 
 export const PreviewContent = styled.div`
