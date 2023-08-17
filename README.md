@@ -1,4 +1,4 @@
-<img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/06413b08-9ac1-4c94-b91a-215c45474f06"/>
+![Component 13](https://github.com/codestates-seb/seb45_pre_004/assets/50258232/93f6d9ee-29c4-4e03-8a13-fb4f53ec6996)
 
  # ⚓️ Stack Underflow
  - stack underflow에서 프로그래밍에 관한 다양한 질문을 하고 답변받으세요!
