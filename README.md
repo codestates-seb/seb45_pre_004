@@ -1,4 +1,6 @@
-# ⚓️ Stack Underflow
+<img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/06413b08-9ac1-4c94-b91a-215c45474f06"/>
+
+ # ⚓️ Stack Underflow
  - stack underflow에서 프로그래밍에 관한 다양한 질문을 하고 답변받으세요!
 <br/>
 
