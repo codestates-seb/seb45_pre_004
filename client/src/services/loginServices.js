@@ -12,3 +12,14 @@ export const signupService = async ({name,id,password}) => {
     )
     return response.data;
 }
+
+export const loginService = async ({id,password}) => {
+    const response = await axios.post(
+        `${ROOT_URL}/api/members/login`,
+        {
+            id:id,
+            password:password
+        }
+    )
+    return response.data;
+}

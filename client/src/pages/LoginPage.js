@@ -5,9 +5,12 @@ import { LoginInputBottomDesign, LoginInputTopDesign } from "../atoms/Input";
 import tokens from '../styles/tokens.json'
 import { TextButtonDesign } from "../atoms/Button";
 import { LoginButton, LoginContainer, LoginForm, LoginPageContainer, LoginTitle, WarningSpan } from "../styles/loginPageStyle";
+import { loginService } from "../services/loginServices";
+import { useNavigate } from "react-router-dom";
 const globalTokens = tokens.global;
 
 const LoginPage = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [ inputId, setInputId ] = useState('');
 	const [ inputPassword, setInputPassword ] = useState('');
@@ -31,8 +34,16 @@ const LoginPage = () => {
 			setWarningText('비밀번호는 6자 이상이어야 합니다.');
 			return;
 		} else {
-			setWarningText('');
-			dispatch(login());
+			try{
+				loginService({id:inputId, password:inputPassword}).then((res)=>{
+					console.log(res);
+					setWarningText('');
+					dispatch(login());
+					navigate('/');
+				})
+			} catch( err ) {
+				console.log(err)
+			}
 		}
 	};
 
