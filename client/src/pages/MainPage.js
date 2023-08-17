@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { getQuestionsService } from "../services/questionDataServices";
 import Question from "../components/Question";
@@ -10,16 +11,29 @@ import {
   QLink,
 } from "../styles/main";
 import "../styles/paginator.css";
+import Modal from "../components/Modal";
 
 const MainPage = () => {
   const dispatch = useDispatch();
+  const authSelector = useSelector((state) => state.authReducer);
+  const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState(1);
   const [questions, setQuestions] = useState([]);
-
+  const [isModal, setIsModal] = useState(false);
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
+
+  const postQuestionAuth = () => {
+    setIsModal(true);
+  };
+
+  useEffect(() => {
+    if (authSelector && isModal) {
+      navigate("/write");
+    }
+  });
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -38,7 +52,16 @@ const MainPage = () => {
   return (
     <MainPageContainer>
       <MainSmallNavigator>
-        <AskButton to="/write">질문 쓰기</AskButton>
+        {!authSelector ? (
+          <Modal
+            isModalOpen={isModal}
+            setIsModal={setIsModal}
+            modalText="질문하기 위해 로그인 하십시오!"
+          />
+        ) : (
+          <></>
+        )}
+        <AskButton onClick={postQuestionAuth}>질문 쓰기</AskButton>
       </MainSmallNavigator>
       {questions.length > 0 ? (
         <>
