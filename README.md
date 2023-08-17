@@ -19,4 +19,6 @@
   |---|---|---|---|---|---|---|---|
   |React.js|Storybook|Styled Components|React-Redux|Axios|Figma|UI System|AWS S3|
  - Back-end
-
+   |<img src="https://liveit-media.imgix.net/media/event/my-first-event-1461/logo-spvnih.png?fm=jpg&ixlib=python-2.3.0&w=600" width="45px" height="45px"/>|
+   |---|
+   |Spring boot|
