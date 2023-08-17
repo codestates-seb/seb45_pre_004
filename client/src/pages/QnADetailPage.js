@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import parse from "html-react-parser";
+import Prism from "prismjs";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -39,7 +40,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   const onClickEditHandler = () => {
     if (editMode === true) {
-      // axios.patch(`${process.env.REACT_APP_SERVER_URL}`, { editedContent });
+      // axios.patch(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`, { editedContent });
     }
     setEditMode((prevEditMode) => !prevEditMode);
     console.log("CHANGED");
@@ -56,14 +57,18 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   };
 
   useEffect(() => {
-    async function hey() {
+    async function getDetailInfo() {
       const data = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/questions/${params.id}`
       );
       setQuestion(data.data);
     }
-    hey();
+    getDetailInfo();
   }, []);
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [editedContent]);
 
   return (
     <Wrapper>
