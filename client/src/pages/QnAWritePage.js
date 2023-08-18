@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "prismjs/themes/prism.css";
@@ -15,11 +15,13 @@ import {
   Warning,
   DisabledButton,
 } from "../styles/qnaWrite";
+import { useSelector } from "react-redux";
 
 const QnAWritePage = ({ Editor, CKEditor }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userInfoReducer);
 
   const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
@@ -27,14 +29,20 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    const token = userInfo.token;
+    const userId = userInfo.id;
+    const name = userInfo.name;
     const data = await axios.post(
       // id는 서버측에서 제공, title과 content만 제공하면 됨
-      `${process.env.REACT_APP_SERVER_URL}/questions`,
+
+      `${process.env.REACT_APP_SERVER_URL}/questions/?userId=${userId}`,
       {
         title,
         content,
-      }
+      },
+      { headers: { Authorization: token } }
     );
+
     const id = data.data["questionId"]; // 받은 아이디를 통해 페이지로 네비게이트 시킴
     navigate(`/detail/${id}`);
   };
