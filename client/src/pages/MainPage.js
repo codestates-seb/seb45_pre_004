@@ -9,9 +9,11 @@ import {
   MainSmallNavigator,
   AskButton,
   QLink,
+  LoadingContainer,
 } from "../styles/main";
 import "../styles/paginator.css";
 import Modal from "../components/Modal";
+import loadingIndicator from '../assets/images/loadingIndicator.gif'
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -89,7 +91,10 @@ const MainPage = () => {
           />
         </>
       ) : (
-        <p>Loading...</p>
+        <LoadingContainer>
+          <img alt="loading" src={loadingIndicator} width='50px'/>
+        </LoadingContainer>
+        
       )}
     </MainPageContainer>
   );
