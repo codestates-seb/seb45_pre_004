@@ -21,6 +21,7 @@ import {
   UserInfoData,
   AnswerCard,
   SubmitButton,
+  ContentBox,
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
@@ -107,7 +108,9 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             }}
           />
         ) : (
-          <Contents>{question.content && parse(question.content)}</Contents>
+          <ContentBox>
+            <Contents>{question.content && parse(question.content)}</Contents>
+          </ContentBox>
         )}
 
         <User>
