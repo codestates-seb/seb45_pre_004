@@ -12,8 +12,6 @@ import { readBrowserWidth } from "./redux/actions/browserWidthAction";
 import { useEffect } from "react";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react"; // import가 반드시 한 곳에서만 일어나야함, 만약 detail페이지에서도 쓸것이라면 좀 더 공통 상위의 코드에서 props로 각각 내려볼 수도 있을것임
-import { getQuestionsService } from "./services/questionDataServices";
-import { getQuestionsListActon } from "./redux/actions/questionListAction";
 
 function App() {
 	const dispatch = useDispatch();
@@ -24,11 +22,6 @@ function App() {
 		const handleDeviceWidthResize = () => {
 			dispatch(readBrowserWidth());
 		};
-
-		getQuestionsService().then((res) => {
-			dispatch(getQuestionsListActon(res));
-		});
-
 		window.addEventListener("resize", handleDeviceWidthResize);
 		return () => {
 			window.removeEventListener("resize", handleDeviceWidthResize);

@@ -9,13 +9,18 @@ import {
   MainSmallNavigator,
   AskButton,
   QLink,
+  LoadingContainer,
 } from "../styles/main";
 import "../styles/paginator.css";
 import Modal from "../components/Modal";
+import loadingIndicator from '../assets/images/loadingIndicator.gif'
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const authSelector = useSelector((state) => state.isLoginReducer);
+
+  //isLogin state, userInfo redux state 조회
+  const isLogin = useSelector((state) => state.isLoginReducer);
+
   const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState(1);
@@ -30,10 +35,11 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    if (authSelector && isModal) {
+    if (isLogin && isModal) {
       navigate("/write");
     }
   });
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -49,10 +55,11 @@ const MainPage = () => {
     window.scrollTo(0, 0);
   }, [activePage, dispatch]);
 
+
   return (
     <MainPageContainer>
       <MainSmallNavigator>
-        {!authSelector ? (
+        {!isLogin ? (
           <Modal
             isModalOpen={isModal}
             setIsModal={setIsModal}
@@ -86,7 +93,10 @@ const MainPage = () => {
           />
         </>
       ) : (
-        <p>Loading...</p>
+        <LoadingContainer>
+          <img alt="loading" src={loadingIndicator} width='50px'/>
+        </LoadingContainer>
+        
       )}
     </MainPageContainer>
   );
