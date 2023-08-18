@@ -39,7 +39,7 @@ const LoginPage = () => {
 			try{
 				loginService({id:inputId, password:inputPassword}).then((res)=>{
 					dispatch(setIsLoginTrue());
-					dispatch(setUserInfo(res,inputId,inputPassword));
+					dispatch(setUserInfo(res,inputId,''));
 					navigate('/');
 				})
 			} catch( err ) {
