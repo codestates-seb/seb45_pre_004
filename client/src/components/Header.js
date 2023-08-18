@@ -16,9 +16,11 @@ import {
 	PointButton,
 	ExtraSmallButton,
 	ExtraSmallPointButton,
+	UserInfoText,
 } from "../styles/header";
 
 export default function Header() {
+	const userInfo = useSelector((state)=>state.userInfoReducer);
 	const location = useLocation();
 	const isLoginPage =
 		location.pathname === "/login" || location.pathname === "/signup";
@@ -37,6 +39,7 @@ export default function Header() {
 					{isLoginPage ? null : isLogin ? (
 						browserWidth > 900 ? (
 							<LogoLink to="/">
+								<UserInfoText>안녕하세요! {userInfo.id}님</UserInfoText>
 								<WhiteButton>로그아웃</WhiteButton>
 							</LogoLink>
 						) : (

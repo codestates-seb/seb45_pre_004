@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 
 import { SmallButtonDesign, SmallCircleButtonDesign } from "../atoms/Button";
 import tokens from "../styles/tokens.json";
+import { BodyTextTypo } from "../atoms/Typography";
 
 const globalTokens = tokens.global;
 
@@ -37,6 +38,9 @@ export const Wrapper = styled.div`
 export const LogoLink = styled(Link)`
 	text-decoration: none;
 	color: ${globalTokens.blackColor.value};
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 `;
 export const LogoImg = styled.img`
 	margin-top: 10px;
@@ -95,3 +99,8 @@ export const ExtraSmallPointButton = styled(ExtraSmallButton)`
 	background-color: ${globalTokens.pointColor.value};
 	color: ${globalTokens.whiteColor.value};
 `;
+
+export const UserInfoText = styled(BodyTextTypo)`
+	margin-right: 4px;
+	font-weight: ${globalTokens.bold.value};
+`
