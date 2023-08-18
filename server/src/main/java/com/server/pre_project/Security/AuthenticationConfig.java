@@ -37,7 +37,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/members").permitAll()
                 .antMatchers("/api/members/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
@@ -60,9 +60,11 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 이 부분을 설정해두면 충분합니다.
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
-//        configuration.setExposedHeaders(Arrays.asList("Authorization", "RefreshToken"));
+        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 도메인 허용
+        configuration.setAllowedMethods(Arrays.asList("*")); // 모든 메서드 허용
+        configuration.setAllowedHeaders(Arrays.asList("*")); // 모든 헤더 허용
+        configuration.setExposedHeaders(Arrays.asList("*")); // 모든 노출 헤더 허용
+        configuration.setAllowCredentials(true); // Credential 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
