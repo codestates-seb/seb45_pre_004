@@ -30,13 +30,19 @@ public class QuestionController {
     MemberRepository memberRepository;
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')") // 해당 엔드포인트에 대한 작성 권한 확인
-    public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionPostDto questionPostDto, @RequestParam Long userId){
-        Member member = memberRepository.findById(userId).orElse(null); // Member 정보 가져오기
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Question> createQuestion(
+            @RequestBody @Valid QuestionPostDto questionPostDto,
+            @RequestParam String userId) {
+
+        Member member = memberRepository.findById(userId).orElse(null);
+
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         Question createdQuestion = questionService.createQuestionFromDto(questionPostDto, member);
+
         return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
     }
 
