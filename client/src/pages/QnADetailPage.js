@@ -24,11 +24,6 @@ import {
 } from "../styles/qnaDetail";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
-  // const question = useSelector((state) => state.questionDetailReducer);
-  // 리덕스 사용시, 렌더링 시 상태값을 제 때 못 가져오는듯? state로 대체시 문제 없음
-  // 애초에 여기서만 쓰는 데이터이므로, 리덕스로 관리할 필요는 없을듯
-  // 만약 리덕스를 사용하고자한다면, 차라리 questionList 리듀서에서 필요한 아이디로 쏙쏙 뽑아쓰는것이 낫다고 보여짐.
-  // 백엔드 측에서 repiles가 아니라 replys라고 해둠. 오타 수정을 둘 중 한 곳에서 해야하는데
   let params = useParams();
 
   const [editMode, setEditMode] = useState(false);
