@@ -1,6 +1,7 @@
 package com.server.pre_project.question.service;
 
 import com.server.pre_project.Member.entity.Member;
+import com.server.pre_project.Member.repository.MemberRepository;
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.mapper.QuestionMapper;
@@ -18,14 +19,18 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private MemberRepository memberRepository; // 추가
+
     @Autowired
     private QuestionMapper questionMapper;
 
-    public Question createQuestionFromDto(QuestionPostDto questionDto, Member member){
-        Question question = questionMapper.converToEntity(questionDto);
-        question.setMember(member);
+    public Question createQuestionFromDto(QuestionPostDto questionDto, Member member) {
+        Question question = questionMapper.convertToEntity(questionDto, member);
         return questionRepository.save(question);
     }
+
 
     public Question getQuestionById(Long id) {
         return questionRepository.findById(id).orElse(null);

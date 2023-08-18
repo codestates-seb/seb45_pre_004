@@ -1,5 +1,6 @@
 package com.server.pre_project.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.Reply.Entity.Reply;
 import lombok.Getter;
@@ -58,6 +59,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
     private List<Reply> replys = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Member member;

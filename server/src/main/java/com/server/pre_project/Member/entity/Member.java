@@ -1,6 +1,7 @@
 package com.server.pre_project.Member.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.server.pre_project.Reply.Entity.Reply;
 import com.server.pre_project.question.entity.Question;
 import lombok.*;
@@ -28,6 +29,7 @@ public class Member {
     private String password;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
 
