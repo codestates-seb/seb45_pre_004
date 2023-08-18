@@ -15,7 +15,8 @@ import Modal from "../components/Modal";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const authSelector = useSelector((state) => state.authReducer);
+  const isLogin = useSelector((state) => state.isLoginReducer);
+  const userInfo = useSelector((state)=>state.userInfoReducer);
   const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState(1);
@@ -30,10 +31,11 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    if (authSelector && isModal) {
+    if (isLogin && isModal) {
       navigate("/write");
     }
   });
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -49,10 +51,11 @@ const MainPage = () => {
     window.scrollTo(0, 0);
   }, [activePage, dispatch]);
 
+
   return (
     <MainPageContainer>
       <MainSmallNavigator>
-        {!authSelector ? (
+        {!isLogin ? (
           <Modal
             isModalOpen={isModal}
             setIsModal={setIsModal}

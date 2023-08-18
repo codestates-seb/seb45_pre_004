@@ -7,6 +7,7 @@ import { TextButtonDesign } from "../atoms/Button";
 import { LoginButton, LoginContainer, LoginForm, LoginPageContainer, LoginTitle, WarningSpan } from "../styles/loginPageStyle";
 import { loginService } from "../services/loginServices";
 import { useNavigate } from "react-router-dom";
+import { setUserInfo } from "../redux/actions/userInfoAction";
 const globalTokens = tokens.global;
 
 const LoginPage = () => {
@@ -37,8 +38,8 @@ const LoginPage = () => {
 			setWarningText('');
 			try{
 				loginService({id:inputId, password:inputPassword}).then((res)=>{
-					console.log(res);
 					dispatch(setIsLoginTrue());
+					dispatch(setUserInfo(res,inputId,inputPassword));
 					navigate('/');
 				})
 			} catch( err ) {

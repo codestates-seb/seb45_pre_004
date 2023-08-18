@@ -22,7 +22,7 @@ export default function Header() {
 	const location = useLocation();
 	const isLoginPage =
 		location.pathname === "/login" || location.pathname === "/signup";
-	const isLogin = useSelector((state) => state.authReducer);
+	const isLogin = useSelector((state) => state.isLoginReducer);
 	const browserWidth = useSelector((state) => state.browserWidthReducer);
 
 	return (
