@@ -15,7 +15,7 @@ import Modal from "../components/Modal";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const authSelector = useSelector((state) => state.authReducer);
+  const authSelector = useSelector((state) => state.isLoginReducer);
   const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState(1);
