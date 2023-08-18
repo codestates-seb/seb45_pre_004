@@ -5,21 +5,29 @@ import tokens from "./tokens.json";
 const globalTokens = tokens.global;
 
 export const MainPageContainer = styled.div`
-	width: 100vw;
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 107px;
+
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	margin-bottom: 100px;
 `;
 export const MainSmallNavigator = styled.section`
 	width: 90%;
+	height: 80px;
 	display: flex;
-	flex-direction: row;
-	justify-content: end;
+	justify-content: flex-end;
+	align-items: center;
 `;
 
 export const AskButton = styled(SmallLinkButtonDesign)`
-	margin-top: 12px;
-	color: ${globalTokens.pointColor.value};
+	color: ${globalTokens.darkColor
+		.value};
 	background-color: ${globalTokens.whiteColor.value};
+	margin-right: 35px;
 `;
 
 export const QLink = styled.a`
