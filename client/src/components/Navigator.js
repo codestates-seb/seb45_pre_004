@@ -7,7 +7,7 @@ import { SmallCircleButtonDesign as Button } from "../atoms/Button";
 import tokens from "../styles/tokens.json";
 
 const Navigator = () => {
-	const isLogin = useSelector((state) => state.authReducer);
+	const isLogin = useSelector((state) => state.isLoginReducer);
 	const [showNavigator, setShowNavigator] = useState(false);
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ const Navigator = () => {
 					<img src={logoImg} alt="Logo" />
 				</Link>
 				{isLogin ? (
-					<Link to="/">
+					<Link to="/" onClick={()=>console.log('isClicked')}>
 						<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
 					</Link>
 				) : (

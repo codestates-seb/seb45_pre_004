@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { SmallLinkButtonDesign } from "../atoms/Button";
 
 import tokens from "./tokens.json";
+import { Link } from "react-router-dom";
 const globalTokens = tokens.global;
 
 export const MainPageContainer = styled.div`
@@ -30,7 +31,7 @@ export const AskButton = styled(SmallLinkButtonDesign)`
 	margin-right: 35px;
 `;
 
-export const QLink = styled.a`
+export const QLink = styled(Link)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
