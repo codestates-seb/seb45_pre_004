@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -26,7 +26,7 @@ public class Member {
     @Column(nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100) //암호화 되기 때문에 길이 제한
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -38,7 +38,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Reply> replys = new ArrayList<>();
-
 
     @Getter
     //권한 관리: 관리자와 일반멤버

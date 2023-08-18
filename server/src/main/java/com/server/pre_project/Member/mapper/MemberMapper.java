@@ -1,28 +1,17 @@
 package com.server.pre_project.Member.mapper;
 
-/*
-@Mapper(componentModel = "spring")
-public interface UserMapper {
 
-    default User userPostDtoToUser(MemberPostDto userPostDto) {
-        User user = new User();
+import com.server.pre_project.Member.dto.MemberDto;
+import com.server.pre_project.Member.entity.Member;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-        user.setId(userPostDto.getId());
-        user.setName(userPostDto.getName());
-        user.setPassword(userPostDto.getPassword());
+import java.util.List;
 
-        return user;
-    }
-
-    default UserResponseDto userToUserResponseDto(User user) {
-
-        UserResponseDto userResponseDto = new UserResponseDto();
-
-        userResponseDto.setId(user.getId());
-        userResponseDto.setName(user.getName());
-
-
-        return userResponseDto;
-    }
-
-} */
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface MemberMapper {
+    Member memberPostToMember(MemberDto.Post requestBody);
+    Member memberPatchToMember(MemberDto.Patch requestBody);
+    MemberDto.Response memberToMemberResponse(Member member);
+    List<MemberDto.Response> membersToMemberResponses(List<Member> members);
+}
