@@ -1,11 +1,11 @@
 export const GET_USER_INFO = "GET_USER_INFO";
 
 //userInfo state Action 생성자
-export function setUserInfo({userId,id,name}) {
+export function setUserInfo(token,id,name) {
 	return { 
 		type: GET_USER_INFO,
 		payload: {
-			userId:userId,
+			token:token,
 			id:id,
 			name:name,
 		}
