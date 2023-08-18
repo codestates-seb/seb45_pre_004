@@ -86,8 +86,7 @@ const MainPage = () => {
           {questions.map((question) => (
             <QLink
               key={question.questionId}
-              href={`/detail/${question.questionId}`}
-            >
+              to={`/detail/${question.questionId}`}>
               <Question item={question} />
             </QLink>
           ))}
