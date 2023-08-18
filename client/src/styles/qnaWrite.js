@@ -8,13 +8,17 @@ import { RegularButtonDesign } from "../atoms/Button";
 const globalTokens = tokens.global;
 
 export const DisabledButton = styled(RegularButtonDesign)`
-  margin-top: 1rem;
+  margin: 1rem;
   background-color: ${globalTokens.greyColor.value};
   &:hover {
     background-color: ${globalTokens.greyColor.value};
     cursor: default;
   }
   opacity: 0.8; /* 80% 불투명도 */
+`;
+
+export const Button = styled(ButtonDesign)`
+  margin: 1rem;
 `;
 
 export const Warning = styled.p`
@@ -37,7 +41,7 @@ export const QnAWriteInfoContainer = styled.section`
 `;
 export const QuestionHead = styled(BigHeadingTypo)`
   padding-top: 12px;
-  padding-left: 12px;
+  padding-left: 24px;
   padding-bottom: 3px;
 `;
 export const QuestionInfoTitleText = styled(BodyTextTypo)`
@@ -50,12 +54,11 @@ export const QuestionInfoText = styled(BodyTextTypo)`
   margin-bottom: 2px;
 `;
 export const QuestionTitleInputDesign = styled(RegularInputDesign)`
-  width: 85%;
   margin-left: 1rem;
+  width: 60vw;
+  min-width: 650px;
 `;
-export const Button = styled(ButtonDesign)`
-  margin: 1rem;
-`;
+
 export const PreviewWrapper = styled.div`
   display: flex;
   flex-direction: row;

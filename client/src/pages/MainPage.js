@@ -20,7 +20,6 @@ const MainPage = () => {
 
   //isLogin state, userInfo redux state 조회
   const isLogin = useSelector((state) => state.isLoginReducer);
-
   const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState(1);
@@ -38,6 +37,7 @@ const MainPage = () => {
     if (isLogin && isModal) {
       navigate("/write");
     }
+    console.log(userInfo)
   });
 
 
