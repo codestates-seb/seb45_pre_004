@@ -27,31 +27,24 @@ import java.util.List;
 public class JwtTokenProvider {
     private Key secretKey;
 
-    // 토큰 유효시간 30분
     private long tokenValidTime = 30 * 60 * 1000L;
     private final UserDetailsService userDetailsService;
 
-    // 객체 초기화, secretKey를 안전한 방식으로 생성한다.
     @PostConstruct
     protected void init() {
         secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
-    // JWT 토큰 생성
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
         claims.put("roles", roles);
 
-        // 현재 시간을 한국 시간으로 변환하여 설정
         LocalDateTime nowKorea = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         Instant instant = nowKorea.atZone(ZoneId.of("Asia/Seoul")).toInstant();
-
         Date now = Date.from(instant);
 
-        // 토큰 유효 시간을 설정
         LocalDateTime expirationKorea = nowKorea.plusMinutes(30);
         Instant expirationInstant = expirationKorea.atZone(ZoneId.of("Asia/Seoul")).toInstant();
-
         Date expirationDate = Date.from(expirationInstant);
 
         return Jwts.builder()
@@ -63,13 +56,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에서 회원 정보 추출
     public String getUserPk(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -79,12 +70,17 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
+    // Request의 Header에서 token 값을 가져옵니다.
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        // 이 부분에서 request 헤더에서 토큰을 가져오는 방식을 변경해야합니다.
+        // 예를 들어 "Authorization" 헤더에서 Bearer 토큰을 가져오는 방식이라면 아래와 같이 변경 가능합니다.
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 다음 부분을 가져옵니다.
+        }
+        return null;
     }
 
-    // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
