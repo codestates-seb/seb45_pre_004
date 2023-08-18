@@ -12,8 +12,12 @@ import {
   LoadingContainer,
 } from "../styles/main";
 import "../styles/paginator.css";
-import Modal from "../components/Modal";
+import { ModalBackdrop, ModalButton, ModalContainer, ModalText } from "../components/Modal";
 import loadingIndicator from '../assets/images/loadingIndicator.gif'
+import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
+import tokens from '../styles/tokens.json'
+
+const globalTokens = tokens.global;
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -21,23 +25,29 @@ const MainPage = () => {
   //isLogin state, userInfo redux state 조회
   const isLogin = useSelector((state) => state.isLoginReducer);
   const navigate = useNavigate();
-
   const [activePage, setActivePage] = useState(1);
   const [questions, setQuestions] = useState([]);
-  const [isModal, setIsModal] = useState(false);
+  const isModalOpen = useSelector(state=>state.isModalOpenReducer);
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
 
   const postQuestionAuth = () => {
-    setIsModal(true);
+    dispatch(openModalAction());
   };
 
+  const modalBackdropClickHandler = () => {
+    dispatch(closeModalAction());
+  }
+
+  const modalButtonClickHandler = () => {
+    navigate('/login')
+  }
+
   useEffect(() => {
-    if (isLogin && isModal) {
+    if (isLogin && isModalOpen) {
       navigate("/write");
     }
-    console.log(userInfo)
   });
 
 
@@ -60,11 +70,12 @@ const MainPage = () => {
     <MainPageContainer>
       <MainSmallNavigator>
         {!isLogin ? (
-          <Modal
-            isModalOpen={isModal}
-            setIsModal={setIsModal}
-            modalText="질문하기 위해 로그인 하십시오!"
-          />
+          <ModalBackdrop isModalOpen={isModalOpen} onClick={modalBackdropClickHandler}>
+            <ModalContainer isModalOpen={isModalOpen}>
+              <ModalText>로그인이 필요합니다.</ModalText>
+              <ModalButton onClick={modalButtonClickHandler} color={globalTokens.pointColor.value}>로그인하기</ModalButton>
+            </ModalContainer>
+          </ModalBackdrop>
         ) : (
           <></>
         )}
