@@ -25,7 +25,7 @@ export const MainSmallNavigator = styled.section`
 
 export const AskButton = styled(SmallLinkButtonDesign)`
 	color: ${globalTokens.darkColor
-		.value}; // 내부 그림자 삭제로 인한 가독성 감소로 폰트 색상 변경했습니다
+		.value};
 	background-color: ${globalTokens.whiteColor.value};
 	margin-right: 35px;
 `;
