@@ -33,6 +33,7 @@ public class JwtTokenizer {
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
+
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
@@ -47,6 +48,7 @@ public class JwtTokenizer {
                 .signWith(key)
                 .compact();
     }
+
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -78,6 +80,7 @@ public class JwtTokenizer {
                 .build()
                 .parseClaimsJws(jws);
     }
+
     public Date getTokenExpiration(int expirationMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, expirationMinutes);
@@ -85,6 +88,7 @@ public class JwtTokenizer {
 
         return expiration;
     }
+
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);

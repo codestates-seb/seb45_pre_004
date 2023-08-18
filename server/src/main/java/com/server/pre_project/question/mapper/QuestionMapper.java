@@ -3,7 +3,6 @@ package com.server.pre_project.question.mapper;
 
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component

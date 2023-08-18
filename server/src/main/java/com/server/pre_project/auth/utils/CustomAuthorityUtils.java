@@ -11,9 +11,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class CustomAuthorityUtils {
-    @Value("${id.admin}")
+    @Value("${user.userId.id}")
     private String adminId;
-
     private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
     private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN", "USER");
@@ -33,7 +32,6 @@ public class CustomAuthorityUtils {
                 .collect(Collectors.toList());
         return authorities;
     }
-
     // DB 저장 용
     public List<String> createRoles(String id) {
         if (id.equals(adminId)) {
