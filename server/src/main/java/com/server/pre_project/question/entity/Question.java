@@ -46,6 +46,18 @@ public class Question {
         }
         return null;
     }
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
+    private Date updatedAt;
+
+    public String getUpdatedAt() {
+        if (updatedAt != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            return dateFormat.format(updatedAt);
+        }
+        return null;
+    }
 
     @Column(name = "view_count")
     private int viewCount = 0;

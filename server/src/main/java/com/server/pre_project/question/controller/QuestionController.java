@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -80,6 +81,8 @@ public class QuestionController {
 
     @PatchMapping("/{question_id}")
     public ResponseEntity<Question> updateQuestion(@PathVariable Long question_id, @RequestBody Question question){
+        question.setUpdatedAt(new Date());
+
         Question updateQuestion = questionService.updateQuestion(question_id, question);
         if(updateQuestion != null){
             return new ResponseEntity<>(updateQuestion, HttpStatus.OK);

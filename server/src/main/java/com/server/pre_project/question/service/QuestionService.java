@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ public class QuestionService {
     private QuestionRepository questionRepository;
 
     @Autowired
-    private MemberRepository memberRepository; // 추가
+    private MemberRepository memberRepository;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -50,6 +51,10 @@ public class QuestionService {
             if (questionPatchDto.getContent() != null) {
                 existingQuestion.setContent(questionPatchDto.getContent());
             }
+
+            // 수정된 시간 업데이트
+            existingQuestion.setUpdatedAt(new Date());
+
             return questionRepository.save(existingQuestion);
         } else {
             return null;
