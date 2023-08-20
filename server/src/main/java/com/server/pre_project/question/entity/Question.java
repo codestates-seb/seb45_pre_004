@@ -24,9 +24,6 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
 
-//    @Column(nullable = false)
-//    private long userId;
-
     @Column(nullable = false, length = 30)
     private String title;
 
