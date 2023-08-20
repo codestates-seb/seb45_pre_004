@@ -4,10 +4,11 @@ import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.Member.repository.MemberRepository;
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
+import com.server.pre_project.question.page.PaginationInfo;
 import com.server.pre_project.question.mapper.QuestionMapper;
+import com.server.pre_project.question.page.PaginationResponse;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,13 +58,23 @@ public class QuestionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping// 페이지 네이션 적용
-    public ResponseEntity<List<Question>> getAllQuestions(
+    @GetMapping
+    public ResponseEntity<PaginationResponse<Question>> getAllQuestions(
             @Positive @RequestParam int page,
             @Positive @RequestParam int size) {
+
         Page<Question> pageQuestions = questionService.getAllQuestions(page - 1, size);
+
         List<Question> questions = pageQuestions.getContent();
-        return new ResponseEntity<>(questions, HttpStatus.OK);
+        long totalItems = pageQuestions.getTotalElements();
+        int totalPages = pageQuestions.getTotalPages();
+        boolean hasPrevious = pageQuestions.hasPrevious();
+        boolean hasNext = pageQuestions.hasNext();
+
+        PaginationInfo paginationInfo = new PaginationInfo(totalItems, totalPages, page, size, hasPrevious, hasNext);
+        PaginationResponse<Question> response = new PaginationResponse<>(questions, paginationInfo);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
