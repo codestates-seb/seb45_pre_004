@@ -99,21 +99,14 @@ const MainPage = () => {
 			</MainSmallNavigator>
 			{questions.length > 0 ? (
 				<>
-					{questions
-						.slice()
-						.reverse()
-						.map(
-							(
-								question // 여기서 reverse()를 사용하여 배열을 복사하고 역순으로 매핑합니다.
-							) => (
-								<QLink
-									key={question.questionId}
-									to={`/detail/${question.questionId}`}
-								>
-									<Question item={question} />
-								</QLink>
-							)
-						)}
+					{questions.map((question) => (
+						<QLink
+							key={question.questionId}
+							to={`/detail/${question.questionId}`}
+						>
+							<Question item={question} />
+						</QLink>
+					))}
 					<Pagination
 						activePage={activePage}
 						totalItemsCount={totalItems}
@@ -128,10 +121,7 @@ const MainPage = () => {
 					<img alt="loading" src={loadingIndicator} width="50px" />
 				</LoadingContainer>
 			)}
-			위 코드에서 questions.slice().reverse().map(...)를 사용하여 questions
-			배열을 역순으로 매핑하고 원본 배열은 변경하지 않습니다. 이렇게 하면 배열의
-			아이템이 역순으로 렌더링되어 보여질 것입니다.
-ㅋ		</MainPageContainer>
+		</MainPageContainer>
 	);
 };
 
