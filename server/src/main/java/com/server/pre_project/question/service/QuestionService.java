@@ -9,6 +9,7 @@ import com.server.pre_project.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -38,7 +39,8 @@ public class QuestionService {
     }
 
     public Page<Question> getAllQuestions(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+        Sort sort = Sort.by(Sort.Direction.DESC, "questionId"); // 내림 차순 정렬
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         return questionRepository.findAll(pageRequest);
     }
 
@@ -52,7 +54,7 @@ public class QuestionService {
                 existingQuestion.setContent(questionPatchDto.getContent());
             }
 
-            // 수정된 시간 업데이트
+
             existingQuestion.setUpdatedAt(new Date());
 
             return questionRepository.save(existingQuestion);
