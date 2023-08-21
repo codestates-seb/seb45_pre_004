@@ -51,7 +51,6 @@ public class QuestionMapper {
         dto.setUpdatedAt(question.getUpdatedAt());
         dto.setViewCount(question.getViewCount());
         dto.setReply_count(question.getReply_count());
-        dto.setReplies(question.getReplies());
         dto.setAuthorId(question.getMember().getId());
         return dto;
     }
