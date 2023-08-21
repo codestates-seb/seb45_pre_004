@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reply_id;
+    private int id;
 
     @Column(nullable = false)
     private String userId;
