@@ -35,10 +35,21 @@ export const loginService = async ({id,password}) => {
 }
 
 //로그아웃 API
-export const logoutService = async () => {
-    const response = await axios.post(
-        
-    );
+export const logoutService = async (token) => {
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/api/members/logout`,
+            {
+    
+            },
+            {
+                headers: { Authorization: token }
+            }
+        );
+        return response.status;
+    } catch (error) {
+        return error;
+    }
 }
 
 //유저 정보 조회 API
