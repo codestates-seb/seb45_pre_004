@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 @Getter
 @Setter
@@ -23,12 +27,17 @@ public class ReplyDto {
         this.content = content;
     }
 
-    // authorId 관련 메소드 추가
-    public String getAuthorId() {
-        return authorId;
+    // createdAt 관련 메소드 추가
+    public String getCreatedAt() {
+        if (createdAt != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            return dateFormat.format(Date.from(createdAt.atZone(ZoneId.of("Asia/Seoul")).toInstant()));
+        }
+        return null;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
