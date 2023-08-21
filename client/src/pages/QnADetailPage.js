@@ -110,7 +110,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         {editMode ? (
           <CKEditor
             editor={Editor}
-            data={question.content}
+            data={editedContent !== "" ? editedContent : question.content}
             onChange={(event, editor) => {
               const data = editor.getData();
               setEditedContent(data);
@@ -119,8 +119,9 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         ) : (
           <ContentBox>
             <Contents>
-              {parse(editedContent) ||
-                (question.content && parse(question.content))}
+              {editedContent !== ""
+                ? parse(editedContent)
+                : question.content && parse(question.content)}
             </Contents>
           </ContentBox>
         )}
