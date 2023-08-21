@@ -53,16 +53,16 @@ export default function Header() {
 				<Buttons>
 					{isLoginPage ? null : isLogin ? (
 						browserWidth > 900 ? (
-							<LogoLink to="/">
+							<>
 								<UserInfoText>안녕하세요! {userInfo.id}님</UserInfoText>
 								<WhiteButton onClick={onLogoutButtonClickHandler}>로그아웃</WhiteButton>
-							</LogoLink>
+							</>
 						) : (
-							<LogoLink to="/">
-								<ExtraSmallPointButton>
+							<>
+								<ExtraSmallPointButton onClick={onLogoutButtonClickHandler}>
 									<img src={exit} alt="logout buttton" />
 								</ExtraSmallPointButton>
-							</LogoLink>
+							</>
 						)
 					) : browserWidth > 900 ? (
 						<div>

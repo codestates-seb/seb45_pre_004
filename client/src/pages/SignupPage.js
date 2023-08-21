@@ -23,7 +23,6 @@ const SignupPage = () => {
   const [passwordCheckWarningText, setPasswordCheckWarningText] = useState("");
   const [modalCategory, setModalCategory] = useState("");
 
-
   const onChangeNameHandler = (e) => {
     let nameInput = e.target.value;
     setNameWarningText('');
@@ -157,7 +156,10 @@ const SignupPage = () => {
         :modalCategory==='error'?(
           <ModalBackdrop isModalOpen={isModalOpen}>
             <ModalContainer  isModalOpen={isModalOpen} onClick={(e)=> {e.stopPropagation()}}>
-              <ModalText isModalOpen={isModalOpen}>이미 아이디로 가입된 회원이 있거나,<br/>사용할 수 없는 회원정보입니다.</ModalText>
+              <ModalText isModalOpen={isModalOpen}>
+                이미 아이디로 가입된 회원이 있거나,<br/>
+                사용할 수 없는 회원정보입니다.
+              </ModalText>
               <ModalButton color={tokens.global.pointColor.value} onClick={errorModalButtonHandler}>확인</ModalButton>
             </ModalContainer>
           </ModalBackdrop>
