@@ -61,6 +61,37 @@ public class ReplyController {
         Optional<Reply> reply = replyRepository.findById(id);
         return reply.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateReply(@PathVariable int id, @RequestBody ReplyDto replyDto) {
+        Optional<Reply> optionalReply = replyRepository.findById(id);
+        if (optionalReply.isPresent()) {
+            Reply reply = optionalReply.get();
+
+            // replyDto 수정된 내용을 추출하여 reply 객체에 적용
+            String updatedContent = replyDto.getContent();
+            if (updatedContent != null && !updatedContent.trim().isEmpty()) {
+                reply.setContent(updatedContent);
+            }
+
+            // 수정된 내용을 저장
+            Reply updatedReply = replyRepository.save(reply);
+            return ResponseEntity.ok(updatedReply);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReply(@PathVariable int id) {
+        Optional<Reply> optionalReply = replyRepository.findById(id);
+        if (optionalReply.isPresent()) {
+            replyRepository.deleteById((long) id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     // 추가적인 API 정의 가능
 }
