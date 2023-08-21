@@ -1,23 +1,31 @@
 package com.server.pre_project.Reply.Dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
 public class ReplyDto {
     private Long id;
-    private String userId; // String으로 변경
+    private Long userId;
     private String content;
     private LocalDateTime createdAt;
     private List<ReplyDto> replies; // 답변 리스트 추가
+
+    private Long questionId;
 
     public ReplyDto() {
         // 기본 생성자
     }
 
-    public ReplyDto(String userId, String content) { // String으로 변경
+    public ReplyDto(Long userId, String content) {
         this.userId = userId;
         this.content = content;
     }
+
 
     public Long getId() {
         return id;
@@ -31,7 +39,7 @@ public class ReplyDto {
         return userId;
     }
 
-    public void setUserId(String userId) { // String으로 변경
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -61,5 +69,9 @@ public class ReplyDto {
 
     public void setReplies(List<ReplyDto> replies) {
         this.replies = replies;
+    }
+
+    public void  setQuestionId(Long questionId){
+        this.questionId = questionId;
     }
 }
