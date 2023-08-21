@@ -1,4 +1,4 @@
-import { GET_USER_INFO } from "../actions/userInfoAction";
+import { GET_USER_INFO, REMOVE_USER_INFO } from "../actions/userInfoAction";
 
 const userInfoInitialState = {};
 
@@ -7,6 +7,8 @@ export function userInfoReducer (state = userInfoInitialState, action) {
 	switch (action.type) {
 		case GET_USER_INFO : 
 			return action.payload;
+		case REMOVE_USER_INFO: 
+			return userInfoInitialState;
 		default :
 			return state;
 	}
