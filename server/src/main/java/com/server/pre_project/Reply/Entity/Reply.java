@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long reply_id;
 
     @Column(nullable = false)
-    private Long userId;
+    private String userId;
 
     @Column(length = 100, nullable = false)
     private String content;
@@ -43,11 +43,11 @@ public class Reply {
         // 기본 생성자
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -68,4 +68,3 @@ public class Reply {
     }
 
 }
-
