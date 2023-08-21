@@ -66,7 +66,7 @@ public class Question {
     private int reply_count = 0;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
-    private List<Reply> replys = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne

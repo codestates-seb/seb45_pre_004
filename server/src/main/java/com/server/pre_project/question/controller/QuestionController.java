@@ -7,6 +7,7 @@ import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.page.PaginationInfo;
 import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.page.PaginationResponse;
+import com.server.pre_project.question.dto.QuestionResponseDto;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class QuestionController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Question> createQuestion(
+    public ResponseEntity<QuestionResponseDto> createQuestion(
             @RequestBody @Valid QuestionPostDto questionPostDto,
             @RequestParam String userId) {
 
@@ -44,21 +45,27 @@ public class QuestionController {
         }
 
         Question createdQuestion = questionService.createQuestionFromDto(questionPostDto, member);
+        QuestionResponseDto responseDto = questionMapper.toResponseDto(createdQuestion);
 
-        return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/{question_id}")
-    public ResponseEntity<Question> getQuestion(@PathVariable Long question_id){
+    public ResponseEntity<QuestionResponseDto> getQuestion(@PathVariable Long question_id){
         Question question = questionService.getQuestionById(question_id);
+
         if (question != null){
             question.setViewCount(question.getViewCount() + 1);
             questionService.updateQuestion(question_id, question);
-            return new ResponseEntity<>(question, HttpStatus.OK);
+
+            QuestionResponseDto responseDto = questionMapper.toResponseDto(question);
+
+            return ResponseEntity.ok(responseDto);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping
     public ResponseEntity<PaginationResponse<Question>> getAllQuestions(
             @Positive @RequestParam int page,
