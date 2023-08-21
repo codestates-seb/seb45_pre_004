@@ -1,19 +1,16 @@
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/pre_project
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.H2Dialect
-    security:
-      jwt:
-        secret: mySecretKey  # JWT 시크릿 키
-        expiration: 3600000  # 토큰 유효 시간 (밀리초)
-        token-prefix: Bearer  # 토큰 프리픽스
-        header: Authorization  # 헤더 이름
+    database-platform: org.hibernate.dialect.MySQLDialect
+  security:
+    jwt:
+      secret: mySecretKey  # JWT 시크릿 키
+      expiration: 3600000  # 토큰 유효 시간 (밀리초)
+      token-prefix: Bearer  # 토큰 프리픽스
+      header: Authorization  # 헤더 이름
