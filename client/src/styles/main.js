@@ -8,13 +8,9 @@ const globalTokens = tokens.global;
 export const MainPageContainer = styled.div`
 	width: 100%;
 	height: auto;
-	min-height: 100%;
-	padding-bottom: 107px;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 100px;
 `;
 export const MainSmallNavigator = styled.section`
 	width: 90%;

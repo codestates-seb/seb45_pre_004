@@ -36,9 +36,8 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   const [content, setContent] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const [question, setQuestion] = useState({});
-
+  console.log(userInfo)
   const navigate = useNavigate();
-  console.log(question);
   const onClickEditHandler = () => {
     if (editMode === true) {
       axios.patch(
@@ -63,8 +62,8 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/replies`,
       {
-        userId,
-        content,
+        userId: userId,
+        content: content,
       },
       { headers: { Authorization: token, "Content-Type": "application/json" } }
     );
