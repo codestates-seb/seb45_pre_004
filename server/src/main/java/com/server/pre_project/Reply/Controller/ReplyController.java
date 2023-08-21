@@ -3,6 +3,7 @@ package com.server.pre_project.Reply.Controller;
 import com.server.pre_project.Reply.Dto.ReplyDto;
 import com.server.pre_project.Reply.Entity.Reply;
 import com.server.pre_project.Reply.Repository.ReplyRepository;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Getter
 @RequestMapping("/api/replies")
 public class ReplyController {
     private final ReplyRepository replyRepository;
