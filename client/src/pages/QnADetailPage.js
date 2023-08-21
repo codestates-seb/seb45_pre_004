@@ -68,7 +68,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
       },
       { headers: { Authorization: token, "Content-Type": "application/json" } }
     );
-    axios.patch();
+    // axios.patch();
   };
 
   //현재 라우터 정보를 location redux로 관리
@@ -151,7 +151,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
               alt="testimg"
             ></img>
             <UserInfoData>
-              <div> {/*question.userId*/}</div>
+              <div> {question.authorId}님</div>
             </UserInfoData>
           </UserInfo>
         </User>
