@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsLoginTrue } from "../redux/actions/isLoginAction";
 import { LoginInputBottomDesign, LoginInputTopDesign } from "../atoms/Input";
 import tokens from '../styles/tokens.json'
@@ -8,9 +8,13 @@ import { LoginButton, LoginContainer, LoginForm, LoginPageContainer, LoginTitle,
 import { loginService } from "../services/loginServices";
 import { useNavigate } from "react-router-dom";
 import { setUserInfo } from "../redux/actions/userInfoAction";
+import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
+import { ModalBackdrop, ModalButton, ModalContainer, ModalText } from "../components/Modal";
 const globalTokens = tokens.global;
 
+
 const LoginPage = () => {
+	const isModalOpen = useSelector((state)=>state.isModalOpenReducer);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [ inputId, setInputId ] = useState('');
@@ -36,20 +40,29 @@ const LoginPage = () => {
 			return;
 		} else {
 			setWarningText('');
-			try{
-				loginService({id:inputId, password:inputPassword}).then((res)=>{
+
+			loginService({id:inputId, password:inputPassword}).then((res)=>{
+				if(res===undefined || res===null) {
+					dispatch(openModalAction());
+				} else {
 					dispatch(setIsLoginTrue());
 					dispatch(setUserInfo(res,inputId,''));
 					navigate('/');
-				})
-			} catch( err ) {
-				console.log(err);
-			}
+				}
+			});
 		}
 	};
-
+	const modalButtonClickHandler = (e) => {
+		dispatch(closeModalAction());
+	}
 	return (
 		<LoginPageContainer>
+			<ModalBackdrop isModalOpen={isModalOpen}>
+				<ModalContainer isModalOpen={isModalOpen} onClick={ (e) => { e.stopPropagation() }}>
+					<ModalText isModalOpen={isModalOpen}>아이디, 비밀번호를 확인해주세요.</ModalText>
+					<ModalButton onClick={modalButtonClickHandler} color={globalTokens.pointColor.value}>확인</ModalButton>
+				</ModalContainer>
+			</ModalBackdrop>
 			<LoginContainer>
 				<LoginTitle>로그인</LoginTitle>
 				<LoginForm onSubmit={onSubmitHandler}>

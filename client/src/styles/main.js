@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { SmallLinkButtonDesign } from "../atoms/Button";
+import { SmallButtonDesign, SmallLinkButtonDesign } from "../atoms/Button";
 
 import tokens from "./tokens.json";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ export const MainSmallNavigator = styled.section`
 	align-items: center;
 `;
 
-export const AskButton = styled(SmallLinkButtonDesign)`
+export const AskButton = styled(SmallButtonDesign)`
 	color: ${globalTokens.darkColor
 		.value};
 	background-color: ${globalTokens.whiteColor.value};
