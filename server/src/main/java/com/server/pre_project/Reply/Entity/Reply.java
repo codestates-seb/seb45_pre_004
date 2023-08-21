@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reply_id;
+    private Long replyId;  // 수정: reply_id -> replyId
 
     @Column(nullable = false)
-    private String userId;
+    private Long userId;  // 수정: String -> Long
 
     @Column(length = 100, nullable = false)
     private String content;
@@ -23,12 +23,12 @@ public class Reply {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;  // Question 엔티티의 외래키로 연결
+    private Question question;
 
     @ManyToOne
     private Member member;
 
-    @Column(name = "question_id", insertable = false, updatable = false)
+    @Transient  // 수정: questionId를 DB에 저장하지 않음
     private Long questionId;
 
     public void setQuestionId(Long questionId) {
@@ -43,11 +43,11 @@ public class Reply {
         // 기본 생성자
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -66,4 +66,4 @@ public class Reply {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    
+}
