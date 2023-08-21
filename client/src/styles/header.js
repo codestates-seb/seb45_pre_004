@@ -39,7 +39,7 @@ export const LogoLink = styled(Link)`
 	text-decoration: none;
 	color: ${globalTokens.blackColor.value};
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 `;
 export const LogoImg = styled.img`
