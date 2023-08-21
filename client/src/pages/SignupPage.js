@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
 
 import tokens from '../styles/tokens.json'
+import { ModalBackdrop, ModalContainer, ModalText, ModalButton } from "../components/Modal";
 const globalTokens = tokens.global;
 
 const SignupPage = () => {
@@ -20,6 +21,7 @@ const SignupPage = () => {
   const [idWarningText, setIdWarningText] = useState("");
   const [passwordWarningText, setPasswordWarningText] = useState("");
   const [passwordCheckWarningText, setPasswordCheckWarningText] = useState("");
+  const [modalCategory, setModalCategory] = useState("");
 
 
   const onChangeNameHandler = (e) => {
@@ -57,13 +59,14 @@ const SignupPage = () => {
     setPasswordCheck(passwordCheckInput);
   };
   //가입 처리 메소드
-  const signUp = async () => { 
-      try {
-        const response = await signupService({ name:name, id:id, password:password });
-        console.log(response.data);
+  const signUp = async () => {
+      const res = await signupService({ name:name, id:id, password:password });
+      if(res===undefined || res===null) {
+        setModalCategory('error');
         dispatch(openModalAction());
-      } catch (err) {
-        console.log(err)
+      } else {
+        setModalCategory('success')
+        dispatch(openModalAction());
       }
     }
   const onSignupButtonClickHandler = (e) => {
@@ -84,13 +87,15 @@ const SignupPage = () => {
       return;
     }
     if( !nameWarningText && !idWarningText && !passwordWarningText && !passwordCheckWarningText) {
-      console.log('가입 성공');
       //가입 성공 로직 작성
       signUp();
     }
   }
   const onLoginButtonClickListener = (e) => {
     //로그인 화면으로 이동 후 팝업창 닫음 (Link 태그라서 팝업창만 닫으면 됨)
+    dispatch(closeModalAction());
+  }
+  const errorModalButtonHandler = (e) => {
     dispatch(closeModalAction());
   }
 
@@ -140,12 +145,24 @@ const SignupPage = () => {
             color={tokens.global.pointColor.value}
             onClick={onSignupButtonClickHandler}>가입하기</SignUpButton>
       </SignUpContainer>
-      <SignupPageModalBackdrop isModalOpen={isModalOpen}>
-        <SignupPageModalContainer isModalOpen={isModalOpen} onClick={ (e) => { e.stopPropagation() }}>
-          <SignupPageModalText isModalOpen={isModalOpen} >회원 가입이 완료되었습니다.</SignupPageModalText>
-          <SignupPageModalButton to='/login' isModalOpen={isModalOpen} color={globalTokens.pointColor.value} onClick={onLoginButtonClickListener}>로그인하기</SignupPageModalButton>
-        </SignupPageModalContainer>
-      </SignupPageModalBackdrop>
+      {
+        modalCategory==='success'?(
+          <SignupPageModalBackdrop isModalOpen={isModalOpen}>
+          <SignupPageModalContainer isModalOpen={isModalOpen} onClick={ (e) => { e.stopPropagation() }}>
+            <SignupPageModalText isModalOpen={isModalOpen} >회원 가입이 완료되었습니다.</SignupPageModalText>
+            <SignupPageModalButton to='/login' isModalOpen={isModalOpen} color={globalTokens.pointColor.value} onClick={onLoginButtonClickListener}>로그인하기</SignupPageModalButton>
+          </SignupPageModalContainer>
+        </SignupPageModalBackdrop>
+        )
+        :modalCategory==='error'?(
+          <ModalBackdrop isModalOpen={isModalOpen}>
+            <ModalContainer  isModalOpen={isModalOpen} onClick={(e)=> {e.stopPropagation()}}>
+              <ModalText isModalOpen={isModalOpen}>이미 아이디로 가입된 회원이 있거나,<br/>사용할 수 없는 회원정보입니다.</ModalText>
+              <ModalButton color={tokens.global.pointColor.value} onClick={errorModalButtonHandler}>확인</ModalButton>
+            </ModalContainer>
+          </ModalBackdrop>
+        ):null
+      }
     </SignUpPageContainer>
   );
 };

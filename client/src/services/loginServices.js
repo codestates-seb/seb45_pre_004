@@ -13,7 +13,7 @@ export const signupService = async ({name,id,password}) => {
         )
         return response.data;
     } catch(error) {
-        console.log(error);
+        return undefined;
     }
 }
 
