@@ -46,6 +46,8 @@ public class Question {
         }
         return null;
     }
+
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
     private Date updatedAt;
