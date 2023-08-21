@@ -29,13 +29,7 @@ const SignupPage = () => {
   };
   const onChangeIdHandler = (e) => {
     let idInput = e.target.value;
-    //아이디 중복 검사 로직
-    if(idInput==='hyerim') {
-      setIdWarningText('이미 사용중인 아이디입니다!');
-    } else {
-      setIdWarningText('');
-    }
-    setId(e.target.value);
+    setId(idInput);
   };
   const onChangePwdHandler = (e) => {
     let passwordInput = e.target.value;

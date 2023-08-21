@@ -1,11 +1,10 @@
 import axios from "axios"
-import { ROOT_URL } from "./index";
 
 //회원가입 API
 export const signupService = async ({name,id,password}) => {
     try {
         const response = await axios.post(
-            `${ROOT_URL}/api/members`,
+            `${process.env.REACT_APP_SERVER_URL}/api/members`,
             {
                 name:name,
                 id:id,
@@ -22,7 +21,7 @@ export const signupService = async ({name,id,password}) => {
 export const loginService = async ({id,password}) => {
     try {
         const response = await axios.post(
-            `${ROOT_URL}/api/members/login`,
+            `${process.env.REACT_APP_SERVER_URL}/api/members/login`,
             {
                 id:id,
                 password:password
@@ -35,11 +34,18 @@ export const loginService = async ({id,password}) => {
 
 }
 
+//로그아웃 API
+export const logoutService = async () => {
+    const response = await axios.post(
+        
+    );
+}
 
 //유저 정보 조회 API
 export const getUserInfoService = async ({userId}) => {
     const response = await axios.get(
-        `${ROOT_URL}/api/members/${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/members/${userId}`
     )
     console.log(response);
 }
+
