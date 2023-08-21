@@ -131,9 +131,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             <img
               src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
               alt="testimg"
-            >
-              {/* {question.userId.picture} */}
-            </img>
+            ></img>
             <UserInfoData>
               <div> {/*question.userId*/}</div>
             </UserInfoData>
