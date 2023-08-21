@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoginTrue } from "../redux/actions/isLoginAction";
 import { LoginInputBottomDesign, LoginInputTopDesign } from "../atoms/Input";
@@ -6,10 +6,11 @@ import tokens from '../styles/tokens.json'
 import { TextButtonDesign } from "../atoms/Button";
 import { LoginButton, LoginContainer, LoginForm, LoginPageContainer, LoginTitle, WarningSpan } from "../styles/loginPageStyle";
 import { loginService } from "../services/loginServices";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setUserInfo } from "../redux/actions/userInfoAction";
 import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
 import { ModalBackdrop, ModalButton, ModalContainer, ModalText } from "../components/Modal";
+import { setLocation } from "../redux/actions/locationAction";
 const globalTokens = tokens.global;
 
 
@@ -17,9 +18,14 @@ const LoginPage = () => {
 	const isModalOpen = useSelector((state)=>state.isModalOpenReducer);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const location = useLocation().pathname;
 	const [ inputId, setInputId ] = useState('');
 	const [ inputPassword, setInputPassword ] = useState('');
 	const [ warningText, setWarningText ] = useState('');
+
+	useMemo(()=>{
+		dispatch(setLocation(location));
+	},[]);
 
 	const onInputIdChange = (e) => {
 		setInputId(e.target.value);

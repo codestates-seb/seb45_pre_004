@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logoImg from "../assets/images/logoImage.png";
 import Nav from "../styles/navigator";
 import { SmallCircleButtonDesign as Button } from "../atoms/Button";
 import tokens from "../styles/tokens.json";
+import { removeUserInfo } from "../redux/actions/userInfoAction";
+import { setIsLoginFalse } from "../redux/actions/isLoginAction";
 
 const Navigator = () => {
+	const dispatch = useDispatch();
 	const isLogin = useSelector((state) => state.isLoginReducer);
 	const [showNavigator, setShowNavigator] = useState(false);
 
+	const logoutClickHandler = () => {
+		dispatch(removeUserInfo());
+		dispatch(setIsLoginFalse());
+	}
 	useEffect(() => {
 		const handleScroll = () => {
 			const shouldShow = window.scrollY > 150;
@@ -33,9 +40,10 @@ const Navigator = () => {
 					<img src={logoImg} alt="Logo" />
 				</Link>
 				{isLogin ? (
-					<Link to="/" onClick={()=>console.log('isClicked')}>
-						<Button color={tokens.global.whiteColor.value} fontColor={tokens.global.pointColor.value}>로그아웃</Button>
-					</Link>
+					<Button 
+						color={tokens.global.whiteColor.value} 
+						fontColor={tokens.global.pointColor.value}
+						onClick={logoutClickHandler}>로그아웃</Button>
 				) : (
 					<div>
 						<Link to="/login">
