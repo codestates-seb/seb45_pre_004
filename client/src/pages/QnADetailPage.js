@@ -54,11 +54,18 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     navigate("/"); // 삭제한 후 리디렉션
   };
 
-  const onClickSubmitHandler = (e) => {
+  const onSubmitHandler = (e) => {
+    const token = userInfo.token;
+    const id = userInfo.userId;
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/replies}`, {
-      replies: content,
-    });
+    axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/replies`,
+      {
+        userId: id,
+        replies: content,
+      },
+      { headers: { Authorization: token } }
+    );
   };
 
   useEffect(() => {
@@ -192,10 +199,9 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           <h1>Your Answer</h1>
         </AHead>
         <hr />
-        <form onClick={onClickSubmitHandler}>
+        <form onSubmit={onSubmitHandler}>
           <CKEditor
             editor={Editor}
-            data={content}
             onChange={(event, editor) => {
               const data = editor.getData();
               setContent(data);
