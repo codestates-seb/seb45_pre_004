@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import parse from "html-react-parser";
 import Prism from "prismjs";
+import "prismjs/themes/prism.css";
+import { useSelector } from "react-redux";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -27,6 +29,7 @@ import {
 const QnADetailPage = ({ Editor, CKEditor }) => {
   let params = useParams();
 
+  const userInfo = useSelector((state) => state.userInfoReducer);
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
   const [editedContent, setEditedContent] = useState("");
@@ -43,7 +46,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   };
 
   const onClickDeleteHandler = () => {
-    // axios.delete(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`);
+    //axios.delete(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`);
     navigate("/"); // 삭제한 후 리디렉션
   };
 
@@ -64,7 +67,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, [editedContent]);
+  }, [editedContent, content]);
 
   return (
     <Wrapper>
@@ -123,7 +126,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
               {/* {question.userId.picture} */}
             </img>
             <UserInfoData>
-              <div>Semin Kim {/* {question.userId} */}</div>
+              <div> {/*question.userId*/}</div>
             </UserInfoData>
           </UserInfo>
         </User>
