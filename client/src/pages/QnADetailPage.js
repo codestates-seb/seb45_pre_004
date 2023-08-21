@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import parse from "html-react-parser";
 import Prism from "prismjs";
 import "prismjs/themes/prism.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import DateDistance from "../components/DateDistance";
 import {
@@ -25,10 +25,12 @@ import {
 	SubmitButton,
 	ContentBox,
 } from "../styles/qnaDetail";
+import { setLocation } from "../redux/actions/locationAction";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
 	let params = useParams();
-
+	let location = useLocation().pathname;
+	let dispatch = useDispatch();
 	const userInfo = useSelector((state) => state.userInfoReducer);
 	const [editMode, setEditMode] = useState(false);
 	const [content, setContent] = useState("");
@@ -67,6 +69,10 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 			{ headers: { Authorization: token } }
 		);
 	};
+ 	//현재 라우터 정보를 location redux로 관리
+	useMemo(()=>{
+		dispatch(setLocation(location));
+	})
 
 	useEffect(() => {
 		async function getDetailInfo() {

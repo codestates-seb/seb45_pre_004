@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { SignUpPageContainer, SignUpContainer, Input, InputAndLabelBox, InputLabel, SignUpButton, WarningSpan, SignupHeading, SignupPageModalBackdrop, SignupPageModalContainer, SignupPageModalText, SignupPageModalButton } from "../styles/signupPageStyle";
 
 import { signupService } from "../services/loginServices";
@@ -7,11 +7,14 @@ import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenA
 
 import tokens from '../styles/tokens.json'
 import { ModalBackdrop, ModalContainer, ModalText, ModalButton } from "../components/Modal";
+import { useLocation } from "react-router-dom";
+import { setLocation } from "../redux/actions/locationAction";
 const globalTokens = tokens.global;
 
 const SignupPage = () => {
   const isModalOpen = useSelector((state)=>state.isModalOpenReducer);
   const dispatch = useDispatch();
+  const location = useLocation().pathname;
 
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -23,6 +26,10 @@ const SignupPage = () => {
   const [passwordCheckWarningText, setPasswordCheckWarningText] = useState("");
   const [modalCategory, setModalCategory] = useState("");
 
+  //현재 라우터 정보를 location redux로 관리
+  useMemo(()=>{
+    dispatch(setLocation(location));
+  },[])
   const onChangeNameHandler = (e) => {
     let nameInput = e.target.value;
     setNameWarningText('');
@@ -68,6 +75,7 @@ const SignupPage = () => {
         dispatch(openModalAction());
       }
     }
+  //회원가입 버튼 클릭 시 동작
   const onSignupButtonClickHandler = (e) => {
     if(!name) {
       setNameWarningText('이름을 입력해 주세요!');
@@ -90,10 +98,12 @@ const SignupPage = () => {
       signUp();
     }
   }
+  //가입성공 모달창의 '로그인하기'버튼 클릭 시 동작
   const onLoginButtonClickListener = (e) => {
     //로그인 화면으로 이동 후 팝업창 닫음 (Link 태그라서 팝업창만 닫으면 됨)
     dispatch(closeModalAction());
   }
+  //가입 실패 모달창의 '확인'버튼 클릭 시 동작
   const errorModalButtonHandler = (e) => {
     dispatch(closeModalAction());
   }
