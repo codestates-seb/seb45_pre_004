@@ -59,9 +59,9 @@ const MainPage = () => {
 		navigate("/login");
 	};
 
-	useMemo(()=>{
+	useMemo(() => {
 		dispatch(setLocation(location));
-	},[])
+	}, [dispatch, location]);
 
 	useEffect(() => {
 		const fetchQuestions = async () => {
