@@ -41,9 +41,13 @@ const MainPage = () => {
     setActivePage(pageNumber);
   };
 
-  const postQuestionAuth = () => {
-    dispatch(openModalAction());
-  };
+	const postQuestionAuth = () => {
+		if(!isLogin) { 
+			dispatch(openModalAction());
+		} else {
+			navigate('/write')
+		}
+	};
 
   const modalBackdropClickHandler = () => {
     dispatch(closeModalAction());
@@ -53,23 +57,16 @@ const MainPage = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (isLogin && isModalOpen) {
-      navigate("/write");
-      dispatch(closeModalAction());
-    }
-  });
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const data = await getQuestionsService(activePage);
-        setQuestions(data.content);
-        setTotalItems(data.paginationInfo.totalItems);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
+	useEffect(() => {
+		const fetchQuestions = async () => {
+			try {
+				const data = await getQuestionsService(activePage);
+				setQuestions(data.content);
+				setTotalItems(data.paginationInfo.totalItems);
+			} catch (error) {
+				console.error("Error fetching questions:", error);
+			}
+		};
 
     fetchQuestions();
     window.scrollTo(0, 0);
