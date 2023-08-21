@@ -9,8 +9,8 @@ import java.util.List;
 @Getter
 @Setter
 public class ReplyDto {
-    private Long id;
-    private Long userId;
+    private Long reply_id;
+    private String userId;
     private String content;
     private LocalDateTime createdAt;
     private List<ReplyDto> replies; // 답변 리스트 추가
@@ -21,25 +21,28 @@ public class ReplyDto {
         // 기본 생성자
     }
 
-    public ReplyDto(Long userId, String content) {
+    public ReplyDto(String userId, String content) {
         this.userId = userId;
         this.content = content;
     }
 
 
     public Long getId() {
-        return id;
+        return reply_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.reply_id = id;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+
+
+
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
