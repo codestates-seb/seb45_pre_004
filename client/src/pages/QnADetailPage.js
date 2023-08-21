@@ -28,7 +28,6 @@ import {
 import { setLocation } from "../redux/actions/locationAction";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
-
 	let params = useParams();
 	let location = useLocation().pathname;
 	let dispatch = useDispatch();
@@ -37,10 +36,8 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 	const [content, setContent] = useState("");
 	const [editedContent, setEditedContent] = useState("");
 	const [question, setQuestion] = useState({});
-
-
   const navigate = useNavigate();
-
+  console.log(question);
   const onClickEditHandler = () => {
     if (editMode === true) {
       axios.patch(

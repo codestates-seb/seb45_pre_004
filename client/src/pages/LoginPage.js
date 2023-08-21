@@ -23,6 +23,7 @@ const LoginPage = () => {
 	const [ inputPassword, setInputPassword ] = useState('');
 	const [ warningText, setWarningText ] = useState('');
 
+	//현재 라우터 정보를 location redux로 관리
 	useMemo(()=>{
 		dispatch(setLocation(location));
 	},[]);
