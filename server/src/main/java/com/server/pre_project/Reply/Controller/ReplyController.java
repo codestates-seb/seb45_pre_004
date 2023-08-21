@@ -72,41 +72,53 @@ public class ReplyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getReply(@PathVariable int id) {
-        Optional<Reply> reply = replyRepository.findById(id);
-        return reply.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateReply(@PathVariable int id, @RequestBody ReplyDto replyDto) {
+    public ResponseEntity<?> updateReply(@PathVariable Long id, @RequestBody ReplyDto replyDto) {
         Optional<Reply> optionalReply = replyRepository.findById(id);
-        if (optionalReply.isPresent()) {
-            Reply reply = optionalReply.get();
-
-            // replyDto 수정된 내용을 추출하여 reply 객체에 적용
-            String updatedContent = replyDto.getContent();
-            if (updatedContent != null && !updatedContent.trim().isEmpty()) {
-                reply.setContent(updatedContent);
-            }
-
-            // 수정된 내용을 저장
-            Reply updatedReply = replyRepository.save(reply);
-            return ResponseEntity.ok(updatedReply);
-        } else {
+        if (optionalReply.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
+        Reply reply = optionalReply.get();
+
+        // Update the reply content if provided
+        if (replyDto.getContent() != null && !replyDto.getContent().trim().isEmpty()) {
+            reply.setContent(replyDto.getContent());
+        }
+
+        // Update the updatedAt timestamp
+        reply.setCreatedAt(LocalDateTime.now());
+
+        // Update the authorId based on the currently logged in user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUserId = authentication.getName();
+        reply.setAuthorId(loggedInUserId);
+
+        // Update the questionId from the replyDto
+        reply.setQuestionId(replyDto.getQuestionId()); // Assuming you have a setter for questionId in Reply entity
+
+        // Save the updated reply
+        Reply updatedReply = replyRepository.save(reply);
+
+        // Prepare the response DTO
+        ReplyDto responseDto = new ReplyDto(updatedReply.getAuthorId(), updatedReply.getContent(), updatedReply.getQuestionId());
+        responseDto.setReply_id(updatedReply.getReply_id());
+        responseDto.setCreatedAt(updatedReply.getCreatedAt());
+
+        return ResponseEntity.ok(responseDto);
     }
+
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReply(@PathVariable int id) {
+    public ResponseEntity<?> deleteReply(@PathVariable Long id) {
         Optional<Reply> optionalReply = replyRepository.findById(id);
-        if (optionalReply.isPresent()) {
-            replyRepository.deleteById((long) id);
-            return ResponseEntity.noContent().build();
-        } else {
+        if (optionalReply.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        // 추가적인 API 정의 가능
+
+        replyRepository.delete(optionalReply.get());
+
+        return ResponseEntity.noContent().build();
     }
+
 }

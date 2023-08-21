@@ -28,6 +28,17 @@ public class Reply {
     @Column(name = "question_id", insertable = false, updatable = false)
     private Long questionId;
 
+    @Column(length = 50) // 예시로 길이 조정
+    private String authorId;
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
     // userId 필드 삭제
 
     public void setQuestionId(Long questionId) {

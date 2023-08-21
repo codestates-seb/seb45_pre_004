@@ -22,12 +22,13 @@ public class ReplyDto {
         // 기본 생성자
     }
 
-    public ReplyDto(String authorId, String content) {
+    public ReplyDto(String authorId, String content, Long questionId) {
         this.authorId = authorId;
         this.content = content;
+        this.questionId = questionId;
     }
 
-    // createdAt 관련 메소드 추가
+
     public String getCreatedAt() {
         if (createdAt != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
