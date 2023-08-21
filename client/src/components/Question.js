@@ -31,7 +31,6 @@ export default function Question({ item }) {
             <section style={{ display: "flex" }}>
               asked
               <DateDistance inputDate={item.createdAt} />
-              ago
             </section>
           </Info>
         </Container>

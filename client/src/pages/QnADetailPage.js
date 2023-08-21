@@ -84,7 +84,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
       setQuestion(data.data);
     }
     getDetailInfo();
-  }, [params.id, question.replys]);
+  }, [params.id]);
 
   useEffect(() => {
     Prism.highlightAll();
