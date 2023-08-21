@@ -7,9 +7,13 @@ import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.repository.QuestionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,7 +42,10 @@ public class ReplyController {
 
         // 댓글 객체 생성 및 설정
         Reply reply = new Reply();
-        reply.setUserId(replyDto.getUserId());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUserId = authentication.getName();
+
         reply.setContent(replyDto.getContent());
         reply.setCreatedAt(LocalDateTime.now());
 
@@ -54,45 +61,22 @@ public class ReplyController {
             questionRepository.save(question);
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReply);
+        // 작성자 ID를 응답에 추가
+        ReplyDto responseDto = new ReplyDto();
+        responseDto.setReply_id(savedReply.getReply_id());
+        responseDto.setAuthorId(loggedInUserId);
+        responseDto.setContent(savedReply.getContent());
+        responseDto.setCreatedAt(savedReply.getCreatedAt());
+        responseDto.setQuestionId(savedReply.getQuestionId());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getReply(@PathVariable int id) {
         Optional<Reply> reply = replyRepository.findById(id);
         return reply.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> updateReply(@PathVariable int id, @RequestBody ReplyDto replyDto) {
-        Optional<Reply> optionalReply = replyRepository.findById(id);
-        if (optionalReply.isPresent()) {
-            Reply reply = optionalReply.get();
-
-            // replyDto 수정된 내용을 추출하여 reply 객체에 적용
-            String updatedContent = replyDto.getContent();
-            if (updatedContent != null && !updatedContent.trim().isEmpty()) {
-                reply.setContent(updatedContent);
-            }
-
-            // 수정된 내용을 저장
-            Reply updatedReply = replyRepository.save(reply);
-            return ResponseEntity.ok(updatedReply);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReply(@PathVariable int id) {
-        Optional<Reply> optionalReply = replyRepository.findById(id);
-        if (optionalReply.isPresent()) {
-            replyRepository.deleteById((long) id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
 
     // 추가적인 API 정의 가능
 }
-

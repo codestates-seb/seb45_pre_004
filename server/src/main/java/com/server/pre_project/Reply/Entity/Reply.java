@@ -10,10 +10,7 @@ import java.time.LocalDateTime;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reply_id;
-
-    @Column(nullable = false)
-    private String userId;
+    private Long replyId;
 
     @Column(length = 100, nullable = false)
     private String content;
@@ -31,6 +28,8 @@ public class Reply {
     @Column(name = "question_id", insertable = false, updatable = false)
     private Long questionId;
 
+    // userId 필드 삭제
+
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
@@ -41,14 +40,6 @@ public class Reply {
 
     public Reply() {
         // 기본 생성자
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public void setContent(String content) {
@@ -66,5 +57,11 @@ public class Reply {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public Long getReply_id() {
+        return replyId;
+    }
+
+    // setUserId 메소드 삭제
 
 }
