@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.time.Instant;
@@ -77,11 +78,13 @@ public class JwtTokenProvider {
 
     // Request의 Header에서 token 값을 가져옵니다.
     public String resolveToken(HttpServletRequest request) {
-        // 이 부분에서 request 헤더에서 토큰을 가져오는 방식을 변경해야합니다.
-        // 예를 들어 "Authorization" 헤더에서 Bearer 토큰을 가져오는 방식이라면 아래와 같이 변경 가능합니다.
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // "Bearer " 다음 부분을 가져옵니다.
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
         }
         return null;
     }
