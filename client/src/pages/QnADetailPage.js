@@ -28,16 +28,14 @@ import {
 import { setLocation } from "../redux/actions/locationAction";
 
 const QnADetailPage = ({ Editor, CKEditor }) => {
-
-	let params = useParams();
-	let location = useLocation().pathname;
-	let dispatch = useDispatch();
-	const userInfo = useSelector((state) => state.userInfoReducer);
-	const [editMode, setEditMode] = useState(false);
-	const [content, setContent] = useState("");
-	const [editedContent, setEditedContent] = useState("");
-	const [question, setQuestion] = useState({});
-
+  let params = useParams();
+  let location = useLocation().pathname;
+  let dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfoReducer);
+  const [editMode, setEditMode] = useState(false);
+  const [content, setContent] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+  const [question, setQuestion] = useState({});
 
   const navigate = useNavigate();
 
@@ -58,10 +56,9 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     navigate("/"); // 삭제한 후 리디렉션
   };
 
-
   const onSubmitHandler = (e) => {
     const token = userInfo.token;
-    const userId = userInfo.userId;
+    const userId = userInfo.id;
     e.preventDefault();
     axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/replies`,
@@ -69,15 +66,15 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         userId,
         content,
       },
-      { headers: { Authorization: token } }
+      { headers: { Authorization: token, "Content-Type": "application/json" } }
     );
+    axios.patch();
   };
 
- 	//현재 라우터 정보를 location redux로 관리
-	useMemo(()=>{
-		dispatch(setLocation(location));
-	})
-
+  //현재 라우터 정보를 location redux로 관리
+  useMemo(() => {
+    dispatch(setLocation(location));
+  });
 
   useEffect(() => {
     async function getDetailInfo() {
@@ -87,7 +84,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
       setQuestion(data.data);
     }
     getDetailInfo();
-  }, [params.id]);
+  }, [params.id, question.replys]);
 
   useEffect(() => {
     Prism.highlightAll();
@@ -111,15 +108,17 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
               </Info>
             </HeadInfo>
             {/* question.replys.userId === currentUser.userId 등으로 검증 필요*/}
-            {
-              /*question.userId && */ <Edit>
+            {question.authorId === userInfo.id ? (
+              <Edit>
                 {/* editMode 상태에 따라 버튼 텍스트 토글 */}
                 <div onClick={onClickEditHandler}>
                   {editMode ? "Done" : "Edit"}
                 </div>
                 <div onClick={onClickDeleteHandler}>Delete</div>
               </Edit>
-            }
+            ) : (
+              <></>
+            )}
           </InfoWrapper>
         </QHead>
         <hr />
