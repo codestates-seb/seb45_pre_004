@@ -107,7 +107,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
                 <div>{question.viewCount}</div>
               </Info>
             </HeadInfo>
-            {/* question.replys.userId === currentUser.userId 등으로 검증 필요*/}
+            {/* question.replies.userId === currentUser.userId 등으로 검증 필요*/}
             {question.authorId === userInfo.id ? (
               <Edit>
                 {/* editMode 상태에 따라 버튼 텍스트 토글 */}
@@ -144,7 +144,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         )}
 
         <User>
-          {/*<DateDistance inputDate={question.replys.createdAt}></DateDistance>*/}
+          {/*<DateDistance inputDate={question.replies.createdAt}></DateDistance>*/}
           <UserInfo>
             <img
               src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
@@ -156,11 +156,11 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           </UserInfo>
         </User>
       </Card>
-      {question.replys &&
-        question.replys.map((reply) => (
+      {question.replies &&
+        question.replies.map((reply) => (
           <Card key={reply.replyId}>
             <AHead>
-              <h1>{question.replys.length} Answer</h1>
+              <h1>{question.replies.length} Answer</h1>
               {/* reply.userId === currentUser.userId 등으로 검증 필요*/}
               {reply.userId && (
                 <Edit>
