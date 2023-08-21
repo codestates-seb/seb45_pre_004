@@ -3,6 +3,8 @@ package com.server.pre_project.Reply.Controller;
 import com.server.pre_project.Reply.Dto.ReplyDto;
 import com.server.pre_project.Reply.Entity.Reply;
 import com.server.pre_project.Reply.Repository.ReplyRepository;
+import com.server.pre_project.question.entity.Question;
+import com.server.pre_project.question.repository.QuestionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,11 @@ import java.util.Optional;
 public class ReplyController {
     private final ReplyRepository replyRepository;
 
-    public ReplyController(ReplyRepository replyRepository) {
+    private final QuestionRepository questionRepository;
+
+    public ReplyController(ReplyRepository replyRepository, QuestionRepository questionRepository) {
         this.replyRepository = replyRepository;
+        this.questionRepository = questionRepository;
     }
 
     @PostMapping
@@ -33,12 +38,24 @@ public class ReplyController {
             return ResponseEntity.badRequest().body("댓글 개수가 초과되었습니다.");
         }
 
+        // 댓글 객체 생성 및 설정
         Reply reply = new Reply();
         reply.setUserId(replyDto.getUserId());
         reply.setContent(replyDto.getContent());
         reply.setCreatedAt(LocalDateTime.now());
 
+        // 추가: 댓글이 속한 질문의 ID 설정
+        reply.setQuestionId(replyDto.getQuestionId());
+
+        // 댓글 저장
         Reply savedReply = replyRepository.save(reply);
+
+        Question question = questionRepository.findById(replyDto.getQuestionId()).orElse(null);
+        if (question != null) {
+            question.setReply_count(question.getReply_count() + 1);
+            questionRepository.save(question);
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(savedReply);
     }
 

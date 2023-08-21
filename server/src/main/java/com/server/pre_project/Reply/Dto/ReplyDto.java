@@ -1,16 +1,22 @@
 package com.server.pre_project.Reply.Dto;
 
 import com.server.pre_project.Reply.Entity.Reply;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
 public class ReplyDto {
     private Long id;
     private Long userId;
     private String content;
     private LocalDateTime createdAt;
     private List<ReplyDto> replies; // 답변 리스트 추가
+
+    private Long questionId;
 
     public ReplyDto() {
         // 기본 생성자
@@ -64,5 +70,9 @@ public class ReplyDto {
 
     public void setReplies(List<ReplyDto> replies) {
         this.replies = replies;
+    }
+
+    public void  setQuestionId(Long questionId){
+        this.questionId = questionId;
     }
 }

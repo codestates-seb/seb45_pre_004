@@ -28,6 +28,17 @@ public class Reply {
     @ManyToOne
     private Member member;
 
+    @Column(name = "question_id", insertable = false, updatable = false)
+    private Long questionId;
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
     public Reply() {
         // 기본 생성자
     }
