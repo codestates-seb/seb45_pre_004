@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "prismjs/themes/prism.css";
 
 import {
   QnAWritePageContainer,
@@ -31,7 +30,6 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
     e.preventDefault();
     const token = userInfo.token;
     const userId = userInfo.id;
-    const name = userInfo.name;
     const data = await axios.post(
       // id는 서버측에서 제공, title과 content만 제공하면 됨
 

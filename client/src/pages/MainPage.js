@@ -12,10 +12,18 @@ import {
   LoadingContainer,
 } from "../styles/main";
 import "../styles/paginator.css";
-import { ModalBackdrop, ModalButton, ModalContainer, ModalText } from "../components/Modal";
-import loadingIndicator from '../assets/images/loadingIndicator.gif'
-import { closeModalAction, openModalAction } from "../redux/actions/isModalOpenAction";
-import tokens from '../styles/tokens.json'
+import {
+  ModalBackdrop,
+  ModalButton,
+  ModalContainer,
+  ModalText,
+} from "../components/Modal";
+import loadingIndicator from "../assets/images/loadingIndicator.gif";
+import {
+  closeModalAction,
+  openModalAction,
+} from "../redux/actions/isModalOpenAction";
+import tokens from "../styles/tokens.json";
 
 const globalTokens = tokens.global;
 
@@ -27,7 +35,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const [activePage, setActivePage] = useState(1);
   const [questions, setQuestions] = useState([]);
-  const isModalOpen = useSelector(state=>state.isModalOpenReducer);
+  const isModalOpen = useSelector((state) => state.isModalOpenReducer);
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
@@ -38,18 +46,18 @@ const MainPage = () => {
 
   const modalBackdropClickHandler = () => {
     dispatch(closeModalAction());
-  }
+  };
 
   const modalButtonClickHandler = () => {
-    navigate('/login')
-  }
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (isLogin && isModalOpen) {
       navigate("/write");
+      dispatch(closeModalAction());
     }
   });
-
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -65,15 +73,22 @@ const MainPage = () => {
     window.scrollTo(0, 0);
   }, [activePage, dispatch]);
 
-
   return (
     <MainPageContainer>
       <MainSmallNavigator>
         {!isLogin ? (
-          <ModalBackdrop isModalOpen={isModalOpen} onClick={modalBackdropClickHandler}>
+          <ModalBackdrop
+            isModalOpen={isModalOpen}
+            onClick={modalBackdropClickHandler}
+          >
             <ModalContainer isModalOpen={isModalOpen}>
               <ModalText>로그인이 필요합니다.</ModalText>
-              <ModalButton onClick={modalButtonClickHandler} color={globalTokens.pointColor.value}>로그인하기</ModalButton>
+              <ModalButton
+                onClick={modalButtonClickHandler}
+                color={globalTokens.pointColor.value}
+              >
+                로그인하기
+              </ModalButton>
             </ModalContainer>
           </ModalBackdrop>
         ) : (
@@ -86,7 +101,8 @@ const MainPage = () => {
           {questions.map((question) => (
             <QLink
               key={question.questionId}
-              to={`/detail/${question.questionId}`}>
+              to={`/detail/${question.questionId}`}
+            >
               <Question item={question} />
             </QLink>
           ))}
@@ -104,9 +120,8 @@ const MainPage = () => {
         </>
       ) : (
         <LoadingContainer>
-          <img alt="loading" src={loadingIndicator} width='50px'/>
+          <img alt="loading" src={loadingIndicator} width="50px" />
         </LoadingContainer>
-        
       )}
     </MainPageContainer>
   );
