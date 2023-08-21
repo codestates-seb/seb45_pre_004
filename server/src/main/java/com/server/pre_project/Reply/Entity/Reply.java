@@ -66,5 +66,3 @@ public class Reply {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-}
