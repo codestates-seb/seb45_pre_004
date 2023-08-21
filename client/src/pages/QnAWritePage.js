@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import {
   QnAWritePageContainer,
   QnAWriteInfoContainer,
@@ -14,18 +13,21 @@ import {
   Warning,
   DisabledButton,
 } from "../styles/qnaWrite";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLocation } from "../redux/actions/locationAction";
 
 const QnAWritePage = ({ Editor, CKEditor }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation().pathname;
   const userInfo = useSelector((state) => state.userInfoReducer);
 
   const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
   };
-
+  
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const token = userInfo.token;
@@ -44,6 +46,10 @@ const QnAWritePage = ({ Editor, CKEditor }) => {
     const id = data.data["questionId"]; // 받은 아이디를 통해 페이지로 네비게이트 시킴
     navigate(`/detail/${id}`);
   };
+
+  useMemo(()=>{
+    dispatch(setLocation(location));
+  },[])
 
   return (
     <QnAWritePageContainer>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { getQuestionsService } from "../services/questionDataServices";
 import Question from "../components/Question";
@@ -24,6 +24,7 @@ import {
 	openModalAction,
 } from "../redux/actions/isModalOpenAction";
 import tokens from "../styles/tokens.json";
+import { setLocation } from "../redux/actions/locationAction";
 
 const globalTokens = tokens.global;
 
@@ -33,6 +34,7 @@ const MainPage = () => {
 	//isLogin state, userInfo redux state 조회
 	const isLogin = useSelector((state) => state.isLoginReducer);
 	const navigate = useNavigate();
+	const location = useLocation().pathname;
 	const [activePage, setActivePage] = useState(1);
 	const [questions, setQuestions] = useState([]);
 	const [totalItems, setTotalItems] = useState(1);
@@ -56,6 +58,10 @@ const MainPage = () => {
 	const modalButtonClickHandler = () => {
 		navigate("/login");
 	};
+
+	useMemo(()=>{
+		dispatch(setLocation(location));
+	},[])
 
 	useEffect(() => {
 		const fetchQuestions = async () => {

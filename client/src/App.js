@@ -16,6 +16,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react"; // import가 반드시 한
 function App() {
 	const dispatch = useDispatch();
 	const deviceWidth = useSelector((state) => state.browserWidthReducer);
+	const location = useSelector((state)=>state.locationReducer);
 
 	useEffect(() => {
 		//브라우저의 너비가 바뀔 때 실행되는 메소드
@@ -27,7 +28,7 @@ function App() {
 			window.removeEventListener("resize", handleDeviceWidthResize);
 		};
 	}, [dispatch]);
-
+	console.log(location)
 	return (
 		<BrowserRouter>
 			<Header />
@@ -45,7 +46,7 @@ function App() {
 					element={<QnADetailPage Editor={Editor} CKEditor={CKEditor} />}
 				/>
 			</Routes>
-			{deviceWidth > 800 ? <Navigator /> : null}
+			{deviceWidth > 800 && location!=='/login' && location!=='/signup'? <Navigator /> : null}
 			<Footer />
 		</BrowserRouter>
 	);
