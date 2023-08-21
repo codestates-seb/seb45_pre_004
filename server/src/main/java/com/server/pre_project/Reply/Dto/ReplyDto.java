@@ -1,13 +1,11 @@
 package com.server.pre_project.Reply.Dto;
 
-import com.server.pre_project.Reply.Entity.Reply;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReplyDto {
     private Long id;
-    private Long userId;
+    private String userId; // String으로 변경
     private String content;
     private LocalDateTime createdAt;
     private List<ReplyDto> replies; // 답변 리스트 추가
@@ -16,11 +14,10 @@ public class ReplyDto {
         // 기본 생성자
     }
 
-    public ReplyDto(Long userId, String content) {
+    public ReplyDto(String userId, String content) { // String으로 변경
         this.userId = userId;
         this.content = content;
     }
-
 
     public Long getId() {
         return id;
@@ -30,11 +27,11 @@ public class ReplyDto {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) { // String으로 변경
         this.userId = userId;
     }
 

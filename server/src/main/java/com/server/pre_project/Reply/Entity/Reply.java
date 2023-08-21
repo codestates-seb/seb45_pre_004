@@ -15,10 +15,10 @@ import java.time.format.DateTimeFormatter;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long reply_id;
 
     @Column(nullable = false)
-    private Long userId;
+    private String userId; // String으로 변경
 
     @Column(length = 100, nullable = false)
     private String content;
@@ -37,11 +37,11 @@ public class Reply {
         // 기본 생성자
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) { // String으로 변경
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public String getUserId() { // String으로 변경
         return userId;
     }
 
