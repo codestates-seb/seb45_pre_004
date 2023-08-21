@@ -39,20 +39,26 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   const onClickEditHandler = () => {
     if (editMode === true) {
-      // axios.patch(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`, { editedContent });
+      axios.patch(
+        `${process.env.REACT_APP_SERVER_URL}/questions/${question.questionId}`,
+        { title: question.title, content: editedContent }
+      );
     }
     setEditMode((prevEditMode) => !prevEditMode);
-    console.log("CHANGED");
   };
 
   const onClickDeleteHandler = () => {
-    //axios.delete(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`);
+    axios.delete(
+      `${process.env.REACT_APP_SERVER_URL}/questions/${question.questionId}`
+    );
     navigate("/"); // 삭제한 후 리디렉션
   };
 
   const onClickSubmitHandler = (e) => {
     e.preventDefault();
-    // axios.post(`${process.env.REACT_APP_SERVER_URL/api/replies}`, { content });
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/replies}`, {
+      replies: content,
+    });
   };
 
   useEffect(() => {
@@ -67,7 +73,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, [editedContent, content]);
+  }, [editedContent, question.content]);
 
   return (
     <Wrapper>
@@ -112,7 +118,10 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           />
         ) : (
           <ContentBox>
-            <Contents>{question.content && parse(question.content)}</Contents>
+            <Contents>
+              {parse(editedContent) ||
+                (question.content && parse(question.content))}
+            </Contents>
           </ContentBox>
         )}
 
@@ -122,9 +131,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             <img
               src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
               alt="testimg"
-            >
-              {/* {question.userId.picture} */}
-            </img>
+            ></img>
             <UserInfoData>
               <div> {/*question.userId*/}</div>
             </UserInfoData>
