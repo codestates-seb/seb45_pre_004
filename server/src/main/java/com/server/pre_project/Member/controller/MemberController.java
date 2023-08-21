@@ -20,6 +20,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.FieldError;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +73,18 @@ public class MemberController {
         String token = jwtTokenProvider.createToken(dto.getId(), roles);
 
         return ResponseEntity.ok().body("Bearer " + token);
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+
+            jwtTokenProvider.invalidateToken(token);
+
+            return ResponseEntity.ok("로그아웃 되었습니다.");
+        }
+        return ResponseEntity.badRequest().body("Authorization header가 올바르지 않습니다.");
     }
 
     @GetMapping("/{id}")
