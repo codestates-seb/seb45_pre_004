@@ -38,7 +38,6 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   const [question, setQuestion] = useState({});
 
   const navigate = useNavigate();
-  console.log(question);
   const onClickEditHandler = () => {
     if (editMode === true) {
       axios.patch(
