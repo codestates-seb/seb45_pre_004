@@ -29,12 +29,17 @@ public class JwtTokenProvider {
 
     private long tokenValidTime = 30 * 60 * 1000L;
     private final UserDetailsService userDetailsService;
+    private final JwtTokenBlacklist jwtTokenBlacklist;
+
 
     @PostConstruct
     protected void init() {
         secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
+    public void invalidateToken(String token) {
+        jwtTokenBlacklist.blacklistToken(token); // JwtTokenBlacklist 사용
+    }
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
         claims.put("roles", roles);
