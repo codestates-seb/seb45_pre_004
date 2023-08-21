@@ -39,20 +39,33 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   const onClickEditHandler = () => {
     if (editMode === true) {
-      // axios.patch(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`, { editedContent });
+      axios.patch(
+        `${process.env.REACT_APP_SERVER_URL}/questions/${question.questionId}`,
+        { title: question.title, content: editedContent }
+      );
     }
     setEditMode((prevEditMode) => !prevEditMode);
-    console.log("CHANGED");
   };
 
   const onClickDeleteHandler = () => {
-    //axios.delete(`${process.env.REACT_APP_SERVER_URL}/${question.questionId}`);
+    axios.delete(
+      `${process.env.REACT_APP_SERVER_URL}/questions/${question.questionId}`
+    );
     navigate("/"); // 삭제한 후 리디렉션
   };
 
-  const onClickSubmitHandler = (e) => {
+  const onSubmitHandler = (e) => {
+    const token = userInfo.token;
+    const id = userInfo.userId;
     e.preventDefault();
-    // axios.post(`${process.env.REACT_APP_SERVER_URL/api/replies}`, { content });
+    axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/replies`,
+      {
+        userId: id,
+        replies: content,
+      },
+      { headers: { Authorization: token } }
+    );
   };
 
   useEffect(() => {
@@ -67,7 +80,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, [editedContent, content]);
+  }, [editedContent, question.content]);
 
   return (
     <Wrapper>
@@ -104,7 +117,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
         {editMode ? (
           <CKEditor
             editor={Editor}
-            data={question.content}
+            data={editedContent !== "" ? editedContent : question.content}
             onChange={(event, editor) => {
               const data = editor.getData();
               setEditedContent(data);
@@ -112,7 +125,11 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           />
         ) : (
           <ContentBox>
-            <Contents>{question.content && parse(question.content)}</Contents>
+            <Contents>
+              {editedContent !== ""
+                ? parse(editedContent)
+                : question.content && parse(question.content)}
+            </Contents>
           </ContentBox>
         )}
 
@@ -122,9 +139,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
             <img
               src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
               alt="testimg"
-            >
-              {/* {question.userId.picture} */}
-            </img>
+            ></img>
             <UserInfoData>
               <div> {/*question.userId*/}</div>
             </UserInfoData>
@@ -184,10 +199,9 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           <h1>Your Answer</h1>
         </AHead>
         <hr />
-        <form onClick={onClickSubmitHandler}>
+        <form onSubmit={onSubmitHandler}>
           <CKEditor
             editor={Editor}
-            data={content}
             onChange={(event, editor) => {
               const data = editor.getData();
               setContent(data);

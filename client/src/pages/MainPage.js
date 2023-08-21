@@ -42,7 +42,11 @@ const MainPage = () => {
 	};
 
 	const postQuestionAuth = () => {
-		dispatch(openModalAction());
+		if (!isLogin) {
+			dispatch(openModalAction());
+		} else {
+			navigate("/write");
+		}
 	};
 
 	const modalBackdropClickHandler = () => {
@@ -52,12 +56,6 @@ const MainPage = () => {
 	const modalButtonClickHandler = () => {
 		navigate("/login");
 	};
-
-	useEffect(() => {
-		if (isLogin && isModalOpen) {
-			navigate("/write");
-		}
-	});
 
 	useEffect(() => {
 		const fetchQuestions = async () => {
