@@ -78,7 +78,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 
       setReplies(response.data.replies);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error: ", error);
     }
   };
 
