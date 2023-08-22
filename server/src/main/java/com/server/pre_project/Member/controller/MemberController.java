@@ -76,7 +76,6 @@ public class MemberController {
 
         // JWT를 쿠키에 저장하고 응답 헤더에 추가
         Cookie cookie = new Cookie("jwtToken", token);
-        cookie.setHttpOnly(true);
         cookie.setMaxAge(24 * 60 * 60); // 쿠키 유효기간 설정 (예: 1일)
         cookie.setPath("/"); // 쿠키의 유효 경로 설정
         response.addCookie(cookie);
