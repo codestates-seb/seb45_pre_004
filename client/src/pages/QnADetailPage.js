@@ -100,8 +100,6 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     Prism.highlightAll();
   }, [editedContent, question.content]);
 
-  console.log();
-
   return (
     <Wrapper>
       <Thread />
