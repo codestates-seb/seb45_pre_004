@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import tokens from "../styles/tokens.json";
-import { RegularButtonDesign } from "../atoms/Button";
+import { RegularButtonDesign, SmallLinkButtonDesign } from "../atoms/Button";
 
 const globalTokens = tokens.global;
 
@@ -204,3 +204,14 @@ export const ContentBox = styled.div`
     font-size: 1rem;
   }
 `;
+
+export const AnswerErrorContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  color: ${globalTokens.negativeColor.value};
+`
+
+export const AnswerErrorLoginButton = styled(SmallLinkButtonDesign)`
+  background-color: ${globalTokens.pointColor.value};
+  margin: 12px 12px 12px 0px;
+`
