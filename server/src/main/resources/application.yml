@@ -1,16 +1,13 @@
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://prepro.cj9ox8a3bt5e.ap-northeast-2.rds.amazonaws.com:3306/pre_project?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: 160218!!
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     security:
       jwt:
         secret: mySecretKey  # JWT 시크릿 키
