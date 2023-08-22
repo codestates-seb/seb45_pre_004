@@ -33,12 +33,15 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   let params = useParams();
   let location = useLocation().pathname;
   let dispatch = useDispatch();
+
   const isLogin = useSelector((state)=>state.isLoginReducer)
   const userInfo = useSelector((state) => state.userInfoReducer);
+
   const [editMode, setEditMode] = useState(false);
-  const [content, setContent] = useState("");
   const [editedContent, setEditedContent] = useState("");
+  const [content, setContent] = useState("");
   const [question, setQuestion] = useState({});
+  const [replies, setReplies] = useState([]);
 
   const navigate = useNavigate();
   const onClickEditHandler = () => {
@@ -62,22 +65,27 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     const token = userInfo.token;
     const questionId = question.questionId;
     e.preventDefault();
-    const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/replies`,
-      {
-        questionId: questionId,
-        content: content,
-      },
-      { headers: { Authorization: token, "Content-Type": "application/json" } }
-    );
-    // axios.patch();
-      console.log(response)
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/replies`,
+        {
+          content: content,
+          questionId: questionId,
+        },
+        { headers: { Authorization: token } }
+      );
+
+      setReplies(response.data.replies);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   //현재 라우터 정보를 location redux로 관리
   useMemo(() => {
     dispatch(setLocation(location));
-  });
+  }, [dispatch, location]);
 
   useEffect(() => {
     async function getDetailInfo() {
@@ -154,18 +162,18 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
               alt="testimg"
             ></img>
             <UserInfoData>
-              <div> {question.authorId}님</div>
+              <div> {question.authorId} 님</div>
             </UserInfoData>
           </UserInfo>
         </User>
       </Card>
-      {question.replies &&
-        question.replies.map((reply) => (
-          <Card key={reply.replyId}>
+      {replies &&
+        replies.map((reply) => (
+          <Card key={reply.reply_id}>
             <AHead>
-              <h1>{question.replies.length} Answer</h1>
+              <h1>{replies.length} Answer</h1>
               {/* reply.userId === currentUser.userId 등으로 검증 필요*/}
-              {reply.userId && (
+              {reply.authorId && (
                 <Edit>
                   {/* editMode 상태에 따라 버튼 텍스트 토글 */}
                   <div
@@ -200,10 +208,8 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
                   src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
                   alt="testimg"
                 />
-                {/* {reply.userId.picture} */}
                 <UserInfoData>
-                  <div>SUF team {/* {reply.userId} */}</div>
-                  <div>100 answers{/* {reply.userId.info} */}</div>
+                  <div>{reply.authorId}</div>
                 </UserInfoData>
               </UserInfo>
             </User>
