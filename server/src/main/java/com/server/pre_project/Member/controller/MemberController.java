@@ -20,9 +20,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.FieldError;
 
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,8 +59,8 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newMember);
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto dto, HttpServletResponse response) {
-        Authentication authentication = authenticationManager.authenticate(
+    public ResponseEntity<String> login(@RequestBody LoginDto dto) {
+                Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getId(), dto.getPassword())
         );
 
@@ -74,13 +73,7 @@ public class MemberController {
 
         String token = jwtTokenProvider.createToken(dto.getId(), roles);
 
-        // JWT를 쿠키에 저장하고 응답 헤더에 추가
-        Cookie cookie = new Cookie("jwtToken", token);
-        cookie.setMaxAge(24 * 60 * 60); // 쿠키 유효기간 설정 (예: 1일)
-        cookie.setPath("/"); // 쿠키의 유효 경로 설정
-        response.addCookie(cookie);
-
-        return ResponseEntity.ok().body("로그인 하였습니다.");
+        return ResponseEntity.ok().body("Bearer " + token);
     }
 
     @PostMapping("/logout")
