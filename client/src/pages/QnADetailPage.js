@@ -24,6 +24,8 @@ import {
   AnswerCard,
   SubmitButton,
   ContentBox,
+  AnswerErrorContainer,
+  AnswerErrorLoginButton,
 } from "../styles/qnaDetail";
 import { setLocation } from "../redux/actions/locationAction";
 
@@ -32,13 +34,12 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   let location = useLocation().pathname;
   let dispatch = useDispatch();
 
+  const isLogin = useSelector((state)=>state.isLoginReducer)
   const userInfo = useSelector((state) => state.userInfoReducer);
 
   const [editMode, setEditMode] = useState(false);
   const [editedContent, setEditedContent] = useState("");
-
   const [content, setContent] = useState("");
-
   const [question, setQuestion] = useState({});
   const [replies, setReplies] = useState([]);
 
@@ -219,16 +220,23 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           <h1>Your Answer</h1>
         </AHead>
         <hr />
-        <form onSubmit={onSubmitHandler}>
-          <CKEditor
-            editor={Editor}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setContent(data);
-            }}
-          />
-          <SubmitButton>Post Your Answer</SubmitButton>
-        </form>
+        {
+          isLogin?(<form onSubmit={onSubmitHandler}>
+            <CKEditor
+              editor={Editor}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setContent(data);
+              }}
+            />
+            <SubmitButton>Post Your Answer</SubmitButton>
+          </form>):(
+            <AnswerErrorContainer>
+              답변을 작성하기 위해서는 로그인이 필요합니다.
+              <AnswerErrorLoginButton to='/login'>로그인 하기</AnswerErrorLoginButton>
+            </AnswerErrorContainer>
+          )
+        }
       </AnswerCard>
     </Wrapper>
   );
