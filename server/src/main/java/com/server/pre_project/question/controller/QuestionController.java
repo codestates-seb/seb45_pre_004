@@ -2,17 +2,21 @@ package com.server.pre_project.question.controller;
 
 import com.server.pre_project.Member.entity.Member;
 import com.server.pre_project.Member.repository.MemberRepository;
+import com.server.pre_project.question.dto.QuestionPatchDto;
 import com.server.pre_project.question.dto.QuestionPostDto;
 import com.server.pre_project.question.entity.Question;
 import com.server.pre_project.question.page.PaginationInfo;
 import com.server.pre_project.question.mapper.QuestionMapper;
 import com.server.pre_project.question.page.PaginationResponse;
+import com.server.pre_project.question.dto.QuestionResponseDto;
 import com.server.pre_project.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +37,7 @@ public class QuestionController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Question> createQuestion(
+    public ResponseEntity<QuestionResponseDto> createQuestion(
             @RequestBody @Valid QuestionPostDto questionPostDto,
             @RequestParam String userId) {
 
@@ -44,21 +48,27 @@ public class QuestionController {
         }
 
         Question createdQuestion = questionService.createQuestionFromDto(questionPostDto, member);
+        QuestionResponseDto responseDto = questionMapper.toResponseDto(createdQuestion);
 
-        return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/{question_id}")
-    public ResponseEntity<Question> getQuestion(@PathVariable Long question_id){
+    public ResponseEntity<QuestionResponseDto> getQuestion(@PathVariable Long question_id){
         Question question = questionService.getQuestionById(question_id);
+
         if (question != null){
             question.setViewCount(question.getViewCount() + 1);
             questionService.updateQuestion(question_id, question);
-            return new ResponseEntity<>(question, HttpStatus.OK);
+
+            QuestionResponseDto responseDto = questionMapper.toResponseDto(question);
+
+            return ResponseEntity.ok(responseDto);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping
     public ResponseEntity<PaginationResponse<Question>> getAllQuestions(
             @Positive @RequestParam int page,
@@ -80,16 +90,33 @@ public class QuestionController {
 
 
     @PatchMapping("/{question_id}")
-    public ResponseEntity<Question> updateQuestion(@PathVariable Long question_id, @RequestBody Question question){
+    public ResponseEntity<QuestionResponseDto> updateQuestion(@PathVariable Long question_id, @RequestBody Question question) {
         question.setUpdatedAt(new Date());
 
-        Question updateQuestion = questionService.updateQuestion(question_id, question);
-        if(updateQuestion != null){
-            return new ResponseEntity<>(updateQuestion, HttpStatus.OK);
+        // Get the current authenticated user's ID
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authorId = authentication.getName();
+
+        Question updatedQuestion = questionService.updateQuestion(question_id, question);
+
+        if (updatedQuestion != null) {
+            QuestionResponseDto response = new QuestionResponseDto();
+            response.setQuestionId(updatedQuestion.getQuestionId());
+            response.setTitle(updatedQuestion.getTitle());
+            response.setContent(updatedQuestion.getContent());
+            response.setCreatedAt(updatedQuestion.getcreatedAt());
+            response.setUpdatedAt(updatedQuestion.getUpdatedAt());
+            response.setViewCount(updatedQuestion.getViewCount());
+            response.setReply_count(updatedQuestion.getReply_count());
+            response.setAuthorId(authorId);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 
     @DeleteMapping("/{question_id}")
     public ResponseEntity<Question> deleteQuestion(@PathVariable Long question_id) {

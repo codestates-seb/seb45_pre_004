@@ -28,7 +28,7 @@ function App() {
 			window.removeEventListener("resize", handleDeviceWidthResize);
 		};
 	}, [dispatch]);
-	console.log(location)
+
 	return (
 		<BrowserRouter>
 			<Header />

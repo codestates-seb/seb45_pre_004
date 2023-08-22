@@ -1,68 +1,44 @@
 package com.server.pre_project.Reply.Dto;
 
-import com.server.pre_project.Reply.Entity.Reply;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
+@Getter
+@Setter
 public class ReplyDto {
-    private Long id;
-    private Long userId;
+    private Long reply_id;
+    private String authorId;
     private String content;
     private LocalDateTime createdAt;
-    private List<ReplyDto> replies; // 답변 리스트 추가
+    private Long questionId;
 
     public ReplyDto() {
         // 기본 생성자
     }
 
-    public ReplyDto(Long userId, String content) {
-        this.userId = userId;
+    public ReplyDto(String authorId, String content, Long questionId) {
+        this.authorId = authorId;
         this.content = content;
+        this.questionId = questionId;
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        // 댓글 내용이 없으면 예외를 던지도록 처리
-        if (content == null || content.trim().isEmpty()) {
-            throw new IllegalArgumentException("댓글 내용은 필수입니다.");
+    public String getCreatedAt() {
+        if (createdAt != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            return dateFormat.format(Date.from(createdAt.atZone(ZoneId.of("Asia/Seoul")).toInstant()));
         }
-        this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return null;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public List<ReplyDto> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<ReplyDto> replies) {
-        this.replies = replies;
     }
 }

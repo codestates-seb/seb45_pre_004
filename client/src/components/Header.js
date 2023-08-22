@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logoImg from "../assets/images/logoImage.png";
 import enter from "../assets/images/enter.png";
@@ -30,6 +30,7 @@ export default function Header() {
 	const isLogin = useSelector((state) => state.isLoginReducer);
 	const browserWidth = useSelector((state) => state.browserWidthReducer);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const onLogoutButtonClickHandler = async () => {
 		const response = await logoutService(userInfo.token);
@@ -37,6 +38,7 @@ export default function Header() {
 			//로그아웃 성공
 			dispatch(removeUserInfo());
 			dispatch(setIsLoginFalse());
+			navigate('/')
 		} else {
 
 		}

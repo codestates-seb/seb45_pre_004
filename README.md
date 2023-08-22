@@ -17,7 +17,21 @@
 |<a href="https://github.com/3kiein">@3kiein</a>|<a href="https://github.com/HyerimKimm">@HyerimKimm</a>|<a href="https://github.com/HelloWorldDogs223">@HelloWorldDogs223</a>|<a href="https://github.com/kimsihyuong">@kimsihyuong</a>|<a href="https://github.com/IncheonLee">@IncheonLee</a>|<a href="https://github.com/raeseop">@raeseop</a>|
 <br/>
 
-# 🎮 사용 방법
+# 🎮 기능 설명
+ - 메인화면에서 페이지네이션 방식으로 전체 질문 목록을 조회할 수 있습니다.<br/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/c20762e2-c562-42ed-a7e7-53bc8afed086" width="600px"/>
+
+ - 로그인을 한 사용자만 질문을 등록할 수 있습니다.<br/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/454833d2-1e69-4cdb-91b9-45093797e00e" width="600px"/>
+
+ - JWT 토큰 인증 방식을 사용하여 회원 정보를 안전하게 보호합니다.<br/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/b69785db-a37f-439f-b10e-57d68230798c" width="600px"/>
+
+ - 로그인, 회원가입 시 적절한 안내 팝업을 제공합니다.<br/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/055eef3c-cb3f-41ab-b5fc-c9b078b38f57" width="500px"/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/eab2d864-d2f6-456c-a509-22e3488f80e2" width="340px"/>
+
+ - 
 <br/>
 
 # 📖 기술 스텍
