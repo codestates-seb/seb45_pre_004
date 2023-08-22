@@ -24,6 +24,8 @@ import {
   AnswerCard,
   SubmitButton,
   ContentBox,
+  AnswerErrorContainer,
+  AnswerErrorLoginButton,
 } from "../styles/qnaDetail";
 import { setLocation } from "../redux/actions/locationAction";
 
@@ -31,12 +33,13 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   let params = useParams();
   let location = useLocation().pathname;
   let dispatch = useDispatch();
+  const isLogin = useSelector((state)=>state.isLoginReducer)
   const userInfo = useSelector((state) => state.userInfoReducer);
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const [question, setQuestion] = useState({});
-  console.log(userInfo)
+
   const navigate = useNavigate();
   const onClickEditHandler = () => {
     if (editMode === true) {
@@ -55,19 +58,20 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
     navigate("/"); // 삭제한 후 리디렉션
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     const token = userInfo.token;
-    const userId = userInfo.id;
+    const questionId = question.questionId;
     e.preventDefault();
-    axios.post(
+    const response = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/replies`,
       {
-        userId: userId,
+        questionId: questionId,
         content: content,
       },
       { headers: { Authorization: token, "Content-Type": "application/json" } }
     );
     // axios.patch();
+      console.log(response)
   };
 
   //현재 라우터 정보를 location redux로 관리
@@ -210,16 +214,23 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           <h1>Your Answer</h1>
         </AHead>
         <hr />
-        <form onSubmit={onSubmitHandler}>
-          <CKEditor
-            editor={Editor}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setContent(data);
-            }}
-          />
-          <SubmitButton>Post Your Answer</SubmitButton>
-        </form>
+        {
+          isLogin?(<form onSubmit={onSubmitHandler}>
+            <CKEditor
+              editor={Editor}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setContent(data);
+              }}
+            />
+            <SubmitButton>Post Your Answer</SubmitButton>
+          </form>):(
+            <AnswerErrorContainer>
+              답변을 작성하기 위해서는 로그인이 필요합니다.
+              <AnswerErrorLoginButton to='/login'>로그인 하기</AnswerErrorLoginButton>
+            </AnswerErrorContainer>
+          )
+        }
       </AnswerCard>
     </Wrapper>
   );
