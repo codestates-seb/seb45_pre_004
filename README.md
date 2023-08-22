@@ -31,8 +31,10 @@
    <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/055eef3c-cb3f-41ab-b5fc-c9b078b38f57" width="500px"/>
    <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/eab2d864-d2f6-456c-a509-22e3488f80e2" width="340px"/>
 
- - 
-<br/>
+ - 웹 에디터를 이용해서 질문을 등록합니다. 
+ - 질문은 작성자 본인만이 수정, 삭제할 수 있습니다.
+ - 웹 에디터를 이용해서 답변을 등록합니다. 답변은 한 질문 당 최대 5개 제한입니다. 
+ <br/>
 
 # 📖 기술 스텍
  - Front-end
