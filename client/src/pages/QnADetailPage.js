@@ -81,6 +81,8 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 		}
 	};
 
+	console.log(replies);
+
 	//현재 라우터 정보를 location redux로 관리
 	useMemo(() => {
 		dispatch(setLocation(location));
@@ -119,8 +121,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 								<div>{question.viewCount}</div>
 							</Info>
 						</HeadInfo>
-						{/* question.replies.userId === currentUser.userId 등으로 검증 필요*/}
-						{question.id === userInfo.id ? (
+						{question.authorId === userInfo.id ? (
 							<Edit>
 								{/* editMode 상태에 따라 버튼 텍스트 토글 */}
 								<div onClick={onClickEditHandler}>
@@ -174,7 +175,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
 						<AHead>
 							<h1>{replies.length} Answer</h1>
 							{/* reply.userId === currentUser.userId 등으로 검증 필요*/}
-							{reply.authorId && (
+							{reply.authorId === userInfo.id && (
 								<Edit>
 									{/* editMode 상태에 따라 버튼 텍스트 토글 */}
 									<div
