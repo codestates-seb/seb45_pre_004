@@ -74,6 +74,8 @@ const MainPage = () => {
       }
     };
 
+
+
     fetchQuestions();
     window.scrollTo(0, 0);
   }, [activePage, dispatch, questions.length]);

@@ -26,6 +26,7 @@ import {
   ContentBox,
   AnswerErrorContainer,
   AnswerErrorLoginButton,
+  AnswerWrapper
 } from "../styles/qnaDetail";
 import { setLocation } from "../redux/actions/locationAction";
 
@@ -42,6 +43,7 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   const [content, setContent] = useState("");
   const [question, setQuestion] = useState({});
   const [replies, setReplies] = useState([]);
+  const [repliesInThisContent, setRepliesInThisContent] = useState([]);
 
   const navigate = useNavigate();
   const onClickEditHandler = () => {
@@ -62,39 +64,44 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
   };
 
   const onSubmitHandler = async (e) => {
-    const token = userInfo.token;
     const questionId = question.questionId;
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/replies`,
+    localStorage.setItem(`reply`,JSON.stringify(
+      [
+        ...replies,
         {
-          content: content,
-          questionId: questionId,
-        },
-        { headers: { Authorization: token } }
-      );
-
-      setReplies(response.data.replies);
-    } catch (error) {
-      console.error("Error: ", error);
-    }
+          questionId:questionId,
+          authorId:userInfo.id,
+          content:content
+        }
+      ]
+    ));
+    getReplyInfo();
   };
-
+  //Question Detail을 가져오는 메소드
+  async function getDetailInfo() {
+    const data = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/questions/${params.id}`
+    );
+    setQuestion(data.data);
+  }
+  //Reply 를 가져오는 메소드
+  const getReplyInfo = () => {
+    let newReplies = JSON.parse(localStorage.getItem('reply'));
+    if(newReplies===null||newReplies===undefined) return ;
+    setReplies(newReplies);
+    let newThisReplies = newReplies.filter((reply)=>reply.questionId==params.id);
+    setRepliesInThisContent(newThisReplies);
+  }
   //현재 라우터 정보를 location redux로 관리
   useMemo(() => {
     dispatch(setLocation(location));
   }, [dispatch, location]);
 
   useEffect(() => {
-    async function getDetailInfo() {
-      const data = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/questions/${params.id}`
-      );
-      setQuestion(data.data);
-    }
     getDetailInfo();
+    getReplyInfo();
   }, [params.id]);
 
   useEffect(() => {
@@ -167,54 +174,29 @@ const QnADetailPage = ({ Editor, CKEditor }) => {
           </UserInfo>
         </User>
       </Card>
-      {replies &&
-        replies.map((reply) => (
-          <Card key={reply.reply_id}>
-            <AHead>
-              <h1>{replies.length} Answer</h1>
-              {/* reply.userId === currentUser.userId 등으로 검증 필요*/}
-							{reply.authorId === userInfo.id && (
-                <Edit>
-                  {/* editMode 상태에 따라 버튼 텍스트 토글 */}
-                  <div
-                    onClick={() => setEditMode((prevEditMode) => !prevEditMode)}
-                  >
-                    {editMode ? "Done" : "Edit"}
-                  </div>
-                  <div>Delete</div>
-                </Edit>
-              )}
-            </AHead>
-            <hr />
-            {/* editMode 상태에 따라 CKEditor 또는 질문 내용 표시 */}
-            {editMode ? (
-              <CKEditor
-                editor={Editor}
-                data={editedContent}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setEditedContent(data);
-                }}
-              />
-            ) : (
-              <ContentBox>
-                <Contents>{reply.content}</Contents>
-              </ContentBox>
-            )}
-            <User>
-              <DateDistance inputDate={reply.createdAt}></DateDistance>
-              <UserInfo>
-                <img
-                  src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRs8RqGTTo4W7CbSoPYL0rJlwSPMquhVCi1dPyeG13rCNpLoa9q"
-                  alt="testimg"
-                />
-                <UserInfoData>
-                  <div>{reply.authorId}</div>
-                </UserInfoData>
-              </UserInfo>
-            </User>
-          </Card>
-        ))}
+      <AnswerWrapper>
+        {
+          repliesInThisContent.map((e)=>
+            (
+              <AnswerCard>
+                <ContentBox>
+                  <Contents>
+                    {parse(e.content)}
+                  </Contents>
+                </ContentBox>
+                <User>
+                  <UserInfo>
+                    <img
+                      src="https://i.ytimg.com/vi/OzQeCv0uNlE/mqdefault.jpg"
+                      alt="testimg"/>
+                    <div> {e.authorId} 님</div>
+                  </UserInfo>
+                </User>
+              </AnswerCard>
+            )
+          )
+        }
+      </AnswerWrapper>
       <AnswerCard>
         <AHead>
           <h1>Your Answer</h1>

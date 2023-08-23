@@ -13,7 +13,6 @@ export const Wrapper = styled.main`
   margin-top: 20px;
   font-weight: 700;
   color: ${globalTokens.blackColor.value};
-
   position: relative;
 `;
 
@@ -47,7 +46,13 @@ export const Card = styled.section`
     background: ${globalTokens.lightGreyColor.value};
   }
 `;
-
+export const AnswerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 export const QHead = styled.header`
   display: flex;
   flex-direction: column;
@@ -161,7 +166,7 @@ export const UserInfoData = styled.div`
 `;
 
 export const AnswerCard = styled(Card)`
-  width: 80%;
+  width: 80vw;
   overflow: hidden;
 `;
 
