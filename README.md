@@ -37,7 +37,9 @@
  - 질문은 작성자 본인만이 수정, 삭제할 수 있습니다.<br/>
    <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/102509d2-f049-4a75-b46d-0c7e2f8aab81" width="500px"/>
 
- - 웹 에디터를 이용해서 답변을 등록합니다. 답변은 한 질문 당 최대 5개 제한입니다. 
+ - 웹 에디터를 이용해서 답변을 등록합니다.<br/>
+   <img src="https://github.com/codestates-seb/seb45_pre_004/assets/50258232/38fa56a5-51fd-47f6-96f4-d41537c5a348" width="500px"/>
+
  <br/>
 
 # 📖 기술 스텍
