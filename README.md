@@ -51,8 +51,8 @@
    |React.js|Storybook|Styled Components|React-Redux|Axios|Figma|UI System|AWS S3|
  - Back-end
  
-   |<img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/0a/8cd7f1b14344618b75142593bc7af8/JavaCupLogo800x800.png?auto=format%2Ccompress&dpr=1" width="45px" height="45px"/>|<img src="https://liveit-media.imgix.net/media/event/my-first-event-1461/logo-spvnih.png?fm=jpg&ixlib=python-2.3.0&w=600" width="45px" height="45px"/>|<img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png.webp" width="45px" height="45px"/>|<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/AWS_Simple_Icons_Compute_Amazon_EC2_Instances.svg/800px-AWS_Simple_Icons_Compute_Amazon_EC2_Instances.svg.png" width="45px" height="45px"/>
-   |---|---|---|---|
-   | - | - | - | - |
-   |Java|Spring boot|Spring Security|AWS EC2|
+   |<img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/0a/8cd7f1b14344618b75142593bc7af8/JavaCupLogo800x800.png?auto=format%2Ccompress&dpr=1" width="45px" height="45px"/>|<img src="https://liveit-media.imgix.net/media/event/my-first-event-1461/logo-spvnih.png?fm=jpg&ixlib=python-2.3.0&w=600" width="45px" height="45px"/>|<img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png.webp" width="45px" height="45px"/>|<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/AWS_Simple_Icons_Compute_Amazon_EC2_Instances.svg/800px-AWS_Simple_Icons_Compute_Amazon_EC2_Instances.svg.png" width="45px" height="45px"/>|<img src="https://www.freepnglogos.com/uploads/logo-mysql-png/logo-mysql-mysql-logo-png-images-are-download-crazypng-21.png" width="45px" height="45px"/>
+   |---|---|---|---|---|
+   | - | - | - | - | - |
+   |Java|Spring boot|Spring Security|AWS EC2|MySQL|
 <br/>
